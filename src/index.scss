@@ -1,0 +1,152 @@
+@charset 'utf-8';
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+$css4: true;
+
+.dark-mode {
+  // ---------- Basic 基础颜色 --------------------
+  --primary-color-outline: rgb(231, 180, 180, 0.2);
+  // 浅主题色，但是用于辅助显示主题色; 比如 Switch 的 track bar
+  --primary-color-lighter: rgb(231, 180, 180);
+  // 主题色，但是用于大色块，比如实心的按钮颜色
+  --primary-color-light: #de8c8c;
+  // 主题色变种2, 用于突出背景，比如在纯色背景的文字，复选框 Icon 等
+  --primary-color: #df8484;
+  // 主题色变种3, 用于纯色背景的文字、链接悬浮与激活状态
+  --primary-color-dark: #cf7171;
+  // 组件主题背景颜色
+  --theme-background-color: #3a3a3a;
+  // 前景色，比如默认文字
+  --forground-color: #fbfbfb;
+  // --------- Status 状态颜色 ------------------
+  // 错误颜色，用于显示错误信息，或者强调重要操作
+  --error-color: #ff4f4f;
+  --error-color-light: lighten(#ff4f4f, 20%);
+  --error-color-lighter: lighten(#ff4f4f, 30%);
+  // 成功颜色，用于显示成功信息
+  --success-color: #75d856;
+  --success-color-light: lighten(#75d856, 30%);
+  --success-color-lighter: lighten(#75d856, 50%);
+  // 信息颜色
+  --info-color: #999999;
+  --info-color-light: lighten(#999999, 20%);
+  --info-color-lighter: lighten(#999999, 35%);
+  // 警告颜色
+  --warn-color: #fac200;
+  --warn-color-light: lighten(#fac200, 20%);
+  --warn-color-lighter: lighten(#fac200, 45%);
+  // --------- Functional 功能颜色 -------------
+  // 链接颜色
+  --link-color: #0095ff;
+  // --------- Accents 辅助颜色 ------------------
+  --accents-color-1: #fbfbfb;
+  --accents-color-2: #f5f5f5;
+  --accents-color-3: #f1f2f4;
+  --accents-color-4: #efefef;
+  --accents-color-12: #eee;
+  --accents-color-11: #ececec;
+  --accents-color-10: #e8e8e8;
+  --accents-color-9: #dbdbdb;
+  --accents-color-8: #c8c8c8;
+  --accents-color-7: #aaaaaa;
+  --accents-color-6: #999999;
+  --accents-color-5: #666666;
+  --accents-color-13: #333333;
+  --accents-color-14: #323232;
+  --accents-color-15: #1d1d1d;
+  --accents-color-16: #000000;
+  // 浮层影子
+  --popup-shadow: 0px 3px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+// ------------------- 颜色 ----------------------
+$variables: (
+  --primary-color-outline: #89ccfc48,
+  --primary-color-lighter: #59baff,
+  --primary-color-light: #0095ff,
+  --primary-color: #008df0,
+  --primary-color-dark: #007ed8,
+  --theme-background-color: #fff,
+  --forground-color: #1d1d1d,
+  --error-color: #ff4f4f,
+  --error-color-light: lighten(#ff4f4f, 20%),
+  --error-color-lighter: lighten(#ff4f4f, 30%),
+  --success-color: #21ce3d,
+  --success-color-light: lighten(#21ce3d, 30%),
+  --success-color-lighter: lighten(#21ce3d, 50%),
+  --info-color: #999999,
+  --info-color-light: lighten(#999999, 20%),
+  --info-color-lighter: lighten(#999999, 35%),
+  --warn-color: #fac200,
+  --warn-color-light: lighten(#fac200, 20%),
+  --warn-color-lighter: lighten(#fac200, 45%),
+  --link-color: #0095ff,
+  --accents-color-16: #fbfbfb,
+  --accents-color-15: #f5f5f5,
+  --accents-color-14: #f1f2f4,
+  --accents-color-13: #efefef,
+  --accents-color-12: #eee,
+  --accents-color-11: #ececec,
+  --accents-color-10: #e8e8e8,
+  --accents-color-9: #dbdbdb,
+  --accents-color-8: #c8c8c8,
+  --accents-color-7: #aaaaaa,
+  --accents-color-6: #999999,
+  --accents-color-5: #666666,
+  --accents-color-4: #333333,
+  --accents-color-3: #323232,
+  --accents-color-2: #1d1d1d,
+  --accents-color-1: #000000,
+  --popup-shadow: 0px 3px 10px 5px rgba(0, 0, 0, 0.06),
+);
+
+.tf-button.tf-button--emphasis {
+  color: var(--theme-background-color);
+}
+
+:export {
+  @each $variable, $value in $variables {
+    #{$variable}: $value;
+  }
+}
+
+@import "~@yy/tofu-ui-react/src/scss/index.scss";
+
+.Editor {
+}
+
+.Tools {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid var(--accents-color-10);
+  padding: 10px;
+}
+
+.EditorContent {
+  position: relative;
+  display: flex;
+  height: calc(100vh - 50px);
+  background-color: var(--accents-color-12);
+}
+
+.ComponentList {
+  width: 300px;
+  background-color: var(--theme-background-color);
+  padding: 10px;
+}
+
+.Canvas {
+  flex-grow: 1;
+}
+
+.PropsController {
+  width: 300px;
+  background-color: var(--theme-background-color);
+}
