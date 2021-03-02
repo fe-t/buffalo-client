@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Toaster } from "react-hot-toast";
 import "./index.scss";
 import Editor from "./pages/Editor";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
+    <Toaster />
     <Editor />
   </React.StrictMode>,
   document.getElementById("root")

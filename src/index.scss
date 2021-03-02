@@ -136,7 +136,7 @@ $variables: (
   background-color: var(--accents-color-12);
 }
 
-.ComponentList {
+.MaterialList {
   width: 300px;
   background-color: var(--theme-background-color);
   padding: 10px;
@@ -144,9 +144,33 @@ $variables: (
 
 .Canvas {
   flex-grow: 1;
+  background-color: var(--theme-background-color);
+  margin: 10px;
 }
 
 .PropsController {
   width: 300px;
   background-color: var(--theme-background-color);
+}
+
+.ComponentWrap {
+  display: inline-block;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    transition: all 0.2s;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &:hover::before {
+    border: 1px solid var(--primary-color);
+  }
+}
+
+.MaterialItem {
+  cursor: grab;
 }
