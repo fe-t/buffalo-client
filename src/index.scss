@@ -160,14 +160,17 @@ $variables: (
     content: "";
     position: absolute;
     z-index: 1;
-    transition: all 0.2s;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
   }
   &:hover::before {
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--accents-color-6);
+  }
+  &.active::before,
+  &.active:hover::before {
+    border: 2px solid var(--primary-color);
   }
 }
 

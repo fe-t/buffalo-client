@@ -1,8 +1,10 @@
+import classNames from "classnames";
 import React, {
   FC,
   PropsWithChildren,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import toast from "react-hot-toast";
@@ -16,12 +18,23 @@ const ComponentWrap: FC<PropsWithChildren<{ material: Material }>> = ({
   material,
 }) => {
   const dispatch = useAppDispatch();
+  const cursorComponent = useAppSelector(
+    (state) => state.editor.cursorComponent
+  );
+
   const handleClick = useCallback(() => {
     dispatch(setCursorComponent(material));
   }, [dispatch, material]);
 
+  const isActive = useMemo(() => {
+    return material.id === cursorComponent?.id;
+  }, [cursorComponent, material.id]);
+
   return (
-    <div className="ComponentWrap" onClick={handleClick}>
+    <div
+      className={classNames("ComponentWrap", { active: isActive })}
+      onClick={handleClick}
+    >
       {children}
     </div>
   );
