@@ -1,43 +1,10 @@
-import { Card, Datagrid, Input, Select, Spacer } from "@yy/tofu-ui-react";
+import { Card, Spacer } from "@yy/tofu-ui-react";
 import React from "react";
-import { Material } from "../../types";
-
-export const materials: Material[] = [
-  {
-    id: "1",
-    name: "Dategrid",
-    zhName: "数据网格",
-    component: Datagrid,
-  },
-  {
-    id: "2",
-    name: "Input",
-    zhName: "输入框",
-    component: Input,
-    props: [
-      {
-        name: "placeholder",
-        type: "string",
-      },
-      {
-        name: "disabled",
-        type: "boolean",
-      },
-      {
-        name: "name",
-        type: "string",
-      },
-    ],
-  },
-  {
-    id: "3",
-    name: "Select",
-    zhName: "选择器",
-    component: Select,
-  },
-];
+import { useAppSelector } from "../../store";
 
 const MaterialList = () => {
+  const materials = useAppSelector((state) => state.editor.materials);
+
   const handleDragStart = (e: any) => {
     e.dataTransfer.setData("material", e.target.dataset.material);
   };

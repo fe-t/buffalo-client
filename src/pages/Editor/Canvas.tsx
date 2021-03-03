@@ -1,15 +1,35 @@
-import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { setCursorComponent } from "../../store/editor/editorSlice";
 import { Material } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
-import { materials } from "./MaterialList";
 
-const ComponentWrap: FC<PropsWithChildren<{}>> = ({ children }) => {
-  return <div className="ComponentWrap">{children}</div>;
+const ComponentWrap: FC<PropsWithChildren<{ material: Material }>> = ({
+  children,
+  material,
+}) => {
+  const dispatch = useAppDispatch();
+  const handleClick = useCallback(() => {
+    dispatch(setCursorComponent(material));
+  }, [dispatch, material]);
+
+  return (
+    <div className="ComponentWrap" onClick={handleClick}>
+      {children}
+    </div>
+  );
 };
 
 const Canvas = () => {
   const [components, setComponents] = useState<Material[]>([]);
+  const materials = useAppSelector((state) => state.editor.materials);
 
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
@@ -40,7 +60,7 @@ const Canvas = () => {
       <ErrorBoundary>
         {components.map((c) => {
           return (
-            <ComponentWrap key={c.id}>
+            <ComponentWrap key={c.id} material={c}>
               <c.component />
             </ComponentWrap>
           );

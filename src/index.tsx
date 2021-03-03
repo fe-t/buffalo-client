@@ -4,11 +4,15 @@ import { Toaster } from "react-hot-toast";
 import "./index.scss";
 import Editor from "./pages/Editor";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Toaster />
-    <Editor />
+    <Provider store={store}>
+      <Toaster />
+      <Editor />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
