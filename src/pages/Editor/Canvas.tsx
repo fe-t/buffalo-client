@@ -1,34 +1,30 @@
 import classNames from "classnames";
-import React, {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { setCursorComponent } from "../../store/editor/editorSlice";
-import { Material } from "../../types";
+import {
+  addComponent,
+  componentMap,
+  setCursorComponentId,
+} from "../../store/editor/editorSlice";
+import { CanvasComponent } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
 
-const ComponentWrap: FC<PropsWithChildren<{ material: Material }>> = ({
-  children,
-  material,
-}) => {
+const ComponentWrap: FC<
+  PropsWithChildren<{ canvasComponent: CanvasComponent }>
+> = ({ children, canvasComponent }) => {
   const dispatch = useAppDispatch();
-  const cursorComponent = useAppSelector(
-    (state) => state.editor.cursorComponent
+  const cursorComponentId = useAppSelector(
+    (state) => state.editor.cursorComponentId
   );
 
   const handleClick = useCallback(() => {
-    dispatch(setCursorComponent(material));
-  }, [dispatch, material]);
+    dispatch(setCursorComponentId(canvasComponent.id));
+  }, [canvasComponent.id, dispatch]);
 
   const isActive = useMemo(() => {
-    return material.id === cursorComponent?.id;
-  }, [cursorComponent, material.id]);
+    return canvasComponent.id === cursorComponentId;
+  }, [canvasComponent.id, cursorComponentId]);
 
   return (
     <div
@@ -41,8 +37,9 @@ const ComponentWrap: FC<PropsWithChildren<{ material: Material }>> = ({
 };
 
 const Canvas = () => {
-  const [components, setComponents] = useState<Material[]>([]);
   const materials = useAppSelector((state) => state.editor.materials);
+  const components = useAppSelector((state) => state.editor.components);
+  const dispatch = useAppDispatch();
 
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
@@ -50,7 +47,9 @@ const Canvas = () => {
     const materialId = e.dataTransfer.getData("material");
     const material = materials.filter((m) => m.id === materialId)[0];
     if (material) {
-      setComponents((p) => [...p, material]);
+      dispatch(addComponent(material));
+
+      // dispatch();
       toast.success(`添加物料成功: ${material.zhName}`);
     } else {
       toast.error("没有找到物料");
@@ -62,19 +61,14 @@ const Canvas = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    // window.onbeforeunload = function () {
-    //   return "你确定离开吗?";
-    // };
-  }, []);
-
   return (
     <section className="Canvas" onDrop={handleDrop} onDragOver={handleDragOver}>
       <ErrorBoundary>
         {components.map((c) => {
+          const ComponentType = componentMap.get(c.materialId);
           return (
-            <ComponentWrap key={c.id} material={c}>
-              <c.component />
+            <ComponentWrap key={c.id} canvasComponent={c}>
+              {ComponentType && <ComponentType />}
             </ComponentWrap>
           );
         })}

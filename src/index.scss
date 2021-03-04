@@ -170,6 +170,7 @@ $variables: (
   }
   &.active::before,
   &.active:hover::before {
+    background-color: var(--primary-color-outline);
     border: 2px solid var(--primary-color);
   }
 }
