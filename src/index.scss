@@ -193,3 +193,23 @@ $variables: (
     font-size: 14px;
   }
 }
+
+.tf-ui-link.DeleteBtnLink {
+  color: var(--error-color);
+  &:hover {
+    background-color: rgb(231, 180, 180, 0.2);
+  }
+}
+
+.PopoverPopup {
+  .tf-popover-content {
+    min-width: 250px;
+    p {
+      color: var(--accents-color-4);
+      font-size: 14px;
+    }
+  }
+  .PopoverCtrl {
+    display: flex;
+  }
+}

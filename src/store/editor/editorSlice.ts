@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
+import { remove } from "lodash";
 import { ElementType } from "react";
 import { CanvasComponent, Material } from "../../types";
 
@@ -93,6 +94,9 @@ export const editorSlice = createSlice({
         targetProp.value = action.payload.propValue;
       }
     },
+    deleteCursorComponent: (state) => {
+      remove(state.components, (c) => c.id === state.cursorComponentId);
+    },
   },
 });
 
@@ -100,5 +104,6 @@ export const {
   setCursorComponentId,
   addComponent,
   updateComponentProp,
+  deleteCursorComponent,
 } = editorSlice.actions;
 export default editorSlice.reducer;

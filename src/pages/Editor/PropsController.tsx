@@ -1,9 +1,22 @@
-import { Divider, Input, Spacer, Switch, Tabs } from "@yy/tofu-ui-react";
+import {
+  Divider,
+  Input,
+  Link,
+  Popover,
+  Spacer,
+  Switch,
+  Tabs,
+} from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
 import React, { useCallback, useState } from "react";
+import { MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { updateComponentProp } from "../../store/editor/editorSlice";
+import {
+  deleteCursorComponent,
+  updateComponentProp,
+} from "../../store/editor/editorSlice";
 import { PropItem } from "../../types";
+import { FlexEnd } from "../../widgets/styled";
 
 const PropsPane = () => {
   const dispatch = useAppDispatch();
@@ -17,15 +30,17 @@ const PropsPane = () => {
 
   const handlePropChange = useCallback(
     (index: number, propValue: any) => {
-      dispatch(
-        updateComponentProp({
-          componentId: component.id,
-          propIndex: index,
-          propValue,
-        })
-      );
+      if (component) {
+        dispatch(
+          updateComponentProp({
+            componentId: component.id,
+            propIndex: index,
+            propValue,
+          })
+        );
+      }
     },
-    [component.id, dispatch]
+    [component, dispatch]
   );
 
   return (
@@ -63,6 +78,43 @@ const PropsPane = () => {
   );
 };
 
+const DeleteComponentBtn = () => {
+  const dispatch = useAppDispatch();
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <Popover
+      placement="left"
+      trigger="click"
+      popupElClassName="PopoverPopup"
+      alwaysVisible={visible}
+      reference={
+        <Link block className="DeleteBtnLink" onClick={() => setVisible(true)}>
+          <MdDelete size="18" />
+        </Link>
+      }
+    >
+      <Spacer y={0.5} />
+      <p>确认删除该组件吗？</p>
+      <Spacer y={1} />
+      <FlexEnd className="PopoverCtrl">
+        <Link
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setVisible(false);
+          }}
+        >
+          取消
+        </Link>
+        <Spacer inline x={1} />
+        <Link block onClick={() => dispatch(deleteCursorComponent())}>
+          确认
+        </Link>
+      </FlexEnd>
+    </Popover>
+  );
+};
+
 const PropsController = () => {
   const [selectedTab, setSelectTab] = useState(0);
   const cursorComponentId = useAppSelector(
@@ -73,7 +125,11 @@ const PropsController = () => {
     <section className="PropsController">
       {cursorComponentId && (
         <div>
-          <Tabs value={selectedTab} onChange={setSelectTab}>
+          <Tabs
+            value={selectedTab}
+            onChange={setSelectTab}
+            extra={<DeleteComponentBtn />}
+          >
             <Tabs.Tab label="属性" />
             <Tabs.Tab label="样式" />
             <Tabs.Tab label="事件" />
