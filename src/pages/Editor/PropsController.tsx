@@ -9,6 +9,7 @@ import {
 } from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
 import React, { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -107,7 +108,13 @@ const DeleteComponentBtn = () => {
           取消
         </Link>
         <Spacer inline x={1} />
-        <Link block onClick={() => dispatch(deleteCursorComponent())}>
+        <Link
+          block
+          onClick={() => {
+            dispatch(deleteCursorComponent());
+            setVisible(false);
+          }}
+        >
           确认
         </Link>
       </FlexEnd>
