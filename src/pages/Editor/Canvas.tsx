@@ -66,9 +66,13 @@ const Canvas = () => {
       <ErrorBoundary>
         {components.map((c) => {
           const ComponentType = componentMap.get(c.materialId);
+          const props = c.props?.reduce(
+            (acc, cur) => ({ ...acc, [cur.name]: cur.value }),
+            {}
+          );
           return (
             <ComponentWrap key={c.id} canvasComponent={c}>
-              {ComponentType && <ComponentType />}
+              {ComponentType && <ComponentType {...props} />}
             </ComponentWrap>
           );
         })}

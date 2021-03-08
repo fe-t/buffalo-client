@@ -151,6 +151,9 @@ $variables: (
 .PropsController {
   width: 300px;
   background-color: var(--theme-background-color);
+  .tf-tabs {
+    border-bottom: 1px solid var(--accents-color-10);
+  }
 }
 
 .ComponentWrap {
@@ -177,4 +180,16 @@ $variables: (
 
 .MaterialItem {
   cursor: grab;
+}
+
+.PropsPane {
+  padding: 10px;
+  .PropsPaneField {
+  }
+  .PropsPaneFieldTitle {
+    display: flex;
+    align-items: center;
+    color: var(--accents-color-5);
+    font-size: 14px;
+  }
 }

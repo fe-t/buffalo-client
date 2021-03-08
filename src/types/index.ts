@@ -1,8 +1,15 @@
+export interface PropItem {
+  name: string;
+  zhName: string;
+  type: string;
+  value?: any;
+}
+
 export interface Material {
   id: string;
   name: string;
   zhName: string;
-  props?: object;
+  props?: PropItem[];
 }
 
 export interface CanvasComponent {
@@ -10,5 +17,5 @@ export interface CanvasComponent {
   name: string;
   zhName: string;
   materialId: string;
-  props?: object;
+  props?: PropItem[];
 }

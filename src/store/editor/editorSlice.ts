@@ -33,14 +33,17 @@ const initialState: EditorState = {
       props: [
         {
           name: "placeholder",
+          zhName: "占位字符",
           type: "string",
         },
         {
           name: "disabled",
+          zhName: "禁用",
           type: "boolean",
         },
         {
           name: "name",
+          zhName: "字段名称",
           type: "string",
         },
       ],
@@ -64,14 +67,38 @@ export const editorSlice = createSlice({
       const material = action.payload;
       const nextCusorId = `${++state.canvasComponentCounter}`;
 
+      // 把组件加入画布
       state.components.push({
         ...material,
         id: nextCusorId,
         materialId: material.id,
       });
+
+      // 设置新增的组件选中状态
+      state.cursorComponentId = nextCusorId;
+    },
+    updateComponentProp: (
+      state,
+      action: PayloadAction<{
+        componentId: string;
+        propIndex: number;
+        propValue: any;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      const targetProp = target?.props?.[action.payload.propIndex];
+      if (targetProp) {
+        targetProp.value = action.payload.propValue;
+      }
     },
   },
 });
 
-export const { setCursorComponentId, addComponent } = editorSlice.actions;
+export const {
+  setCursorComponentId,
+  addComponent,
+  updateComponentProp,
+} = editorSlice.actions;
 export default editorSlice.reducer;
