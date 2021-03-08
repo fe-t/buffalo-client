@@ -18,9 +18,13 @@ const ComponentWrap: FC<
     (state) => state.editor.cursorComponentId
   );
 
-  const handleClick = useCallback(() => {
-    dispatch(setCursorComponentId(canvasComponent.id));
-  }, [canvasComponent.id, dispatch]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      dispatch(setCursorComponentId(canvasComponent.id));
+    },
+    [canvasComponent.id, dispatch]
+  );
 
   const isActive = useMemo(() => {
     return canvasComponent.id === cursorComponentId;
@@ -61,8 +65,18 @@ const Canvas = () => {
     e.preventDefault();
   };
 
+  // 监听在 document 点击事件，取消选择
+  const unsetCursor = useCallback(() => {
+    dispatch(setCursorComponentId(""));
+  }, [dispatch]);
+
   return (
-    <section className="Canvas" onDrop={handleDrop} onDragOver={handleDragOver}>
+    <section
+      className="Canvas"
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onClick={unsetCursor}
+    >
       <ErrorBoundary>
         {components.map((c) => {
           const ComponentType = componentMap.get(c.materialId);
