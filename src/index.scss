@@ -148,11 +148,17 @@ $variables: (
   margin: 10px;
 }
 
-.PropsController {
-  width: 300px;
-  background-color: var(--theme-background-color);
-  .tf-tabs {
-    border-bottom: 1px solid var(--accents-color-10);
+.PropControllPopper {
+  .tf-popover-content {
+    padding: 0 0 15px;
+  }
+  .PropsController {
+    width: 300px;
+    background-color: var(--theme-background-color);
+    .tf-tabs {
+      height: 40px;
+      border-bottom: 1px solid var(--accents-color-10);
+    }
   }
 }
 
@@ -173,8 +179,8 @@ $variables: (
   }
   &.active::before,
   &.active:hover::before {
-    background-color: var(--primary-color-outline);
-    border: 2px solid var(--primary-color);
+    // background-color: var(--primary-color-outline);
+    border: 1px solid var(--primary-color);
   }
 }
 

@@ -33,8 +33,8 @@ export const editorSlice = createSlice({
         materialId: material.id,
       });
 
-      // 设置新增的组件选中状态
-      state.cursorComponentId = nextCusorId;
+      // // 设置新增的组件选中状态
+      // state.cursorComponentId = nextCusorId;
     },
     updateComponentProp: (
       state,

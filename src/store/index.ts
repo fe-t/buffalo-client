@@ -1,11 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { editorSlice } from "./editor/editorSlice";
-import undoable from "redux-undo";
+import undoable, { excludeAction } from "redux-undo";
 
 const store = configureStore({
   reducer: {
-    editor: undoable(editorSlice.reducer),
+    editor: undoable(editorSlice.reducer, {
+      filter: excludeAction([
+        editorSlice.actions.cursorComponentBlur.type,
+        editorSlice.actions.setCursorComponentId.type,
+      ]),
+    }),
   },
   devTools: process.env.NODE_ENV !== "production",
 });

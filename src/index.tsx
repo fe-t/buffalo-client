@@ -10,7 +10,7 @@ import store from "./store";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Toaster />
+      <Toaster position="top-right" />
       <Editor />
     </Provider>
   </React.StrictMode>,

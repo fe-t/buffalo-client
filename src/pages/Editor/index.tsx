@@ -11,7 +11,6 @@ const Editor = () => {
       <div className="EditorContent">
         <MaterialList />
         <Canvas />
-        <PropsController />
       </div>
     </main>
   );

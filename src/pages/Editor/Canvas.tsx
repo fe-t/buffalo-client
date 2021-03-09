@@ -1,3 +1,4 @@
+import { Popover } from "@yy/tofu-ui-react";
 import classNames from "classnames";
 import React, { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ import {
 } from "../../store/editor/editorSlice";
 import { CanvasComponent } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
+import PropsController from "./PropsController";
 
 const ComponentWrap: FC<
   PropsWithChildren<{ canvasComponent: CanvasComponent }>
@@ -22,7 +24,7 @@ const ComponentWrap: FC<
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
-      e.stopPropagation();
+      // e.stopPropagation();
       dispatch(setCursorComponentId(canvasComponent.id));
     },
     [canvasComponent.id, dispatch]
@@ -33,12 +35,20 @@ const ComponentWrap: FC<
   }, [canvasComponent.id, cursorComponentId]);
 
   return (
-    <div
-      className={classNames("ComponentWrap", { active: isActive })}
-      onClick={handleClick}
+    <Popover
+      trigger="click"
+      popupElClassName="PropControllPopper"
+      reference={
+        <div
+          className={classNames("ComponentWrap", { active: isActive })}
+          onClick={handleClick}
+        >
+          {children}
+        </div>
+      }
     >
-      {children}
-    </div>
+      <PropsController />
+    </Popover>
   );
 };
 
@@ -78,7 +88,7 @@ const Canvas = () => {
       className="Canvas"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      onClick={unsetCursor}
+      // onClick={unsetCursor}
     >
       <ErrorBoundary>
         {components.map((c) => {
