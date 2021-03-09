@@ -123,7 +123,7 @@ const PropsController = () => {
   const cursorComponentId = useAppSelector(selectCursorComponentId);
 
   return (
-    <section className="PropsController">
+    <section className="PropsController" onClick={(e) => e.stopPropagation()}>
       {cursorComponentId && (
         <div>
           <Tabs

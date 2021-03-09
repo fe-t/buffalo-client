@@ -1,6 +1,13 @@
 import { Popover } from "@yy/tofu-ui-react";
 import classNames from "classnames";
-import React, { FC, PropsWithChildren, useCallback, useMemo } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -21,10 +28,11 @@ const ComponentWrap: FC<
 > = ({ children, canvasComponent }) => {
   const dispatch = useAppDispatch();
   const cursorComponentId = useAppSelector(selectCursorComponentId);
+  const [v, setV] = useState(false);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
-      // e.stopPropagation();
+      e.stopPropagation();
       dispatch(setCursorComponentId(canvasComponent.id));
     },
     [canvasComponent.id, dispatch]
@@ -34,9 +42,13 @@ const ComponentWrap: FC<
     return canvasComponent.id === cursorComponentId;
   }, [canvasComponent.id, cursorComponentId]);
 
+  useEffect(() => {
+    setV(isActive);
+  }, [isActive]);
+
   return (
     <Popover
-      trigger="click"
+      alwaysVisible={v}
       popupElClassName="PropControllPopper"
       reference={
         <div
@@ -44,6 +56,10 @@ const ComponentWrap: FC<
           onClick={handleClick}
         >
           {children}
+          <div className="TopLeftDot ResizeDot" />
+          <div className="TopRightDot ResizeDot" />
+          <div className="BottomLeftDot ResizeDot" />
+          <div className="BottomRightDot ResizeDot" />
         </div>
       }
     >
@@ -76,7 +92,6 @@ const Canvas = () => {
     e.preventDefault();
   };
 
-  // 监听在 document 点击事件，取消选择
   const unsetCursor = useCallback(() => {
     if (cursorComponentId) {
       dispatch(cursorComponentBlur());
@@ -88,7 +103,7 @@ const Canvas = () => {
       className="Canvas"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      // onClick={unsetCursor}
+      onClick={unsetCursor}
     >
       <ErrorBoundary>
         {components.map((c) => {

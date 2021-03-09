@@ -6,6 +6,7 @@ import undoable, { excludeAction } from "redux-undo";
 const store = configureStore({
   reducer: {
     editor: undoable(editorSlice.reducer, {
+      // exclude these actions out of unoable stack
       filter: excludeAction([
         editorSlice.actions.cursorComponentBlur.type,
         editorSlice.actions.setCursorComponentId.type,

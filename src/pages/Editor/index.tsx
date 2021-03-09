@@ -1,7 +1,6 @@
 import React from "react";
 import Canvas from "./Canvas";
 import MaterialList from "./MaterialList";
-import PropsController from "./PropsController";
 import Tools from "./Tools";
 
 const Editor = () => {

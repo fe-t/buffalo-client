@@ -137,6 +137,7 @@ $variables: (
 }
 
 .MaterialList {
+  flex-shrink: 0;
   width: 300px;
   background-color: var(--theme-background-color);
   padding: 10px;
@@ -175,12 +176,44 @@ $variables: (
     bottom: 0;
   }
   &:hover::before {
-    border: 1px solid var(--accents-color-6);
+    border: 1px solid var(--primary-color);
   }
   &.active::before,
   &.active:hover::before {
     // background-color: var(--primary-color-outline);
     border: 1px solid var(--primary-color);
+  }
+
+  &.active .ResizeDot {
+    display: block;
+  }
+
+  .ResizeDot {
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    border: 1px solid var(--primary-color);
+    background-color: var(--theme-background-color);
+    z-index: 1;
+  }
+  .TopLeftDot {
+    top: -4px;
+    left: -4px;
+  }
+  .TopRightDot {
+    top: -4px;
+    right: -4px;
+  }
+  .BottomLeftDot {
+    bottom: -4px;
+    left: -4px;
+  }
+  .BottomRightDot {
+    bottom: -4px;
+    right: -4px;
   }
 }
 
