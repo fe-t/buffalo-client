@@ -54,6 +54,8 @@ export const editorSlice = createSlice({
     },
     deleteCursorComponent: (state) => {
       remove(state.components, (c) => c.id === state.cursorComponentId);
+      // 和清除游标
+      state.cursorComponentId = "";
     },
   },
 });

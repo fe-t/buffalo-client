@@ -2,6 +2,7 @@ import { Button, Icon, Spacer, Tooltip } from "@yy/tofu-ui-react";
 import { MdRedo, MdUndo } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { ActionCreators } from "redux-undo";
+import toast from "react-hot-toast";
 
 const Tools = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +14,10 @@ const Tools = () => {
       <Tooltip text="撤销">
         <Button
           disabled={past.length <= 0}
-          onClick={() => dispatch(ActionCreators.undo())}
+          onClick={() => {
+            toast.success("撤销");
+            dispatch(ActionCreators.undo());
+          }}
         >
           <MdUndo />
         </Button>
@@ -22,7 +26,10 @@ const Tools = () => {
       <Tooltip text="重做">
         <Button
           disabled={future.length <= 0}
-          onClick={() => dispatch(ActionCreators.redo())}
+          onClick={() => {
+            toast.success("重做");
+            dispatch(ActionCreators.redo());
+          }}
         >
           <MdRedo />
         </Button>
