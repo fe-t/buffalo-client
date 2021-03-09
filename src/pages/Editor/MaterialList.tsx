@@ -1,9 +1,10 @@
 import { Card, Spacer } from "@yy/tofu-ui-react";
 import React from "react";
 import { useAppSelector } from "../../store";
+import { selectMaterials } from "../../store/editor/editorSlice";
 
 const MaterialList = () => {
-  const materials = useAppSelector((state) => state.editor.materials);
+  const materials = useAppSelector(selectMaterials);
 
   const handleDragStart = (e: any) => {
     e.dataTransfer.setData("material", e.target.dataset.material);

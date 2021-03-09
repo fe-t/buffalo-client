@@ -5,6 +5,10 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import {
   addComponent,
   componentMap,
+  cursorComponentBlur,
+  selectComponents,
+  selectCursorComponentId,
+  selectMaterials,
   setCursorComponentId,
 } from "../../store/editor/editorSlice";
 import { CanvasComponent } from "../../types";
@@ -14,9 +18,7 @@ const ComponentWrap: FC<
   PropsWithChildren<{ canvasComponent: CanvasComponent }>
 > = ({ children, canvasComponent }) => {
   const dispatch = useAppDispatch();
-  const cursorComponentId = useAppSelector(
-    (state) => state.editor.cursorComponentId
-  );
+  const cursorComponentId = useAppSelector(selectCursorComponentId);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
@@ -41,8 +43,9 @@ const ComponentWrap: FC<
 };
 
 const Canvas = () => {
-  const materials = useAppSelector((state) => state.editor.materials);
-  const components = useAppSelector((state) => state.editor.components);
+  const materials = useAppSelector(selectMaterials);
+  const components = useAppSelector(selectComponents);
+  const cursorComponentId = useAppSelector(selectCursorComponentId);
   const dispatch = useAppDispatch();
 
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
@@ -52,8 +55,6 @@ const Canvas = () => {
     const material = materials.filter((m) => m.id === materialId)[0];
     if (material) {
       dispatch(addComponent(material));
-
-      // dispatch();
       toast.success(`添加物料成功: ${material.zhName}`);
     } else {
       toast.error("没有找到物料");
@@ -67,8 +68,10 @@ const Canvas = () => {
 
   // 监听在 document 点击事件，取消选择
   const unsetCursor = useCallback(() => {
-    dispatch(setCursorComponentId(""));
-  }, [dispatch]);
+    if (cursorComponentId) {
+      dispatch(cursorComponentBlur());
+    }
+  }, [cursorComponentId, dispatch]);
 
   return (
     <section

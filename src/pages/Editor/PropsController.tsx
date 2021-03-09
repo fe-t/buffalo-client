@@ -9,11 +9,12 @@ import {
 } from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
 import React, { useCallback, useState } from "react";
-import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   deleteCursorComponent,
+  selectCursorComponent,
+  selectCursorComponentId,
   updateComponentProp,
 } from "../../store/editor/editorSlice";
 import { PropItem } from "../../types";
@@ -21,12 +22,7 @@ import { FlexEnd } from "../../widgets/styled";
 
 const PropsPane = () => {
   const dispatch = useAppDispatch();
-  const component = useAppSelector((state) => {
-    const components = state.editor.components;
-    const cursorId = state.editor.cursorComponentId;
-    return components.filter((c) => c.id === cursorId)[0];
-  });
-
+  const component = useAppSelector(selectCursorComponent);
   const propList = ((component && component.props) || []) as PropItem[];
 
   const handlePropChange = useCallback(
@@ -124,9 +120,7 @@ const DeleteComponentBtn = () => {
 
 const PropsController = () => {
   const [selectedTab, setSelectTab] = useState(0);
-  const cursorComponentId = useAppSelector(
-    (state) => state.editor.cursorComponentId
-  );
+  const cursorComponentId = useAppSelector(selectCursorComponentId);
 
   return (
     <section className="PropsController">

@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { editorSlice } from "./editor/editorSlice";
+import undoable from "redux-undo";
 
 const store = configureStore({
   reducer: {
-    editor: editorSlice.reducer,
+    editor: undoable(editorSlice.reducer),
   },
   devTools: process.env.NODE_ENV !== "production",
 });
