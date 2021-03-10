@@ -1,5 +1,5 @@
 import React from "react";
-import Canvas from "./Canvas";
+import Content from "./Content";
 import MaterialList from "./MaterialList";
 import Tools from "./Tools";
 
@@ -9,7 +9,7 @@ const Editor = () => {
       <Tools />
       <div className="EditorContent">
         <MaterialList />
-        <Canvas />
+        <Content />
       </div>
     </main>
   );

@@ -78,7 +78,9 @@ const Canvas = () => {
     e.preventDefault();
     e.stopPropagation();
     const materialId = e.dataTransfer.getData("material");
-    const material = materials.filter((m) => m.id === materialId)[0];
+    const material = [...materials.widgets, ...materials.blocks].filter(
+      (m) => m.id === materialId
+    )[0];
     if (material) {
       dispatch(addComponent(material));
       toast.success(`添加物料成功: ${material.zhName}`);

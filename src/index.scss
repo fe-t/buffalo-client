@@ -124,6 +124,7 @@ $variables: (
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 50px;
   border-bottom: 1px solid var(--accents-color-10);
   padding: 10px;
@@ -136,13 +137,67 @@ $variables: (
   background-color: var(--accents-color-12);
 }
 
-.MaterialList {
+.Sider {
   flex-shrink: 0;
   width: 300px;
   background-color: var(--theme-background-color);
   padding: 10px;
 }
 
+.ToolsTabs.tf-tabs,
+.SiderTabs.tf-tabs {
+  height: 60px;
+  padding: 0;
+  .tf-tabs-main {
+    display: flex;
+  }
+  .tf-tab {
+    flex-grow: 1;
+    border: 1px solid var(--accents-color-10);
+    margin-right: 0;
+    width: 80px;
+    text-align: center;
+    font-size: 14px;
+    box-sizing: border-box;
+    &.tf-tab--active {
+      border-color: var(--primary-color);
+      font-weight: normal;
+      color: var(--primary-color);
+      background-color: var(--primary-color-outline);
+      &::after {
+        height: 0;
+      }
+    }
+    &:first-of-type {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-right: 0;
+      &.tf-tab--active {
+        box-shadow: -1px 0 0 var(--primary-color) inset;
+      }
+    }
+    &:last-of-type {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+}
+
+.ToolsTabs.tf-tabs .tf-tab {
+  width: 60px;
+  .tf-tooltip {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+.MaterialList {
+}
+
+.Content {
+  flex-grow: 1;
+  display: flex;
+}
 .Canvas {
   flex-grow: 1;
   background-color: var(--theme-background-color);

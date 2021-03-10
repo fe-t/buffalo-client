@@ -1,9 +1,10 @@
-import { Card, Spacer } from "@yy/tofu-ui-react";
-import React from "react";
+import { Card, Spacer, Tabs } from "@yy/tofu-ui-react";
+import React, { useState } from "react";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
 
 const MaterialList = () => {
+  const [selectedTab, setSelectTab] = useState(0);
   const materials = useAppSelector(selectMaterials);
 
   const handleDragStart = (e: any) => {
@@ -11,21 +12,45 @@ const MaterialList = () => {
   };
 
   return (
-    <section className="MaterialList " onDragStart={handleDragStart}>
-      {materials.map((m) => (
-        <React.Fragment key={m.id}>
-          <Card
-            className="MaterialItem"
-            size="small"
-            draggable
-            data-material={m.id}
-            hoverable
-          >
-            {m.name} - {m.zhName}
-          </Card>
-          <Spacer y={0.5} />
-        </React.Fragment>
-      ))}
+    <section className="Sider">
+      <Tabs className="SiderTabs" value={selectedTab} onChange={setSelectTab}>
+        <Tabs.Tab label="块" />
+        <Tabs.Tab label="元件" />
+      </Tabs>
+      <div className="MaterialList " onDragStart={handleDragStart}>
+        <Tabs.TabPane value={selectedTab} index={0}>
+          {materials.blocks.map((m) => (
+            <React.Fragment key={m.id}>
+              <Card
+                className="MaterialItem"
+                size="small"
+                draggable
+                data-material={m.id}
+                hoverable
+              >
+                {m.name} - {m.zhName}
+              </Card>
+              <Spacer y={0.5} />
+            </React.Fragment>
+          ))}
+        </Tabs.TabPane>
+        <Tabs.TabPane value={selectedTab} index={1}>
+          {materials.widgets.map((m) => (
+            <React.Fragment key={m.id}>
+              <Card
+                className="MaterialItem"
+                size="small"
+                draggable
+                data-material={m.id}
+                hoverable
+              >
+                {m.name} - {m.zhName}
+              </Card>
+              <Spacer y={0.5} />
+            </React.Fragment>
+          ))}
+        </Tabs.TabPane>
+      </div>
     </section>
   );
 };
