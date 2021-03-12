@@ -141,10 +141,11 @@ $variables: (
   flex-shrink: 0;
   width: 300px;
   background-color: var(--theme-background-color);
-  padding: 10px;
+  // padding: 10px;
 }
 
 .ToolsTabs.tf-tabs,
+.MaterialTabs.tf-tabs,
 .SiderTabs.tf-tabs {
   height: 60px;
   padding: 0;
@@ -190,8 +191,35 @@ $variables: (
     font-size: 16px;
   }
 }
+.SiderTabs.tf-tabs {
+  height: 42px;
+  .tf-tabs-main {
+    height: 42px;
+  }
+  .tf-tab {
+    height: 42px;
+    line-height: 42px;
+    background-color: var(--accents-color-15);
+    color: var(--accents-color-6);
+    &.tf-tab--active {
+      background-color: var(--theme-background-color);
+      border: none;
+      color: var(--accents-color-6);
+    }
+    &:first-of-type {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      &.tf-tab--active {
+        box-shadow: none;
+      }
+    }
+  }
+}
 
 .MaterialList {
+}
+.MaterialContainer {
+  padding: 10px;
 }
 
 .Content {
@@ -204,19 +232,19 @@ $variables: (
   margin: 10px;
 }
 
-.PropControllPopper {
-  .tf-popover-content {
-    padding: 0 0 15px;
-  }
-  .PropsController {
-    width: 300px;
-    background-color: var(--theme-background-color);
-    .tf-tabs {
-      height: 40px;
-      border-bottom: 1px solid var(--accents-color-10);
-    }
-  }
-}
+// .PropControllPopper {
+//   .tf-popover-content {
+//     padding: 0 0 15px;
+//   }
+//   .PropsController {
+//     width: 300px;
+//     background-color: var(--theme-background-color);
+//     .tf-tabs {
+//       height: 40px;
+//       border-bottom: 1px solid var(--accents-color-10);
+//     }
+//   }
+// }
 
 .ComponentWrap {
   display: inline-block;
@@ -276,8 +304,28 @@ $variables: (
   cursor: grab;
 }
 
-.PropsPane {
+.PropsPaneFields {
   padding: 10px;
+}
+
+.PropsPane {
+  .PropsPaneHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--accents-color-10);
+    padding: 10px;
+    & > p {
+      color: var(--accents-color-3);
+      font-size: 18px;
+      span:last-of-type {
+        display: inline-block;
+        color: var(--accents-color-5);
+        font-size: 14px;
+        margin-left: 10px;
+      }
+    }
+  }
   .PropsPaneField {
   }
   .PropsPaneFieldTitle {
@@ -288,10 +336,10 @@ $variables: (
   }
 }
 
-.tf-ui-link.DeleteBtnLink {
-  color: var(--error-color);
+.tf-ui-link.InfoTypeLink {
+  color: var(--accents-color-6);
   &:hover {
-    background-color: rgb(231, 180, 180, 0.2);
+    background-color: rgb(0, 0, 0, 0.05);
   }
 }
 

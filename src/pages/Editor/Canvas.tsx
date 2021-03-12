@@ -1,13 +1,5 @@
-import { Popover } from "@yy/tofu-ui-react";
 import classNames from "classnames";
-import React, {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -21,14 +13,12 @@ import {
 } from "../../store/editor/editorSlice";
 import { CanvasComponent } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
-import PropsController from "./PropsController";
 
-const ComponentWrap: FC<
-  PropsWithChildren<{ canvasComponent: CanvasComponent }>
-> = ({ children, canvasComponent }) => {
+const ComponentWrap: FC<PropsWithChildren<{
+  canvasComponent: CanvasComponent;
+}>> = ({ children, canvasComponent }) => {
   const dispatch = useAppDispatch();
   const cursorComponentId = useAppSelector(selectCursorComponentId);
-  const [v, setV] = useState(false);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
@@ -42,29 +32,17 @@ const ComponentWrap: FC<
     return canvasComponent.id === cursorComponentId;
   }, [canvasComponent.id, cursorComponentId]);
 
-  useEffect(() => {
-    setV(isActive);
-  }, [isActive]);
-
   return (
-    <Popover
-      alwaysVisible={v}
-      popupElClassName="PropControllPopper"
-      reference={
-        <div
-          className={classNames("ComponentWrap", { active: isActive })}
-          onClick={handleClick}
-        >
-          {children}
-          <div className="TopLeftDot ResizeDot" />
-          <div className="TopRightDot ResizeDot" />
-          <div className="BottomLeftDot ResizeDot" />
-          <div className="BottomRightDot ResizeDot" />
-        </div>
-      }
+    <div
+      className={classNames("ComponentWrap", { active: isActive })}
+      onClick={handleClick}
     >
-      <PropsController />
-    </Popover>
+      {children}
+      <div className="TopLeftDot ResizeDot" />
+      <div className="TopRightDot ResizeDot" />
+      <div className="BottomLeftDot ResizeDot" />
+      <div className="BottomRightDot ResizeDot" />
+    </div>
   );
 };
 

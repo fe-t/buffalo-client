@@ -1,79 +1,23 @@
 import {
   Divider,
+  Empty,
   Input,
   Link,
   Popover,
   Spacer,
   Switch,
-  Tabs,
 } from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
 import React, { useCallback, useState } from "react";
-import { MdDelete } from "react-icons/md";
+import { MdContentCopy, MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   deleteCursorComponent,
   selectCursorComponent,
-  selectCursorComponentId,
   updateComponentProp,
 } from "../../store/editor/editorSlice";
 import { PropItem } from "../../types";
-import { FlexEnd } from "../../widgets/styled";
-
-const PropsPane = () => {
-  const dispatch = useAppDispatch();
-  const component = useAppSelector(selectCursorComponent);
-  const propList = ((component && component.props) || []) as PropItem[];
-
-  const handlePropChange = useCallback(
-    (index: number, propValue: any) => {
-      if (component) {
-        dispatch(
-          updateComponentProp({
-            componentId: component.id,
-            propIndex: index,
-            propValue,
-          })
-        );
-      }
-    },
-    [component, dispatch]
-  );
-
-  return (
-    <div className="PropsPane">
-      {propList.map((p, index) => {
-        return (
-          <div className="PropsPaneField" key={p.name}>
-            <div className="PropsPaneFieldTitle">
-              <span>{p.zhName}</span>
-              <Spacer inline x={0.3} />
-              <span>{capitalize(p.name)}</span>
-            </div>
-            <Spacer y={0.5} />
-            <div>
-              {p.type === "boolean" && (
-                <Switch
-                  checked={p.value}
-                  onChange={(e) => handlePropChange(index, e.target.checked)}
-                />
-              )}
-              {p.type === "string" && (
-                <Input
-                  defaultValue={p.value}
-                  onBlur={(e) => {
-                    handlePropChange(index, e.target.value);
-                  }}
-                />
-              )}
-            </div>
-            <Divider />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+import { FlexCenter, FlexEnd } from "../../widgets/styled";
 
 const DeleteComponentBtn = () => {
   const dispatch = useAppDispatch();
@@ -86,7 +30,7 @@ const DeleteComponentBtn = () => {
       popupElClassName="PopoverPopup"
       alwaysVisible={visible}
       reference={
-        <Link block className="DeleteBtnLink" onClick={() => setVisible(true)}>
+        <Link block className="InfoTypeLink" onClick={() => setVisible(true)}>
           <MdDelete size="18" />
         </Link>
       }
@@ -119,34 +63,80 @@ const DeleteComponentBtn = () => {
 };
 
 const PropsController = () => {
-  const [selectedTab, setSelectTab] = useState(0);
-  const cursorComponentId = useAppSelector(selectCursorComponentId);
+  const dispatch = useAppDispatch();
+  const component = useAppSelector(selectCursorComponent);
+  const propList = ((component && component.props) || []) as PropItem[];
+
+  const handlePropChange = useCallback(
+    (index: number, propValue: any) => {
+      if (component) {
+        dispatch(
+          updateComponentProp({
+            componentId: component.id,
+            propIndex: index,
+            propValue,
+          })
+        );
+      }
+    },
+    [component, dispatch]
+  );
 
   return (
     <section className="PropsController" onClick={(e) => e.stopPropagation()}>
-      {cursorComponentId && (
-        <div>
-          <Tabs
-            value={selectedTab}
-            onChange={setSelectTab}
-            extra={<DeleteComponentBtn />}
-          >
-            <Tabs.Tab label="属性" />
-            <Tabs.Tab label="样式" />
-            <Tabs.Tab label="事件" />
-          </Tabs>
-          <div className="tf-tab-panes">
-            <Tabs.TabPane value={selectedTab} index={0}>
-              <PropsPane />
-            </Tabs.TabPane>
-            <Tabs.TabPane value={selectedTab} index={1}>
-              <p>样式</p>
-            </Tabs.TabPane>
-            <Tabs.TabPane value={selectedTab} index={2}>
-              <p>事件</p>
-            </Tabs.TabPane>
+      {component ? (
+        <div className="PropsPane">
+          <div className="PropsPaneHeader">
+            <p>
+              <span>{component.name}</span>
+              <span>{component.zhName}</span>
+            </p>
+            <FlexCenter>
+              <Link block className="InfoTypeLink">
+                <MdContentCopy size="18" />
+              </Link>
+              <DeleteComponentBtn />
+            </FlexCenter>
+          </div>
+          <div className="PropsPaneFields">
+            {propList.map((p, index) => {
+              return (
+                <div className="PropsPaneField" key={p.name}>
+                  <div className="PropsPaneFieldTitle">
+                    <span>{p.zhName}</span>
+                    <Spacer inline x={0.3} />
+                    <span>{capitalize(p.name)}</span>
+                  </div>
+                  <Spacer y={0.5} />
+                  <div>
+                    {p.type === "boolean" && (
+                      <Switch
+                        checked={p.value}
+                        onChange={(e) =>
+                          handlePropChange(index, e.target.checked)
+                        }
+                      />
+                    )}
+                    {p.type === "string" && (
+                      <Input
+                        defaultValue={p.value}
+                        onBlur={(e) => {
+                          handlePropChange(index, e.target.value);
+                        }}
+                      />
+                    )}
+                  </div>
+                  <Divider />
+                </div>
+              );
+            })}
           </div>
         </div>
+      ) : (
+        <>
+          <Spacer y={2} />
+          <Empty text="请在画布选择一个组件来编辑属性" />
+        </>
       )}
     </section>
   );

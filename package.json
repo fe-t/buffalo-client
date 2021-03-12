@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@blocks/react": "^0.0.63",
+    "@mdx-js/react": "^1.6.22",
     "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -15,6 +17,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/styled-components": "^5.1.7",
     "@yy/tofu-ui-react": "^2.0.1-alpha.24",
+    "blocks-ui": "^0.0.78",
     "classnames": "^2.2.6",
     "formik": "^2.2.6",
     "lodash": "^4.17.21",

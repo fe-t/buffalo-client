@@ -1,6 +1,6 @@
 import React from "react";
 import Content from "./Content";
-import MaterialList from "./MaterialList";
+import Sider from "./Sider";
 import Tools from "./Tools";
 
 const Editor = () => {
@@ -8,7 +8,7 @@ const Editor = () => {
     <main className="Editor">
       <Tools />
       <div className="EditorContent">
-        <MaterialList />
+        <Sider />
         <Content />
       </div>
     </main>

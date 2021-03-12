@@ -12,8 +12,12 @@ const MaterialList = () => {
   };
 
   return (
-    <section className="Sider">
-      <Tabs className="SiderTabs" value={selectedTab} onChange={setSelectTab}>
+    <div className="MaterialContainer">
+      <Tabs
+        className="MaterialTabs"
+        value={selectedTab}
+        onChange={setSelectTab}
+      >
         <Tabs.Tab label="块" />
         <Tabs.Tab label="元件" />
       </Tabs>
@@ -51,7 +55,7 @@ const MaterialList = () => {
           ))}
         </Tabs.TabPane>
       </div>
-    </section>
+    </div>
   );
 };
 
