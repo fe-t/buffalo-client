@@ -1,7 +1,10 @@
 import { CanvasComponent, Material } from "../../types";
 
 interface EditorState {
-  materials: { blocks: Material[]; widgets: Material[] }; // 物料
+  materials: {
+    blocks: Material[];
+    widgets: Material[];
+  }; // 物料
   components: CanvasComponent[]; // 画布上的组件
   canvasComponentCounter: number;
   cursorComponentId?: string; // 当前编辑的组件
@@ -29,23 +32,20 @@ export const initialState: EditorState = {
         id: "2",
         name: "Input",
         zhName: "输入框",
-        props: [
-          {
-            name: "placeholder",
-            zhName: "占位字符",
-            type: "string",
-          },
-          {
-            name: "disabled",
-            zhName: "禁用",
-            type: "boolean",
-          },
-          {
-            name: "name",
-            zhName: "字段名称",
-            type: "string",
-          },
-        ],
+        // props: {
+        //   placeholder: {
+        //     zhName: "占位字符",
+        //     type: "string",
+        //   },
+        //   disabled: {
+        //     zhName: "禁用",
+        //     type: "boolean",
+        //   },
+        //   name: {
+        //     zhName: "字段名称",
+        //     type: "string",
+        //   },
+        // },
       },
       {
         id: "3",

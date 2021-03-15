@@ -9,15 +9,29 @@ import {
 } from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
 import React, { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
+  componentMap,
   deleteCursorComponent,
   selectCursorComponent,
   updateComponentProp,
 } from "../../store/editor/editorSlice";
-import { PropItem } from "../../types";
+import { PropsItem } from "../../types";
 import { FlexCenter, FlexEnd } from "../../widgets/styled";
+
+const CopyComponentBtn = () => {
+  const handleClick = useCallback(() => {
+    toast.success("复制成功");
+  }, []);
+
+  return (
+    <Link block className="InfoTypeLink" onClick={handleClick}>
+      <MdContentCopy size="18" />
+    </Link>
+  );
+};
 
 const DeleteComponentBtn = () => {
   const dispatch = useAppDispatch();
@@ -62,10 +76,21 @@ const DeleteComponentBtn = () => {
   );
 };
 
+interface RenderPropsItem extends PropsItem {
+  name: string;
+}
+
 const PropsController = () => {
   const dispatch = useAppDispatch();
   const component = useAppSelector(selectCursorComponent);
-  const propList = ((component && component.props) || []) as PropItem[];
+
+  const componentType = componentMap.get(component?.materialId);
+  const propList = Object.entries(componentType?.propertyControls || {}).reduce(
+    (acc: RenderPropsItem[], cur) => {
+      return [...acc, { ...cur[1], name: cur[0] }];
+    },
+    []
+  );
 
   const handlePropChange = useCallback(
     (index: number, propValue: any) => {
@@ -92,9 +117,7 @@ const PropsController = () => {
               <span>{component.zhName}</span>
             </p>
             <FlexCenter>
-              <Link block className="InfoTypeLink">
-                <MdContentCopy size="18" />
-              </Link>
+              <CopyComponentBtn />
               <DeleteComponentBtn />
             </FlexCenter>
           </div>
@@ -121,6 +144,7 @@ const PropsController = () => {
                       <Input
                         defaultValue={p.value}
                         onBlur={(e) => {
+                          debugger;
                           handlePropChange(index, e.target.value);
                         }}
                       />

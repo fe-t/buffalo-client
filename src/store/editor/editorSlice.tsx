@@ -1,15 +1,40 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
 import { remove } from "lodash";
-import { ElementType } from "react";
+import { ElementType, FC } from "react";
+import {
+  applyPropertyControls,
+  ControlType,
+} from "../../pages/Editor/property-controls";
 import { Material } from "../../types";
 import { initialState } from "./initialState";
 export * from "./selectors";
 
-export const componentMap = new Map<string, ElementType>([
+const Page: FC<{ children: string }> = ({ children }) => {
+  return (
+    <div className="Page" style={{ padding: "20px", border: "1px solid #999" }}>
+      <p>page: </p>
+      {children}
+    </div>
+  );
+};
+applyPropertyControls(Page, {
+  children: {
+    type: ControlType.String,
+    required: true,
+    placeholder: "请输入内容",
+  },
+});
+
+export type CanvasElementType = ElementType & {
+  propertyControls?: object;
+};
+
+export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
   ["2", Input],
   ["3", Select],
+  ["4", Page],
 ]);
 
 export const editorSlice = createSlice({

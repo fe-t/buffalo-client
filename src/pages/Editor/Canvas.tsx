@@ -1,5 +1,11 @@
 import classNames from "classnames";
-import React, { FC, PropsWithChildren, useCallback, useMemo } from "react";
+import React, {
+  ElementType,
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+} from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -87,11 +93,21 @@ const Canvas = () => {
     >
       <ErrorBoundary>
         {components.map((c) => {
-          const ComponentType = componentMap.get(c.materialId);
-          const props = c.props?.reduce(
-            (acc, cur) => ({ ...acc, [cur.name]: cur.value }),
-            {}
-          );
+          const ComponentType = componentMap.get(c.materialId) as ElementType;
+
+          // console.log("blah", (ComponentType as any).propertyControls);
+
+          // const props = c.props?.reduce(
+          //   (acc, cur) => ({ ...acc, [cur.name]: cur.value }),
+          //   {}
+          // );
+
+          const props = c.props
+            ? Object.entries(c.props).reduce((acc, cur) => {
+                return { ...acc, [cur[0]]: cur[1].value };
+              }, {})
+            : undefined;
+
           return (
             <ComponentWrap key={c.id} canvasComponent={c}>
               {ComponentType && <ComponentType {...props} />}

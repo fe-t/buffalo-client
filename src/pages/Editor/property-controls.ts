@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { CanvasElementType } from "../../store/editor/editorSlice";
 
 const BOOLEAN = "boolean";
 const ENUM = "enum";
@@ -13,6 +13,8 @@ const ARRAY = "array";
 const EVENT_HANDLER = "eventhandler";
 const STYLE = "style";
 const OBJECT = "object";
+
+export type ValueOf<T> = T[keyof T];
 
 export const ControlType = {
   Boolean: BOOLEAN,
@@ -39,16 +41,16 @@ export const ControlMap = Object.entries(ControlType).reduce(
 );
 
 export const applyPropertyControls = (
-  Component: ElementType,
+  Component: CanvasElementType,
   controls: any
 ) => {
-  if ((Component as any).propertyControls) {
-    (Component as any).propertyControls = {
-      ...(Component as any).propertyControls,
+  if (Component.propertyControls) {
+    Component.propertyControls = {
+      ...Component.propertyControls,
       ...controls,
     };
   } else {
-    (Component as any).propertyControls = controls;
+    Component.propertyControls = controls;
   }
 };
 
