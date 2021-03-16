@@ -1,3 +1,4 @@
+import { ElementType } from "react";
 import { ControlType, ValueOf } from "../pages/Editor/property-controls";
 
 export interface PropsItem {
@@ -22,7 +23,6 @@ export interface Material {
   id: string;
   name: string;
   zhName: string;
-  props?: PropsMap;
 }
 
 export interface CanvasComponent {
@@ -30,5 +30,9 @@ export interface CanvasComponent {
   name: string;
   zhName: string;
   materialId: string;
-  props?: PropsMap;
+  props: PropsMap;
 }
+
+export type CanvasElementType = ElementType & {
+  propertyControls?: PropsMap;
+};

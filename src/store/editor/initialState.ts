@@ -32,20 +32,6 @@ export const initialState: EditorState = {
         id: "2",
         name: "Input",
         zhName: "输入框",
-        // props: {
-        //   placeholder: {
-        //     zhName: "占位字符",
-        //     type: "string",
-        //   },
-        //   disabled: {
-        //     zhName: "禁用",
-        //     type: "boolean",
-        //   },
-        //   name: {
-        //     zhName: "字段名称",
-        //     type: "string",
-        //   },
-        // },
       },
       {
         id: "3",

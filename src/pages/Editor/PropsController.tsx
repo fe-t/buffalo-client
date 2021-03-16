@@ -13,11 +13,11 @@ import toast from "react-hot-toast";
 import { MdContentCopy, MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
-  componentMap,
   deleteCursorComponent,
   selectCursorComponent,
   updateComponentProp,
 } from "../../store/editor/editorSlice";
+import { componentMap } from "../../store/editor/registerComponents";
 import { PropsItem } from "../../types";
 import { FlexCenter, FlexEnd } from "../../widgets/styled";
 
@@ -86,19 +86,24 @@ const PropsController = () => {
 
   const componentType = componentMap.get(component?.materialId);
   const propList = Object.entries(componentType?.propertyControls || {}).reduce(
-    (acc: RenderPropsItem[], cur) => {
-      return [...acc, { ...cur[1], name: cur[0] }];
+    (acc: RenderPropsItem[], [propName, propInfo]) => {
+      const item = { ...propInfo, name: propName };
+      // 如果 Canvas组件有值，读取 canvas 组件的值
+      if (component?.props[propName]) {
+        item.value = component?.props[propName];
+      }
+      return [...acc, item];
     },
     []
   );
 
   const handlePropChange = useCallback(
-    (index: number, propValue: any) => {
+    (propKey: string, propValue: any) => {
       if (component) {
         dispatch(
           updateComponentProp({
             componentId: component.id,
-            propIndex: index,
+            propKey,
             propValue,
           })
         );
@@ -136,7 +141,7 @@ const PropsController = () => {
                       <Switch
                         checked={p.value}
                         onChange={(e) =>
-                          handlePropChange(index, e.target.checked)
+                          handlePropChange(p.name, e.target.checked)
                         }
                       />
                     )}
@@ -144,8 +149,7 @@ const PropsController = () => {
                       <Input
                         defaultValue={p.value}
                         onBlur={(e) => {
-                          debugger;
-                          handlePropChange(index, e.target.value);
+                          handlePropChange(p.name, e.target.value);
                         }}
                       />
                     )}

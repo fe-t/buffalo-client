@@ -1,41 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
 import { remove } from "lodash";
-import { ElementType, FC } from "react";
-import {
-  applyPropertyControls,
-  ControlType,
-} from "../../pages/Editor/property-controls";
 import { Material } from "../../types";
 import { initialState } from "./initialState";
+import "./registerComponents";
+import { componentMap } from "./registerComponents";
 export * from "./selectors";
-
-const Page: FC<{ children: string }> = ({ children }) => {
-  return (
-    <div className="Page" style={{ padding: "20px", border: "1px solid #999" }}>
-      <p>page: </p>
-      {children}
-    </div>
-  );
-};
-applyPropertyControls(Page, {
-  children: {
-    type: ControlType.String,
-    required: true,
-    placeholder: "请输入内容",
-  },
-});
-
-export type CanvasElementType = ElementType & {
-  propertyControls?: object;
-};
-
-export const componentMap = new Map<string, CanvasElementType>([
-  ["1", Datagrid],
-  ["2", Input],
-  ["3", Select],
-  ["4", Page],
-]);
 
 export const editorSlice = createSlice({
   name: "editor",
@@ -51,11 +20,22 @@ export const editorSlice = createSlice({
       const material = action.payload;
       const nextCusorId = `${++state.canvasComponentCounter}`;
 
+      // 获取到物料的默认属性
+      const props = componentMap.get(material.id)?.propertyControls || {};
+      const serializeProps = Object.entries(props).reduce(
+        (acc, [propName, propInfo]) => {
+          // 如果有defaultValue，取defaultValue
+          return { ...acc, [propName]: propInfo.defaultValue };
+        },
+        {}
+      );
+
       // 把组件加入画布
       state.components.push({
         ...material,
         id: nextCusorId,
         materialId: material.id,
+        props: serializeProps,
       });
 
       // // 设置新增的组件选中状态
@@ -65,16 +45,20 @@ export const editorSlice = createSlice({
       state,
       action: PayloadAction<{
         componentId: string;
-        propIndex: number;
+        propKey: string;
         propValue: any;
       }>
     ) => {
       const target = state.components.find(
         (c) => c.id === action.payload.componentId
       );
-      const targetProp = target?.props?.[action.payload.propIndex];
-      if (targetProp) {
-        targetProp.value = action.payload.propValue;
+      if (target) {
+        target.props[action.payload.propKey] = action.payload.propValue;
+      } else {
+        console.error(
+          "not such target in canvas, componentId:",
+          action.payload.componentId
+        );
       }
     },
     deleteCursorComponent: (state) => {

@@ -10,13 +10,13 @@ import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   addComponent,
-  componentMap,
   cursorComponentBlur,
   selectComponents,
   selectCursorComponentId,
   selectMaterials,
   setCursorComponentId,
 } from "../../store/editor/editorSlice";
+import { componentMap } from "../../store/editor/registerComponents";
 import { CanvasComponent } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
 
@@ -94,23 +94,9 @@ const Canvas = () => {
       <ErrorBoundary>
         {components.map((c) => {
           const ComponentType = componentMap.get(c.materialId) as ElementType;
-
-          // console.log("blah", (ComponentType as any).propertyControls);
-
-          // const props = c.props?.reduce(
-          //   (acc, cur) => ({ ...acc, [cur.name]: cur.value }),
-          //   {}
-          // );
-
-          const props = c.props
-            ? Object.entries(c.props).reduce((acc, cur) => {
-                return { ...acc, [cur[0]]: cur[1].value };
-              }, {})
-            : undefined;
-
           return (
             <ComponentWrap key={c.id} canvasComponent={c}>
-              {ComponentType && <ComponentType {...props} />}
+              {ComponentType && <ComponentType {...c.props} />}
             </ComponentWrap>
           );
         })}

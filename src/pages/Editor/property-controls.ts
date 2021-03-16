@@ -1,4 +1,4 @@
-import { CanvasElementType } from "../../store/editor/editorSlice";
+import { CanvasElementType, PropsMap } from "../../types";
 
 const BOOLEAN = "boolean";
 const ENUM = "enum";
@@ -42,7 +42,7 @@ export const ControlMap = Object.entries(ControlType).reduce(
 
 export const applyPropertyControls = (
   Component: CanvasElementType,
-  controls: any
+  controls: PropsMap
 ) => {
   if (Component.propertyControls) {
     Component.propertyControls = {
