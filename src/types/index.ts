@@ -14,6 +14,12 @@ export interface PropsItem {
   defaultValue?: any;
   /** 值 */
   value?: any;
+  /** 属性标签 */
+  label: string;
+  /** 属性描述 */
+  desc?: string;
+  /** 选项 */
+  options?: { label: string; value: any }[];
 }
 
 export interface PropsMap {

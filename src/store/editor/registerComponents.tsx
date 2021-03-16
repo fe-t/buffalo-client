@@ -10,11 +10,20 @@ import { CanvasElementType } from "../../types";
 import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
 
 /** 自定义的物料 */
-const Page: FC<{ children: string; name: string }> = ({ children, name }) => {
+const Page: FC<{
+  children: string;
+  name: string;
+  type: string;
+  backgroundColor: string;
+}> = ({ children, name, type, backgroundColor }) => {
   return (
-    <div className="Page" style={{ padding: "20px", border: "1px solid #999" }}>
+    <div
+      className="Page"
+      style={{ padding: "20px", border: "1px solid #999", backgroundColor }}
+    >
       <p>page: {name}</p>
-      {children}
+      <p>type: {type}</p>
+      <div>children: {children}</div>
     </div>
   );
 };
@@ -23,14 +32,45 @@ const Page: FC<{ children: string; name: string }> = ({ children, name }) => {
 applyPropertyControls(Page, {
   children: {
     type: ControlType.String,
-    required: true,
+    required: true, // TODO: impl required
     placeholder: "请输入内容",
     defaultValue: "lorem ipsum",
+    label: "子组件",
+    desc: "Lorem ipsum sei weigs",
   },
   name: {
     type: ControlType.String,
     required: true,
     defaultValue: "Home Page",
+    label: "字段名称",
+  },
+  type: {
+    type: ControlType.Enum,
+    placeholder: "选择类型",
+    label: "页面类型",
+    defaultValue: "large",
+    options: [
+      { label: "大的", value: "large" },
+      { label: "一般", value: "normal" },
+      { label: "小的", value: "small" },
+    ],
+  },
+  backgroundColor: {
+    type: ControlType.Color,
+    label: "背景颜色",
+  },
+});
+
+applyPropertyControls(Input, {
+  placeholder: {
+    type: ControlType.String,
+    defaultValue: "请输入",
+    label: "占位字符",
+  },
+  disabled: {
+    type: ControlType.Boolean,
+    defaultValue: false,
+    label: "是否禁用",
   },
 });
 
