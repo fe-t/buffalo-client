@@ -42,3 +42,7 @@ export interface CanvasComponent {
 export type CanvasElementType = ElementType & {
   propertyControls?: PropsMap;
 };
+
+export interface RenderPropsItem extends PropsItem {
+  name: string;
+}

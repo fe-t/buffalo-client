@@ -1,13 +1,4 @@
-import {
-  Empty,
-  Input,
-  Link,
-  Popover,
-  Select,
-  Spacer,
-  Switch,
-  Tooltip,
-} from "@yy/tofu-ui-react";
+import { Empty, Link, Popover, Spacer, Tooltip } from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
 import toast from "react-hot-toast";
@@ -16,17 +7,12 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import {
   deleteCursorComponent,
   selectCursorComponent,
-  updateComponentProp,
 } from "../../store/editor/editorSlice";
 import { componentMap } from "../../store/editor/registerComponents";
-import { PropsItem } from "../../types";
-import {
-  default as Collapse,
-  default as Collpase,
-} from "../../widgets/Collapse";
-import ColorPicker from "../../widgets/ColorPicker";
+import { RenderPropsItem } from "../../types";
+import { default as Collapse } from "../../widgets/Collapse";
 import { FlexCenter, FlexEnd, FlexStart } from "../../widgets/styled";
-import { ControlType } from "./property-controls";
+import PropEditorSwitcher from "./PropEditorSwitcher";
 
 const CopyComponentBtn = () => {
   const handleClick = useCallback(() => {
@@ -83,12 +69,7 @@ const DeleteComponentBtn = () => {
   );
 };
 
-interface RenderPropsItem extends PropsItem {
-  name: string;
-}
-
 const PropsController = () => {
-  const dispatch = useAppDispatch();
   const component = useAppSelector(selectCursorComponent);
 
   const componentType = componentMap.get(component?.materialId);
@@ -105,21 +86,6 @@ const PropsController = () => {
       []
     );
   }, [component?.props, componentType?.propertyControls]);
-
-  const handlePropChange = useCallback(
-    (propKey: string, propValue: any) => {
-      if (component) {
-        dispatch(
-          updateComponentProp({
-            componentId: component.id,
-            propKey,
-            propValue,
-          })
-        );
-      }
-    },
-    [component, dispatch]
-  );
 
   return (
     <section className="PropsController" onClick={(e) => e.stopPropagation()}>
@@ -163,59 +129,15 @@ const PropsController = () => {
                         </FlexStart>
                       </div>
                       <Spacer y={0.5} />
-                      <div>
-                        {/* 布尔类型 */}
-                        {p.type === ControlType.Boolean && (
-                          <Switch
-                            checked={p.value}
-                            onChange={(e) =>
-                              handlePropChange(p.name, e.target.checked)
-                            }
-                          />
-                        )}
-                        {/* 字符串类型 */}
-                        {p.type === ControlType.String && (
-                          <Input
-                            placeholder={p.placeholder}
-                            value={p.value}
-                            onBlur={(e) => {
-                              handlePropChange(p.name, e.target.value);
-                            }}
-                          />
-                        )}
-                        {/* 选项（枚举）类型 */}
-                        {p.type === ControlType.Enum && (
-                          <Select
-                            placeholder={p.placeholder}
-                            value={p.value}
-                            onChange={(val) => {
-                              handlePropChange(p.name, val);
-                            }}
-                          >
-                            {p.options &&
-                              p.options.map((o) => (
-                                <Select.Option key={o.value} value={o.value}>
-                                  {o.label}
-                                </Select.Option>
-                              ))}
-                          </Select>
-                        )}
-                        {/* 颜色类型 */}
-                        {p.type === ControlType.Color && (
-                          <ColorPicker
-                            value={p.value}
-                            onChange={(c) => handlePropChange(p.name, c)}
-                          />
-                        )}
-                      </div>
+                      <PropEditorSwitcher propItem={p} />
                     </div>
                   );
                 })}
               </div>
             </Collapse>
-            <Collpase title="样式">
+            <Collapse title="样式">
               <p>样式</p>
-            </Collpase>
+            </Collapse>
           </Collapse.Group>
         </div>
       ) : (

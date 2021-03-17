@@ -1,5 +1,5 @@
 import { Popover } from "@yy/tofu-ui-react";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { SketchPicker } from "react-color";
 import { MdLink } from "react-icons/md";
 
@@ -7,6 +7,12 @@ const ColorPicker: FC<{
   value: string;
   onChange: (v: string) => void;
 }> = ({ value, onChange }) => {
+  const [selfValue, setSelfValue] = useState("");
+
+  useEffect(() => {
+    setSelfValue(value);
+  }, [value]);
+
   return (
     <div className="ColorPicker">
       <Popover
@@ -26,7 +32,11 @@ const ColorPicker: FC<{
         }
       >
         {/* TODO: support alpha */}
-        <SketchPicker color={value} onChangeComplete={(c) => onChange(c.hex)} />
+        <SketchPicker
+          color={selfValue}
+          onChange={(c) => setSelfValue(c.hex)}
+          onChangeComplete={(c) => onChange(c.hex)}
+        />
       </Popover>
     </div>
   );
