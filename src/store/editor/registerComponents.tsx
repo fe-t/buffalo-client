@@ -15,11 +15,17 @@ const Page: FC<{
   name: string;
   type: string;
   backgroundColor: string;
-}> = ({ children, name, type, backgroundColor }) => {
+  height: number;
+}> = ({ children, name, type, backgroundColor, height = 100 }) => {
   return (
     <div
       className="Page"
-      style={{ padding: "20px", border: "1px solid #999", backgroundColor }}
+      style={{
+        padding: "20px",
+        border: "1px solid #999",
+        backgroundColor,
+        height,
+      }}
     >
       <p>page: {name}</p>
       <p>type: {type}</p>
@@ -58,6 +64,14 @@ applyPropertyControls(Page, {
   backgroundColor: {
     type: ControlType.Color,
     label: "背景颜色",
+  },
+  height: {
+    type: ControlType.Number,
+    label: "高度",
+    defaultValue: 50,
+    extend: {
+      unit: "px",
+    },
   },
 });
 

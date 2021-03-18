@@ -5,6 +5,7 @@ import { updateComponentProp } from "../../store/editor/editorSlice";
 import { selectCursorComponent } from "../../store/editor/selectors";
 import { RenderPropsItem } from "../../types/index";
 import ColorPicker from "../../widgets/ColorPicker";
+import NumberEditor from "../../widgets/NumberEditor";
 import { ControlType } from "./property-controls";
 
 const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
@@ -69,6 +70,13 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
         <ColorPicker
           value={p.value}
           onChange={(c) => handlePropChange(p.name, c)}
+        />
+      )}
+      {/* 数字类型 */}
+      {p.type === ControlType.Number && (
+        <NumberEditor
+          propItem={p}
+          onChange={(v) => handlePropChange(p.name, v)}
         />
       )}
     </>

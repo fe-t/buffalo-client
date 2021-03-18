@@ -20,6 +20,10 @@ export interface PropsItem {
   desc?: string;
   /** 选项 */
   options?: { label: string; value: any }[];
+  /** 扩展 */
+  extend?: {
+    [k: string]: any;
+  };
 }
 
 export interface PropsMap {

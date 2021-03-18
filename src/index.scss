@@ -384,6 +384,8 @@ $variables: (
 
 .CollapseGroup {
 }
+.CollapseContent {
+}
 .Collapse {
   .CollapseHeader {
     height: 36px;
@@ -436,5 +438,39 @@ $variables: (
   .tf-popover-content {
     background-color: transparent;
     box-shadow: none;
+  }
+}
+
+.NumberEditor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .tf-input {
+    width: 60px;
+    height: 26px;
+    .tf-input-main input {
+      height: 24px;
+      font-size: 12px;
+    }
+    .tf-input-suffix {
+      height: 24px;
+      font-size: 12px;
+      color: var(--accents-color-6);
+    }
+  }
+  div[data-reach-slider-input] {
+    flex-grow: 1;
+    margin-right: 10px;
+    height: 3px;
+    div[data-reach-slider-range] {
+      background: var(--accents-color-7);
+    }
+    div[data-reach-slider-handle] {
+      height: 8px;
+      width: 8px;
+      background: var(--accents-color-7);
+      // user-select: none;
+      outline: none;
+    }
   }
 }
