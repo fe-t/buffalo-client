@@ -38,10 +38,23 @@ const ComponentWrap: FC<PropsWithChildren<{
     return canvasComponent.id === cursorComponentId;
   }, [canvasComponent.id, cursorComponentId]);
 
+  // Note: 需要这个才能触发 onDrop
+  const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    debugger;
+  };
+
   return (
     <div
       className={classNames("ComponentWrap", { active: isActive })}
       onClick={handleClick}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       {children}
       <div className="TopLeftDot ResizeDot" />
