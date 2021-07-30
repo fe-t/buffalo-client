@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { isArray } from "lodash";
 import React, {
   ElementType,
   FC,
@@ -97,6 +98,21 @@ const Canvas = () => {
     }
   }, [cursorComponentId, dispatch]);
 
+  const renderComponents = (components: CanvasComponent[]) => {
+    return components.map((c) => {
+      const ComponentType = componentMap.get(c.materialId) as ElementType;
+      let children: any = c.props.children; // TODO: fix type
+      if (isArray(children)) {
+        children = <>{renderComponents(children)}</>;
+      }
+      return (
+        <ComponentWrap key={c.id} canvasComponent={c}>
+          {ComponentType && <ComponentType {...c.props} children={children} />}
+        </ComponentWrap>
+      );
+    });
+  };
+
   return (
     <section
       className="Canvas"
@@ -104,16 +120,7 @@ const Canvas = () => {
       onDragOver={handleDragOver}
       onClick={unsetCursor}
     >
-      <ErrorBoundary>
-        {components.map((c) => {
-          const ComponentType = componentMap.get(c.materialId) as ElementType;
-          return (
-            <ComponentWrap key={c.id} canvasComponent={c}>
-              {ComponentType && <ComponentType {...c.props} />}
-            </ComponentWrap>
-          );
-        })}
-      </ErrorBoundary>
+      <ErrorBoundary>{renderComponents(components)}</ErrorBoundary>
     </section>
   );
 };

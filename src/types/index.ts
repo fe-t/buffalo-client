@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { ComponentType, ElementType } from "react";
 import { ControlType, ValueOf } from "../pages/Editor/property-controls";
 
 export interface PropsItem {
@@ -28,6 +28,7 @@ export interface PropsItem {
 
 export interface PropsMap {
   [k: string]: PropsItem;
+  // children?: CanvasComponent[];
 }
 export interface Material {
   id: string;

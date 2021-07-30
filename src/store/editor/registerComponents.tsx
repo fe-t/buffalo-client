@@ -37,10 +37,10 @@ const Page: FC<{
 /** 注册物料编辑属性 */
 applyPropertyControls(Page, {
   children: {
-    type: ControlType.String,
+    type: ControlType.ComponentInstance,
     required: true, // TODO: impl required
-    placeholder: "请输入内容",
-    defaultValue: "lorem ipsum",
+    placeholder: "选择子组件",
+    defaultValue: undefined,
     label: "子组件",
     desc: "Lorem ipsum sei weigs",
   },
@@ -68,7 +68,7 @@ applyPropertyControls(Page, {
   height: {
     type: ControlType.Number,
     label: "高度",
-    defaultValue: 50,
+    defaultValue: 100,
     extend: {
       unit: "px",
     },

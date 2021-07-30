@@ -2,7 +2,10 @@ import { Input, Select, Switch } from "@yy/tofu-ui-react";
 import React, { FC, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { updateComponentProp } from "../../store/editor/editorSlice";
-import { selectCursorComponent } from "../../store/editor/selectors";
+import {
+  selectCursorComponent,
+  selectMaterials,
+} from "../../store/editor/selectors";
 import { RenderPropsItem } from "../../types/index";
 import ColorPicker from "../../widgets/ColorPicker";
 import NumberEditor from "../../widgets/NumberEditor";
@@ -13,6 +16,7 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
 }) => {
   const dispatch = useAppDispatch();
   const component = useAppSelector(selectCursorComponent);
+  const materials = useAppSelector(selectMaterials);
 
   const handlePropChange = useCallback(
     (propKey: string, propValue: any) => {
@@ -78,6 +82,25 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
           propItem={p}
           onChange={(v) => handlePropChange(p.name, v)}
         />
+      )}
+      {/* 组件实例 */}
+      {p.type === ControlType.ComponentInstance && (
+        <Select
+          placeholder={p.placeholder}
+          value={p.value}
+          onChange={(v) => handlePropChange(p.name, v)}
+        >
+          {materials.blocks.map((material) => (
+            <Select.Option key={material.id} value={material.id}>
+              {material.name}
+            </Select.Option>
+          ))}
+          {materials.widgets.map((material) => (
+            <Select.Option key={material.id} value={material.id}>
+              {material.name}
+            </Select.Option>
+          ))}
+        </Select>
       )}
     </>
   );
