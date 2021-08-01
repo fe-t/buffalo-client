@@ -1,3 +1,4 @@
+import { flatMap, map } from "lodash";
 import { RootState } from "..";
 
 // 当前游标选择组件的 id
@@ -7,6 +8,7 @@ export const selectCursorComponentId = (state: RootState) =>
 // 当前游标选择的组件
 export const selectCursorComponent = (state: RootState) => {
   const components = state.editor.present.components;
+  // const flattenComponent = flatMap(components, ({ props }) => props.children);
   const cursorId = state.editor.present.cursorComponentId;
   return components.filter((c) => c.id === cursorId)[0];
 };

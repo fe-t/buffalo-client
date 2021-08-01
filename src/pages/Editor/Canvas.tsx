@@ -107,7 +107,11 @@ const Canvas = () => {
       }
       return (
         <ComponentWrap key={c.id} canvasComponent={c}>
-          {ComponentType && <ComponentType {...c.props} children={children} />}
+          <ErrorBoundary>
+            {ComponentType && (
+              <ComponentType {...c.props} children={children} />
+            )}
+          </ErrorBoundary>
         </ComponentWrap>
       );
     });
