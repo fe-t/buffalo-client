@@ -240,11 +240,18 @@ $variables: (
 .Content {
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
 }
 .Canvas {
   flex-grow: 1;
   background-color: var(--theme-background-color);
   margin: 10px;
+}
+.CanvasBreadcrumb {
+  padding: 10px 10px 0 10px;
+  .tf-breadcrumbs .tf-breadcrumbs-item {
+    font-size: 14px;
+  }
 }
 
 // .PropControllPopper {
