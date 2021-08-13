@@ -147,6 +147,7 @@ $variables: (
 }
 
 .Sider {
+  position: relative;
   flex-shrink: 0;
   width: 300px;
   background-color: var(--theme-background-color);
@@ -479,5 +480,19 @@ $variables: (
       // user-select: none;
       outline: none;
     }
+  }
+}
+
+.ComponentTree {
+  // position: absolute;
+  // bottom: 0;
+  height: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid var(--accents-color-10);
+  overflow: auto;
+  .ComponentTreeName {
+    padding: 10px;
+    font-size: 16px;
   }
 }

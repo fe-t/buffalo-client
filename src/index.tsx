@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Toaster } from "react-hot-toast";
+import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import "./index.scss";
 import Editor from "./pages/Editor";
 import reportWebVitals from "./reportWebVitals";

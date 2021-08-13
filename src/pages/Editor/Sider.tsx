@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppSelector } from "../../store";
 import { selectComponents } from "../../store/editor/selectors";
+import ComponentTree from "./ComponentTree";
 import MaterialList from "./MaterialList";
 import PropsController from "./PropsController";
 
@@ -36,6 +37,7 @@ const Sider = () => {
           <MaterialList />
         </Tabs.TabPane>
       </div>
+      <ComponentTree />
     </section>
   );
 };
