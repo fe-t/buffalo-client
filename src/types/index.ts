@@ -1,4 +1,5 @@
-import { ComponentType, ElementType } from "react";
+import { ElementType } from "react";
+import { CSSProperties } from "styled-components";
 import { ControlType, ValueOf } from "../pages/Editor/property-controls";
 
 export interface PropsItem {
@@ -20,6 +21,8 @@ export interface PropsItem {
   desc?: string;
   /** 选项 */
   options?: { label: string; value: any }[];
+  /** 包装器样式 */
+  wrapperStyle?: CSSProperties;
   /** 扩展 */
   extend?: {
     [k: string]: any;

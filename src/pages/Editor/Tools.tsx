@@ -1,4 +1,4 @@
-import { Button, Icon, Spacer, Tabs, Tooltip } from "@yy/tofu-ui-react";
+import { Button, Spacer, Tabs, Tooltip } from "@yy/tofu-ui-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { MdBrush, MdCode, MdRedo, MdTv, MdUndo } from "react-icons/md";
