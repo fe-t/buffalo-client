@@ -325,6 +325,11 @@ $variables: (
 
 .MaterialItem {
   cursor: grab;
+  .DisplayIcon {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+  }
 }
 
 .PropsPaneFields {

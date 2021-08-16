@@ -2,6 +2,8 @@ import { Card, Spacer, Tabs } from "@yy/tofu-ui-react";
 import React, { useState } from "react";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
+import DisplayIcon from "../../widgets/DisplayIcon";
+import SelectIcon from "../../assets/icons/select.svg";
 
 const MaterialList = () => {
   const [selectedTab, setSelectTab] = useState(0);
@@ -48,6 +50,7 @@ const MaterialList = () => {
                 data-material={m.id}
                 hoverable
               >
+                <DisplayIcon src={SelectIcon} />
                 {m.name} - {m.zhName}
               </Card>
               <Spacer y={0.5} />
