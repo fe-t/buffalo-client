@@ -76,9 +76,7 @@ const Canvas = () => {
     e.preventDefault();
     e.stopPropagation();
     const materialId = e.dataTransfer.getData("material");
-    const material = [...materials.widgets, ...materials.blocks].filter(
-      (m) => m.id === materialId
-    )[0];
+    const material = materials.filter((m) => m.id === materialId)[0];
     if (material) {
       dispatch(addComponent(material));
       toast.success(`添加物料成功: ${material.zhName}`);
@@ -94,9 +92,9 @@ const Canvas = () => {
 
   const unsetCursor = useCallback(() => {
     if (cursorComponentId) {
-      dispatch(cursorComponentBlur());
+      // dispatch(cursorComponentBlur());
     }
-  }, [cursorComponentId, dispatch]);
+  }, [cursorComponentId]);
 
   const renderComponents = (components: CanvasComponent[]) => {
     return components.map((c) => {

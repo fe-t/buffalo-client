@@ -13,10 +13,12 @@ const ARRAY = "array";
 const EVENT_HANDLER = "eventhandler";
 const STYLE = "style";
 const OBJECT = "object";
+const TEXTFIELD = "textfield";
 
 export type ValueOf<T> = T[keyof T];
 
 export const ControlType = {
+  TextField: TEXTFIELD,
   Boolean: BOOLEAN,
   Enum: ENUM,
   Number: NUMBER,

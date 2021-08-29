@@ -126,6 +126,13 @@ const PropsController = () => {
                               </Tooltip>
                             </>
                           )}
+                          {p.popHint && (
+                            <>
+                              <Spacer inline x={0.3} />
+                              {/* <Popover text={p.}>
+                              </Popover> */}
+                            </>
+                          )}
                         </FlexStart>
                       </div>
                       <Spacer y={0.5} />

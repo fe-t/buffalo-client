@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { ElementType, ReactNode } from "react";
 import { CSSProperties } from "styled-components";
 import { ControlType, ValueOf } from "../pages/Editor/property-controls";
 
@@ -18,7 +18,9 @@ export interface PropsItem {
   /** 属性标签 */
   label: string;
   /** 属性描述 */
-  desc?: string;
+  desc?: ReactNode;
+  /** 属性描述 */
+  popHint?: ReactNode;
   /** 选项 */
   options?: { label: string; value: any }[];
   /** 包装器样式 */
@@ -33,10 +35,13 @@ export interface PropsMap {
   [k: string]: PropsItem;
   // children?: CanvasComponent[];
 }
+
+export type MaterialType = "layout" | "form" | "display" | "navigation";
 export interface Material {
   id: string;
   name: string;
   zhName: string;
+  type: MaterialType;
 }
 
 export interface CanvasComponent {

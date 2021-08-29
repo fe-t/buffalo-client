@@ -22,7 +22,7 @@
     "antd": "^4.16.11",
     "blocks-ui": "^0.0.78",
     "classnames": "^2.2.6",
-    "form-render": "^1.6.2",
+    "form-render": "^1.6.7",
     "formik": "^2.2.6",
     "lodash": "^4.17.21",
     "react": "^17.0.1",

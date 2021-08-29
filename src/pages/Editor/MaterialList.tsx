@@ -25,7 +25,7 @@ const MaterialList = () => {
       </Tabs>
       <div className="MaterialList " onDragStart={handleDragStart}>
         <Tabs.TabPane value={selectedTab} index={0}>
-          {materials.blocks.map((m) => (
+          {materials.map((m) => (
             <React.Fragment key={m.id}>
               <Card
                 className="MaterialItem"
@@ -34,23 +34,6 @@ const MaterialList = () => {
                 data-material={m.id}
                 hoverable
               >
-                {m.name} - {m.zhName}
-              </Card>
-              <Spacer y={0.5} />
-            </React.Fragment>
-          ))}
-        </Tabs.TabPane>
-        <Tabs.TabPane value={selectedTab} index={1}>
-          {materials.widgets.map((m) => (
-            <React.Fragment key={m.id}>
-              <Card
-                className="MaterialItem"
-                size="small"
-                draggable
-                data-material={m.id}
-                hoverable
-              >
-                <DisplayIcon src={SelectIcon} />
                 {m.name} - {m.zhName}
               </Card>
               <Spacer y={0.5} />

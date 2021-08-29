@@ -1,13 +1,14 @@
 /**
  * 注册组件，让画布和属性编辑器能识别到
  */
-import { FC } from "react";
+import React, { FC } from "react";
 import {
   applyPropertyControls,
   ControlType,
 } from "../../pages/Editor/property-controls";
 import { CanvasElementType } from "../../types";
 import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
+import SchemaForm from "../../widgets/SchemaForm";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -88,9 +89,27 @@ applyPropertyControls(Input, {
   },
 });
 
+applyPropertyControls(SchemaForm, {
+  schema: {
+    type: ControlType.TextField,
+    defaultValue: "",
+    label: "定义模型",
+    desc: (
+      <span>
+        可以通过
+        <a href="https://x-render.gitee.io/tools/generator/playground">
+          在线schema编辑器
+        </a>
+        配置
+      </span>
+    ),
+  },
+});
+
 export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
   ["2", Input],
   ["3", Select],
   ["4", Page],
+  ["5", SchemaForm],
 ]);

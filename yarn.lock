@@ -6330,10 +6330,24 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-form-render@1.x, form-render@^1.6.2:
+form-render@1.x:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/form-render/-/form-render-1.6.2.tgz#e2b0535373da8ac4ee68e739a658749a92c90314"
   integrity sha512-P0c+ruoGU97sSKwtEZ6qme2+UVuXA914QTEdh0KgeprvG24KTO7+kCdC3UDfW/+USl7bCo0vb4K9JXEFr2AjSA==
+  dependencies:
+    "@ant-design/icons" "^4.0.2"
+    async-validator "^3.5.1"
+    color "^3.1.2"
+    lodash-es "^4.17.21"
+    moment "^2.24.0"
+    nanoid "^3.1.20"
+    rc-color-picker "^1.2.6"
+    virtualizedtableforantd4 "^1.1.2"
+
+form-render@^1.6.7:
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/form-render/-/form-render-1.6.7.tgz#d97ac3c41e89765e03396f56bb843c3b23bb6aa7"
+  integrity sha512-yGBdAV8VE3SKDj4BDdqBQLTj9Hp+e2LwW3NvLhtgHlwgFUUUiM04zJUQ7kXSN67BTCT3u30Et1x1ns8KpkwWhw==
   dependencies:
     "@ant-design/icons" "^4.0.2"
     async-validator "^3.5.1"

@@ -37,7 +37,7 @@ const Sider = () => {
           <MaterialList />
         </Tabs.TabPane>
       </div>
-      <ComponentTree />
+      {/* <ComponentTree /> */}
     </section>
   );
 };

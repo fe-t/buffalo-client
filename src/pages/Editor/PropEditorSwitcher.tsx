@@ -1,4 +1,4 @@
-import { Input, Select, Switch } from "@yy/tofu-ui-react";
+import { Input, Select, Switch, TextArea } from "@yy/tofu-ui-react";
 import React, { FC, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { updateComponentProp } from "../../store/editor/editorSlice";
@@ -90,17 +90,21 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
           value={p.value}
           onChange={(v) => handlePropChange(p.name, v)}
         >
-          {materials.blocks.map((material) => (
-            <Select.Option key={material.id} value={material.id}>
-              {material.name}
-            </Select.Option>
-          ))}
-          {materials.widgets.map((material) => (
+          {materials.map((material) => (
             <Select.Option key={material.id} value={material.id}>
               {material.name}
             </Select.Option>
           ))}
         </Select>
+      )}
+      {/* 文本框 */}
+      {p.type === "textfield" && (
+        <TextArea
+          autoSize
+          placeholder={p.placeholder}
+          value={p.value}
+          onChange={(v) => handlePropChange(p.name, v)}
+        />
       )}
     </>
   );

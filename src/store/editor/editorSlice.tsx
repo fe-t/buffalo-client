@@ -57,10 +57,7 @@ export const editorSlice = createSlice({
         const isComponentType = action.payload.propKey === "children";
         if (isComponentType) {
           const materialId = action.payload.propValue;
-          const material = [
-            ...state.materials.blocks,
-            ...state.materials.widgets,
-          ].find((x) => x.id === materialId);
+          const material = state.materials.find((x) => x.id === materialId);
           // const component =
           if (!material) {
             console.error("not such material, material id:", materialId);
