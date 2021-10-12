@@ -1,0 +1,28 @@
+image: harbor.yy.com/front_end/yyl:latest
+build:
+  stage: build
+  tags:
+    - webfe
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - output/
+      - gitlog
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+
+  script:
+    - echo $CI_COMMIT_REF_NAME
+    - yarn install
+    - mkdir -p ./output/pc/html
+    - CI=false yarn build
+    - cp --verbose -rf ./build/* ./output/pc/html/
+
+  after_script:
+    - git log -1 --pretty=medium >> gitlog
+  except:
+    - schedules
+  only:
+    - /^(master|dev|pre)$/
