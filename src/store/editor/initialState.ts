@@ -42,5 +42,11 @@ export const initialState: EditorState = {
       zhName: "表单",
       type: "form",
     },
+    {
+      id: "6",
+      name: "DataList",
+      zhName: "查询表格",
+      type: "form",
+    },
   ],
 };

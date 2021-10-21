@@ -9,6 +9,7 @@ import {
 import { CanvasElementType } from "../../types";
 import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
 import SchemaForm from "../../widgets/SchemaForm";
+import { Search, Table, withTable } from "@yy/data-table";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -106,10 +107,46 @@ applyPropertyControls(SchemaForm, {
   },
 });
 
+const DataListInner: FC<any> = (props) => {
+  const schema = {
+    type: "object",
+    properties: {
+      query: {
+        title: "输入框",
+        type: "string",
+        description: "输入ID或者名称搜索可梦宝",
+      },
+    },
+  };
+
+  const columns = [
+    { Header: "ID", accessor: "id" },
+    { Header: "名称", accessor: "name" },
+    { Header: "基础经验值", accessor: "base_experience" },
+    { Header: "形象", accessor: "sprites" },
+  ];
+
+  const searchApi = async (args: any) => {
+    return {
+      rows: [{}],
+      count: 0,
+    };
+  };
+
+  return (
+    <div>
+      <Search schema={schema as any} api={searchApi as any} />
+      <Table columns={columns} />
+    </div>
+  );
+};
+const DataList = withTable(DataListInner);
+
 export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
   ["2", Input],
   ["3", Select],
   ["4", Page],
   ["5", SchemaForm],
+  ["6", DataList],
 ]);
