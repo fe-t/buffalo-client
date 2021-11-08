@@ -20,7 +20,9 @@
     "@types/styled-components": "^5.1.7",
     "@yy/data-table": "^0.2.5",
     "@yy/tofu-ui-react": "^2.0.1-alpha.48",
+    "ahooks": "^2.10.12",
     "antd": "^4.16.11",
+    "axios": "^0.24.0",
     "blocks-ui": "^0.0.78",
     "classnames": "^2.2.6",
     "form-render": "^1.6.7",
@@ -41,9 +43,9 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "commit": "git add . && git-cz"
   },
@@ -66,7 +68,9 @@
     ]
   },
   "devDependencies": {
+    "customize-cra": "^1.0.0",
     "git-cz": "^4.7.6",
+    "react-app-rewired": "^2.1.8",
     "sass": "^1.32.5"
   }
 }

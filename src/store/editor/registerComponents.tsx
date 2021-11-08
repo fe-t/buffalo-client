@@ -36,6 +36,37 @@ const Page: FC<{
   );
 };
 
+const DataListInner: FC<any> = (props) => {
+  const schema = JSON.parse(props.schema);
+  console.log("blah", schema);
+
+  const columns = [
+    { Header: "ID", accessor: "id" },
+    { Header: "名称", accessor: "name" },
+    { Header: "基础经验值", accessor: "base_experience" },
+    { Header: "形象", accessor: "sprites" },
+  ];
+
+  const searchApi = async (args: any) => {
+    return {
+      rows: [{}],
+      count: 0,
+    };
+  };
+
+  return (
+    <div>
+      <Search
+        schema={schema as any}
+        api={searchApi as any}
+        hidden={props.hidden}
+      />
+      <Table columns={columns} />
+    </div>
+  );
+};
+const DataList = withTable(DataListInner);
+
 /** 注册物料编辑属性 */
 applyPropertyControls(Page, {
   children: {
@@ -107,40 +138,27 @@ applyPropertyControls(SchemaForm, {
   },
 });
 
-const DataListInner: FC<any> = (props) => {
-  const schema = {
-    type: "object",
-    properties: {
-      query: {
-        title: "输入框",
-        type: "string",
-        description: "输入ID或者名称搜索可梦宝",
-      },
-    },
-  };
-
-  const columns = [
-    { Header: "ID", accessor: "id" },
-    { Header: "名称", accessor: "name" },
-    { Header: "基础经验值", accessor: "base_experience" },
-    { Header: "形象", accessor: "sprites" },
-  ];
-
-  const searchApi = async (args: any) => {
-    return {
-      rows: [{}],
-      count: 0,
-    };
-  };
-
-  return (
-    <div>
-      <Search schema={schema as any} api={searchApi as any} />
-      <Table columns={columns} />
-    </div>
-  );
-};
-const DataList = withTable(DataListInner);
+applyPropertyControls(DataList, {
+  pathName: {
+    type: ControlType.String,
+    defaultValue: "",
+    label: "接口路径",
+    placeholder: "初始化/翻页时候请求的接口地址",
+    desc: <span>初始化/翻页时候请求的接口地址</span>,
+  },
+  schema: {
+    type: ControlType.TextField,
+    defaultValue:
+      '{"type":"object","properties":{"query":{"title":"输入框","type":"string","description":"输入ID或者名称搜索可梦宝"}}}',
+    label: "Schema",
+    placeholder: "查询表单Schema",
+  },
+  hidden: {
+    type: ControlType.Boolean,
+    defaultValue: false,
+    label: "是否隐藏查询表单",
+  },
+});
 
 export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
