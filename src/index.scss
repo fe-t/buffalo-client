@@ -146,6 +146,7 @@ $variables: (
   background-color: var(--accents-color-12);
 }
 
+.SiderRight,
 .Sider {
   position: relative;
   flex-shrink: 0;
@@ -270,7 +271,6 @@ $variables: (
 // }
 
 .ComponentWrap {
-  display: inline-block;
   position: relative;
   &::before {
     content: "";

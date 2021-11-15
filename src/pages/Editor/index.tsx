@@ -1,6 +1,7 @@
 import React from "react";
 import Content from "./Content";
 import Sider from "./Sider";
+import { SiderRight } from "./SiderRight";
 import Tools from "./Tools";
 import useRequest from "@ahooksjs/use-request";
 import axios from "axios";
@@ -14,6 +15,7 @@ const Editor = () => {
       <div className="EditorContent">
         <Sider />
         <Content />
+        <SiderRight />
       </div>
     </main>
   );
