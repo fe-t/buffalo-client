@@ -1,31 +1,42 @@
-import { Card, Spacer, Tabs } from "@yy/tofu-ui-react";
-import React, { useState } from "react";
+import { Card, Empty, Icon, Input, Spacer } from "@yy/tofu-ui-react";
+import React, { useMemo, useState } from "react";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
-import DisplayIcon from "../../widgets/DisplayIcon";
-import SelectIcon from "../../assets/icons/select.svg";
 
 const MaterialList = () => {
-  const [selectedTab, setSelectTab] = useState(0);
   const materials = useAppSelector(selectMaterials);
+  const [query, setQuery] = useState<string>("");
 
   const handleDragStart = (e: any) => {
     e.dataTransfer.setData("material", e.target.dataset.material);
   };
 
+  const handleQueryChange: any = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const displayingMaterials = useMemo(() => {
+    return materials.filter(
+      (m) =>
+        m.name.includes(query) ||
+        m.type.includes(query) ||
+        m.zhName.includes(query)
+    );
+  }, [materials, query]);
+
   return (
     <div className="MaterialContainer">
-      <Tabs
-        className="MaterialTabs"
-        value={selectedTab}
-        onChange={setSelectTab}
-      >
-        <Tabs.Tab label="块" />
-        <Tabs.Tab label="元件" />
-      </Tabs>
+      <Input
+        className="FramelessInput"
+        prefix={<Icon type="Search" />}
+        placeholder="搜索组件"
+        value={query}
+        onChange={handleQueryChange}
+      />
+      <Spacer y={0.5} />
       <div className="MaterialList " onDragStart={handleDragStart}>
-        <Tabs.TabPane value={selectedTab} index={0}>
-          {materials.map((m) => (
+        {displayingMaterials.length ? (
+          displayingMaterials.map((m) => (
             <React.Fragment key={m.id}>
               <Card
                 className="MaterialItem"
@@ -38,8 +49,10 @@ const MaterialList = () => {
               </Card>
               <Spacer y={0.5} />
             </React.Fragment>
-          ))}
-        </Tabs.TabPane>
+          ))
+        ) : (
+          <Empty text="没有找到组件" />
+        )}
       </div>
     </div>
   );

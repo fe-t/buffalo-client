@@ -508,3 +508,10 @@ $variables: (
     padding: 10px;
   }
 }
+
+.FramelessInput {
+  border: none;
+  &.tf-input--focus {
+    box-shadow: none;
+  }
+}
