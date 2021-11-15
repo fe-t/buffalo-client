@@ -1,6 +1,6 @@
-import { Empty, Link, Popover, Spacer, Tooltip } from "@yy/tofu-ui-react";
+import { Empty, Link, Popconfirm, Spacer, Tooltip } from "@yy/tofu-ui-react";
 import { capitalize } from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { MdContentCopy, MdDelete, MdInfoOutline } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../store";
@@ -11,7 +11,7 @@ import {
 import { componentMap } from "../../store/editor/registerComponents";
 import { RenderPropsItem } from "../../types";
 import { default as Collapse } from "../../widgets/Collapse";
-import { FlexCenter, FlexEnd, FlexStart } from "../../widgets/styled";
+import { FlexCenter, FlexStart } from "../../widgets/styled";
 import PropEditorSwitcher from "./PropEditorSwitcher";
 
 const CopyComponentBtn = () => {
@@ -28,44 +28,16 @@ const CopyComponentBtn = () => {
 
 const DeleteComponentBtn = () => {
   const dispatch = useAppDispatch();
-  const [visible, setVisible] = useState(false);
 
   return (
-    <Popover
-      placement="left"
-      trigger="click"
-      popupElClassName="PopoverPopup"
-      alwaysVisible={visible}
-      reference={
-        <Link block className="InfoTypeLink" onClick={() => setVisible(true)}>
-          <MdDelete size="18" />
-        </Link>
-      }
+    <Popconfirm
+      onConfirm={() => dispatch(deleteCursorComponent())}
+      title="确认删除该组件吗?"
     >
-      <Spacer y={0.5} />
-      <p>确认删除该组件吗？</p>
-      <Spacer y={1} />
-      <FlexEnd className="PopoverCtrl">
-        <Link
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            setVisible(false);
-          }}
-        >
-          取消
-        </Link>
-        <Spacer inline x={1} />
-        <Link
-          block
-          onClick={() => {
-            dispatch(deleteCursorComponent());
-            setVisible(false);
-          }}
-        >
-          确认
-        </Link>
-      </FlexEnd>
-    </Popover>
+      <Link block className="InfoTypeLink">
+        <MdDelete size="18" />
+      </Link>
+    </Popconfirm>
   );
 };
 
