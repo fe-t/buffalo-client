@@ -17,7 +17,8 @@ build:
     - echo $CI_COMMIT_REF_NAME
     - yarn install
     - mkdir -p ./output/pc/html
-    - CI=false yarn build
+    - if [ $CI_COMMIT_REF_NAME == "test" ]; then CI=false npm run build:test; fi;
+    - if [ $CI_COMMIT_REF_NAME == "master" ]; then CI=false npm run build; fi;
     - cp --verbose -rf ./build/* ./output/pc/html/
 
   after_script:
