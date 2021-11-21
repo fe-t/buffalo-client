@@ -23,3 +23,9 @@ export const FlexExpand = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const FullPage = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+`;
