@@ -10,6 +10,12 @@ export const editorSlice = createSlice({
   name: "editor",
   initialState,
   reducers: {
+    setAppName: (state, action: PayloadAction<string>) => {
+      state.appName = action.payload;
+    },
+    setAppConfig: (state, action: PayloadAction<object>) => {
+      state.appConfig = action.payload;
+    },
     setCursorComponentId: (state, action: PayloadAction<string>) => {
       state.cursorComponentId = action.payload;
     },
@@ -103,6 +109,8 @@ export const editorSlice = createSlice({
 });
 
 export const {
+  setAppName,
+  setAppConfig,
   setCursorComponentId,
   cursorComponentBlur,
   addComponent,

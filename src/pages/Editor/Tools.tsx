@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { MdBrush, MdCode, MdRedo, MdTv, MdUndo } from "react-icons/md";
 import { ActionCreators } from "redux-undo";
-import { useParamsBy } from "../../hooks";
-import { saveDetail } from "../../service";
 import { useAppDispatch, useAppSelector } from "../../store";
 
 const Tools = () => {
@@ -12,17 +10,6 @@ const Tools = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const past = useAppSelector((state) => state.editor.past);
   const future = useAppSelector((state) => state.editor.future);
-  const id = useParamsBy("id");
-
-  const save = async () => {
-    try {
-      await saveDetail({ id });
-      toast("保存成功");
-    } catch (e) {
-      console.error(e);
-      toast.error((e as any).message);
-    }
-  };
 
   return (
     <section className="Tools">
@@ -50,10 +37,6 @@ const Tools = () => {
             <MdRedo />
           </Button>
         </Tooltip>
-        <Spacer x={0.5} inline />
-        <Button onClick={save}>
-          <span>保存</span>
-        </Button>
       </div>
       <Tabs className="ToolsTabs" value={selectedTab} onChange={setSelectedTab}>
         <Tabs.Tab

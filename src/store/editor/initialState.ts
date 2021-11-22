@@ -5,6 +5,8 @@ interface EditorState {
   components: CanvasComponent[]; // 画布上的组件
   canvasComponentCounter: number;
   cursorComponentId?: string; // 当前编辑的组件
+  appConfig: object; // 暂时
+  appName: string; //
 }
 
 export const initialState: EditorState = {
@@ -49,4 +51,6 @@ export const initialState: EditorState = {
       type: "form",
     },
   ],
+  appConfig: {},
+  appName: "",
 };

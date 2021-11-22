@@ -18,6 +18,10 @@ export const FlexCenter = styled.div`
   justify-content: center;
 `;
 
+export const FlexCenterCol = styled(FlexCenter)`
+  flex-direction: column;
+`;
+
 export const FlexExpand = styled.div`
   display: flex;
   align-items: center;

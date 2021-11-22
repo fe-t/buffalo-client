@@ -519,3 +519,33 @@ $variables: (
 .tf-button {
   border-radius: 4px !important;
 }
+
+.Header {
+  height: 50px;
+  padding: 0 10px;
+  background-color: #001529;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--accents-color-6);
+  .tf-button.tf-button--emphasis {
+    color: white;
+  }
+}
+.Logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 0 24px;
+  background-image: url(./assets/images/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #001529;
+  background-blend-mode: luminosity;
+}
+.UpdateTime {
+  display: inline-flex;
+  height: 50px;
+  align-items: center;
+  font-size: 13px;
+}
