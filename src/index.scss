@@ -164,7 +164,7 @@ $variables: (
 .ToolsTabs.tf-tabs,
 .MaterialTabs.tf-tabs,
 .SiderTabs.tf-tabs {
-  height: 60px;
+  height: 49px;
   padding: 0;
   .tf-tabs-main {
     display: flex;
@@ -234,9 +234,11 @@ $variables: (
 }
 
 .MaterialList {
+  padding: 10px;
+  box-sizing: border-box;
 }
 .MaterialContainer {
-  padding: 10px;
+  // padding: 0 10px 10px;
 }
 
 .Content {
@@ -325,6 +327,7 @@ $variables: (
 
 .MaterialItem {
   cursor: grab;
+  box-sizing: border-box;
   .DisplayIcon {
     display: inline-block;
     height: 50px;
@@ -339,6 +342,7 @@ $variables: (
 .PropsPane {
   .PropsPaneHeader {
     position: sticky;
+    position: -webkit-sticky;
     top: 0;
     left: 0;
     display: flex;
@@ -509,6 +513,14 @@ $variables: (
   }
 }
 
+.MaterialSearch {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 5px;
+  background-color: var(--theme-background-color);
+  border-bottom: 1px solid var(--accents-color-14);
+}
 .FramelessInput {
   border: none;
   &.tf-input--focus {

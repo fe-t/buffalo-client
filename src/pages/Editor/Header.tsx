@@ -1,7 +1,6 @@
 import { Button, Icon, Spacer } from "@yy/tofu-ui-react";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 import { useParamsBy } from "../../hooks";
 import { saveDetail } from "../../service";
 import { useAppSelector } from "../../store";
@@ -9,16 +8,22 @@ import { FlexCenter } from "../../widgets/styled";
 
 export const Header = () => {
   const id = useParamsBy("id");
+  const appName = useAppSelector((s) => s.editor.present.appName);
+  const components = useAppSelector((s) => s.editor.present.components);
+  const [submitting, setSubmitting] = useState(false);
+
   const save = async () => {
     try {
-      await saveDetail({ id });
+      setSubmitting(true);
+      await saveDetail({ id, components });
       toast("保存成功");
     } catch (e) {
       console.error(e);
       toast.error((e as any).message);
+    } finally {
+      setSubmitting(false);
     }
   };
-  const appName = useAppSelector((s) => s.editor.present.appName);
 
   return (
     <div className="Header">
@@ -34,7 +39,7 @@ export const Header = () => {
         </div>
       </FlexCenter>
       <div>
-        <Button type="emphasis" onClick={save}>
+        <Button type="emphasis" onClick={save} loading={submitting}>
           <span>保存</span>
         </Button>
       </div>

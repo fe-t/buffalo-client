@@ -38,7 +38,6 @@ const Page: FC<{
 
 const DataListInner: FC<any> = (props) => {
   const schema = JSON.parse(props.schema);
-  console.log("blah", schema);
 
   const columns = [
     { Header: "ID", accessor: "id" },

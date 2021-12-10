@@ -2,6 +2,9 @@ import axios from "axios";
 
 const HOSTNAME = `https://buffalo-sevice-test.yy.com`;
 
+/**
+ * 保存配置
+ */
 export const saveDetail = async (args: any) => {
   const { data } = await axios({
     method: "post",
@@ -9,6 +12,7 @@ export const saveDetail = async (args: any) => {
     data: {
       config: {
         name: "test-123123",
+        appConfig: JSON.stringify(args.components),
       },
     },
   });
@@ -19,6 +23,9 @@ export const saveDetail = async (args: any) => {
   }
 };
 
+/**
+ * 获得配置
+ */
 export const getDetail = async ({ id }: { id: string }) => {
   const { data } = await axios.get(`${HOSTNAME}/test-api/${id}`);
   if (data.code === 0) {

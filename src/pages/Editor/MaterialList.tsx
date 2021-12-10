@@ -26,14 +26,15 @@ const MaterialList = () => {
 
   return (
     <div className="MaterialContainer">
-      <Input
-        className="FramelessInput"
-        prefix={<Icon type="Search" />}
-        placeholder="搜索组件"
-        value={query}
-        onChange={handleQueryChange}
-      />
-      <Spacer y={0.5} />
+      <div className="MaterialSearch">
+        <Input
+          className="FramelessInput"
+          prefix={<Icon type="Search" />}
+          placeholder="搜索组件"
+          value={query}
+          onChange={handleQueryChange}
+        />
+      </div>
       <div className="MaterialList " onDragStart={handleDragStart}>
         {displayingMaterials.length ? (
           displayingMaterials.map((m) => (
