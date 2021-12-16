@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
         <ModalSwitch />
       </Router>
     </Provider>

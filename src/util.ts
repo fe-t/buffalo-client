@@ -4,3 +4,5 @@ export const sleep = (ms: number) =>
       resolve(undefined);
     }, ms);
   });
+
+export const DATETIME_FORMAT = "YYYY/MM/DD HH:mm:ss";

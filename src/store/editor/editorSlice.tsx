@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { remove } from "lodash";
+import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
 import { initialState } from "./initialState";
 import "./registerComponents";
@@ -10,6 +11,9 @@ export const editorSlice = createSlice({
   name: "editor",
   initialState,
   reducers: {
+    setVersionInfo: (state, action: PayloadAction<VersionInfo>) => {
+      state.versionInfo = action.payload;
+    },
     setAppName: (state, action: PayloadAction<string>) => {
       state.appName = action.payload;
     },
@@ -109,6 +113,7 @@ export const editorSlice = createSlice({
 });
 
 export const {
+  setVersionInfo,
   setAppName,
   setAppConfig,
   setCursorComponentId,

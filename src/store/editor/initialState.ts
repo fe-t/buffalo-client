@@ -1,3 +1,4 @@
+import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { CanvasComponent, Material } from "../../types";
 
 interface EditorState {
@@ -7,6 +8,7 @@ interface EditorState {
   cursorComponentId?: string; // 当前编辑的组件
   appConfig: object; // 暂时
   appName: string; //
+  versionInfo: VersionInfo;
 }
 
 export const initialState: EditorState = {
@@ -53,4 +55,5 @@ export const initialState: EditorState = {
   ],
   appConfig: {},
   appName: "",
+  versionInfo: {},
 };

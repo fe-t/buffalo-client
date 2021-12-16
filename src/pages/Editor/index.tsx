@@ -4,7 +4,11 @@ import React, { useEffect } from "react";
 import { useParamsBy } from "../../hooks";
 import { getDetail } from "../../service";
 import { useAppDispatch } from "../../store";
-import { setAppConfig, setAppName } from "../../store/editor/editorSlice";
+import {
+  setAppConfig,
+  setAppName,
+  setVersionInfo,
+} from "../../store/editor/editorSlice";
 import { FullPage } from "../../widgets/styled";
 import Content from "./Content";
 import { Header } from "./Header";
@@ -13,18 +17,19 @@ import { SiderRight } from "./SiderRight";
 import Tools from "./Tools";
 
 const Editor = () => {
-  // const { data } = useRequest(() => axios.get("/api/biz/allList"));
-  const id = useParamsBy("id");
-  const { data, loading } = useRequest(() => getDetail({ id: id as string }));
+  const versionId = useParamsBy("versionId");
+  const { data, loading } = useRequest(() => getDetail({ versionId }));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (data) {
-      if (data.config?.name) {
-        dispatch(setAppName(data.config.name)); // 暂时
-      }
-      if (data.config?.appConfig) {
-        dispatch(setAppConfig(data.config.name)); // 暂时
+      dispatch(setVersionInfo(data));
+
+      // if (data.version_config?.name) {
+      //   dispatch(setAppName(data.version_config?.name));
+      // }
+      if (data.version_config?.config) {
+        dispatch(setAppConfig(data.version_config?.config));
       }
     }
   }, [data, dispatch]);

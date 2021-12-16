@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   addComponent,
-  cursorComponentBlur,
   selectComponents,
   selectCursorComponentId,
   selectMaterials,

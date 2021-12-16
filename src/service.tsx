@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GetVersionConfigResult } from "./models/GetVersionConfigResult";
 
 const HOSTNAME = `https://buffalo-sevice-test.yy.com`;
 
@@ -8,12 +9,10 @@ const HOSTNAME = `https://buffalo-sevice-test.yy.com`;
 export const saveDetail = async (args: any) => {
   const { data } = await axios({
     method: "post",
-    url: `${HOSTNAME}/test-api/${args.id}`,
+    url: `${HOSTNAME}/version_modify/`,
     data: {
-      config: {
-        name: "test-123123",
-        appConfig: JSON.stringify(args.components),
-      },
+      versionId: args.versionId,
+      versionConfig: JSON.stringify(args.components),
     },
   });
   if (data.code === 0) {
@@ -24,10 +23,12 @@ export const saveDetail = async (args: any) => {
 };
 
 /**
- * 获得配置
+ * 查看版本配置
  */
-export const getDetail = async ({ id }: { id: string }) => {
-  const { data } = await axios.get(`${HOSTNAME}/test-api/${id}`);
+export const getDetail = async ({ versionId }: { versionId?: string }) => {
+  const { data } = await axios.get<GetVersionConfigResult>(
+    `${HOSTNAME}/version_list/${versionId}`
+  );
   if (data.code === 0) {
     return data.data;
   } else {
