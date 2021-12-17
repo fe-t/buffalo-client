@@ -1,6 +1,5 @@
-import { Button, Icon, Spacer } from "@yy/tofu-ui-react";
+import { Button, Icon, Spacer, Tooltip } from "@yy/tofu-ui-react";
 import dayjs from "dayjs";
-import { version } from "process";
 import qs from "qs";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -34,13 +33,26 @@ export const Header = () => {
       <FlexCenter>
         <div className="Logo" />
         <Spacer x={1} inline />
-        <span>{versionInfo.version_config?.name}</span>
-        <Spacer x={1} inline />
         <div className="UpdateTime">
-          <Icon type="RoundCheck" size="small" />
-          <Spacer x={0.3} inline />
-          最后更新于{" "}
-          {dayjs(Number(versionInfo.update_time)).format(DATETIME_FORMAT)}
+          <Tooltip
+            text={
+              <div>
+                <p>
+                  最后更新于
+                  {dayjs(Number(versionInfo.update_time)).format(
+                    DATETIME_FORMAT
+                  )}
+                </p>
+                <p>版本名称: {versionInfo.version_name}</p>
+              </div>
+            }
+          >
+            <FlexCenter>
+              <span>{versionInfo.version_config?.name}</span>
+              <Spacer x={0.5} inline />
+              <Icon type="RoundCheck" size="small" />
+            </FlexCenter>
+          </Tooltip>
         </div>
       </FlexCenter>
       <div>
