@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { Button, Input, Spacer } from "@yy/tofu-ui-react";
-import { Drawer } from "antd";
+import { Drawer, Space } from "antd";
 import React, { FC, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { FlexCenter } from "./styled";
@@ -10,12 +10,19 @@ interface Props {
   onChange: (v?: string) => void;
 }
 export const CodeModalEditor: FC<Props> = ({ value, onChange }) => {
-  const [v, setV] = useState(true);
+  const [v, setV] = useState(false);
   const close = () => setV(false);
   const show = () => setV(true);
 
   const formatted = value ? JSON.stringify(JSON.parse(value), null, 2) : "";
-  console.log("formatted", formatted);
+  // console.log("formatted", formatted);
+
+  const [selfValue, setSelfValue] = useState<string>(formatted);
+
+  const handleSubmit = () => {
+    onChange(selfValue);
+    setV(false);
+  };
 
   return (
     <FlexCenter>
@@ -25,6 +32,17 @@ export const CodeModalEditor: FC<Props> = ({ value, onChange }) => {
         onClose={close}
         placement="right"
         size="large"
+        destroyOnClose
+        extra={
+          <Space>
+            <Button type="cancel" onClick={close}>
+              取消
+            </Button>
+            <Button type="emphasis" onClick={handleSubmit}>
+              保存
+            </Button>
+          </Space>
+        }
       >
         <div className="CodeContainer">
           <Editor
@@ -32,10 +50,9 @@ export const CodeModalEditor: FC<Props> = ({ value, onChange }) => {
             defaultLanguage="json"
             defaultValue={formatted}
             onChange={(val) => {
-              console.log("val", val);
-              // onChange(val);
+              setSelfValue(val as string);
             }}
-            // theme="vs-dark"
+            theme="vs-dark"
           />
         </div>
       </Drawer>
@@ -51,7 +68,7 @@ export const CodeModalEditor: FC<Props> = ({ value, onChange }) => {
         }}
         size="s"
         type="emphasis"
-        onClick={() => setV(true)}
+        onClick={show}
       >
         <AiFillEdit />
       </Button>
