@@ -14,6 +14,7 @@ const EVENT_HANDLER = "eventhandler";
 const STYLE = "style";
 const OBJECT = "object";
 const TEXTFIELD = "textfield";
+const CODE_FIELD = "codefield";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -32,6 +33,7 @@ export const ControlType = {
   EventHandler: EVENT_HANDLER,
   Style: STYLE,
   Object: OBJECT,
+  CodeField: CODE_FIELD,
 };
 
 export const ControlMap = Object.entries(ControlType).reduce(

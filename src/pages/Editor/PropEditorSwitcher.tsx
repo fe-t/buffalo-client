@@ -7,6 +7,7 @@ import {
   selectMaterials,
 } from "../../store/editor/selectors";
 import { RenderPropsItem } from "../../types/index";
+import { CodeModalEditor } from "../../widgets/CodeModalEditor";
 import ColorPicker from "../../widgets/ColorPicker";
 import NumberEditor from "../../widgets/NumberEditor";
 import { ControlType } from "./property-controls";
@@ -98,10 +99,17 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
         </Select>
       )}
       {/* 文本框 */}
-      {p.type === "textfield" && (
+      {p.type === ControlType.TextField && (
         <TextArea
           autoSize
           placeholder={p.placeholder}
+          value={p.value}
+          onChange={(v) => handlePropChange(p.name, v)}
+        />
+      )}
+      {/* 代码输入框 */}
+      {p.type === ControlType.CodeField && (
+        <CodeModalEditor
           value={p.value}
           onChange={(v) => handlePropChange(p.name, v)}
         />

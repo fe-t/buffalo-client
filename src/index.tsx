@@ -10,14 +10,14 @@ import { HashRouter as Router } from "react-router-dom";
 import { ModalSwitch } from "./widgets/ModalSwitch";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <Toaster position="top-center" />
-        <ModalSwitch />
-      </Router>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <Router>
+      <Toaster position="top-center" />
+      <ModalSwitch />
+    </Router>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById("root")
 );
 

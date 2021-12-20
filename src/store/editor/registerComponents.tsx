@@ -146,7 +146,7 @@ applyPropertyControls(DataList, {
     desc: <span>初始化/翻页时候请求的接口地址</span>,
   },
   schema: {
-    type: ControlType.TextField,
+    type: ControlType.CodeField,
     defaultValue:
       '{"type":"object","properties":{"query":{"title":"输入框","type":"string","description":"输入ID或者名称搜索可梦宝"}}}',
     label: "Schema",
