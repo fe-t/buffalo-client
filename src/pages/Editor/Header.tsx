@@ -48,7 +48,7 @@ export const Header = () => {
             }
           >
             <FlexCenter>
-              <span>{versionInfo.version_config?.name}</span>
+              <span>{versionInfo.version_name}</span>
               <Spacer x={0.5} inline />
               <Icon type="RoundCheck" size="small" />
             </FlexCenter>

@@ -8,8 +8,13 @@ import { FlexCenter } from "./styled";
 interface Props {
   value: string;
   onChange: (v?: string) => void;
+  type?: string; // 语言类型
 }
-export const CodeModalEditor: FC<Props> = ({ value, onChange }) => {
+export const CodeModalEditor: FC<Props> = ({
+  value,
+  onChange,
+  type = "json",
+}) => {
   const [v, setV] = useState(false);
   const close = () => setV(false);
   const show = () => setV(true);
@@ -47,7 +52,7 @@ export const CodeModalEditor: FC<Props> = ({ value, onChange }) => {
         <div className="CodeContainer">
           <Editor
             height="500px"
-            defaultLanguage="json"
+            defaultLanguage={type}
             defaultValue={formatted}
             onChange={(val) => {
               setSelfValue(val as string);

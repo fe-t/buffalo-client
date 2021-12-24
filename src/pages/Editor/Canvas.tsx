@@ -20,9 +20,11 @@ import { componentMap } from "../../store/editor/registerComponents";
 import { CanvasComponent } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
 
-const ComponentWrap: FC<PropsWithChildren<{
-  canvasComponent: CanvasComponent;
-}>> = ({ children, canvasComponent }) => {
+const ComponentWrap: FC<
+  PropsWithChildren<{
+    canvasComponent: CanvasComponent;
+  }>
+> = ({ children, canvasComponent }) => {
   const dispatch = useAppDispatch();
   const cursorComponentId = useAppSelector(selectCursorComponentId);
 
@@ -96,22 +98,24 @@ const Canvas = () => {
   }, [cursorComponentId]);
 
   const renderComponents = (components: CanvasComponent[]) => {
-    return components.map((c) => {
-      const ComponentType = componentMap.get(c.materialId) as ElementType;
-      let children: any = c.props.children; // TODO: fix type
-      if (isArray(children)) {
-        children = <>{renderComponents(children)}</>;
-      }
-      return (
-        <ComponentWrap key={c.id} canvasComponent={c}>
-          <ErrorBoundary>
-            {ComponentType && (
-              <ComponentType {...c.props} children={children} />
-            )}
-          </ErrorBoundary>
-        </ComponentWrap>
-      );
-    });
+    return components
+      ? components.map((c) => {
+          const ComponentType = componentMap.get(c.materialId) as ElementType;
+          let children: any = c.props.children; // TODO: fix type
+          if (isArray(children)) {
+            children = <>{renderComponents(children)}</>;
+          }
+          return (
+            <ComponentWrap key={c.id} canvasComponent={c}>
+              <ErrorBoundary>
+                {ComponentType && (
+                  <ComponentType {...c.props} children={children} />
+                )}
+              </ErrorBoundary>
+            </ComponentWrap>
+          );
+        })
+      : null;
   };
 
   return (

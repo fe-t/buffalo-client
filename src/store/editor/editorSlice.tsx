@@ -51,6 +51,9 @@ export const editorSlice = createSlice({
       // // 设置新增的组件选中状态
       // state.cursorComponentId = nextCusorId;
     },
+    setSavedComponents: (state, action: PayloadAction<any>) => {
+      state.components = action.payload;
+    },
     updateComponentProp: (
       state,
       action: PayloadAction<{
@@ -121,6 +124,7 @@ export const {
   addComponent,
   updateComponentProp,
   deleteCursorComponent,
+  setSavedComponents,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

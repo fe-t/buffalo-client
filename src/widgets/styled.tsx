@@ -33,3 +33,9 @@ export const FullPage = styled.div`
   width: 100vw;
   height: 100vh;
 `;
+
+export const TabTitle = styled.div`
+  padding: 0 40px;
+  fontweight: bold;
+  fontsize: 16px;
+`;

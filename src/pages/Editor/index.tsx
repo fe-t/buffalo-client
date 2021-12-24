@@ -5,8 +5,7 @@ import { useParamsBy } from "../../hooks";
 import { getDetail } from "../../service";
 import { useAppDispatch } from "../../store";
 import {
-  setAppConfig,
-  setAppName,
+  setSavedComponents,
   setVersionInfo,
 } from "../../store/editor/editorSlice";
 import { FullPage } from "../../widgets/styled";
@@ -25,11 +24,13 @@ const Editor = () => {
     if (data) {
       dispatch(setVersionInfo(data));
 
-      // if (data.version_config?.name) {
-      //   dispatch(setAppName(data.version_config?.name));
-      // }
-      if (data.version_config?.config) {
-        dispatch(setAppConfig(data.version_config?.config));
+      const versionConfig =
+        typeof data.version_config === "string"
+          ? JSON.parse(data.version_config)
+          : data.version_config;
+
+      if (versionConfig && versionConfig.length) {
+        dispatch(setSavedComponents(versionConfig));
       }
     }
   }, [data, dispatch]);

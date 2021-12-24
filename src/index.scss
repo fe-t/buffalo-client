@@ -340,6 +340,20 @@ $variables: (
 }
 
 .PropsPane {
+  .PropsPaneHeaderSub {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 0 10px;
+    color: var(--accents-color-5);
+  }
+  .PropsPaneContent {
+    .ant-tabs-nav-wrap {
+      padding: 0 10px;
+    }
+  }
   .PropsPaneHeader {
     position: sticky;
     position: -webkit-sticky;
@@ -355,6 +369,7 @@ $variables: (
     & > p {
       color: var(--accents-color-3);
       font-size: 18px;
+      margin: 0;
       span:last-of-type {
         display: inline-block;
         color: var(--accents-color-5);
@@ -411,7 +426,8 @@ $variables: (
     justify-content: space-between;
     padding: 0 10px;
     background-color: var(--accents-color-15);
-    color: var(--accents-color-6);
+    color: var(--accents-color-4);
+    font-weight: bold;
     border-bottom: 1px solid var(--accents-color-10);
     font-size: 14px;
     cursor: pointer;
