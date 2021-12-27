@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@blocks/react": "^0.0.63",
+    "@emotion/css": "^11.7.1",
     "@mdx-js/react": "^1.6.22",
     "@monaco-editor/react": "^4.3.1",
     "@reach/slider": "^0.13.2",

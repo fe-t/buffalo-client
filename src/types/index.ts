@@ -50,6 +50,7 @@ export interface CanvasComponent {
   zhName: string;
   materialId: string;
   props: PropsMap;
+  style: Record<string, string>;
 }
 
 export type CanvasElementType = ElementType & {

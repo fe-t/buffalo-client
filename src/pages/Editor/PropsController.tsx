@@ -1,11 +1,4 @@
-import {
-  Button,
-  Empty,
-  Link,
-  Popconfirm,
-  Spacer,
-  Tooltip,
-} from "@yy/tofu-ui-react";
+import { Empty, Link, Popconfirm, Spacer, Tooltip } from "@yy/tofu-ui-react";
 import { Tabs } from "antd";
 import { capitalize } from "lodash";
 import React, { useCallback, useMemo } from "react";
@@ -18,8 +11,8 @@ import {
 } from "../../store/editor/editorSlice";
 import { componentMap } from "../../store/editor/registerComponents";
 import { RenderPropsItem } from "../../types";
-import { CodeModalEditor } from "../../widgets/CodeModalEditor";
 import { default as Collapse } from "../../widgets/Collapse";
+import { ComponentStyleEditor } from "../../widgets/ComponentStyleEditor";
 import { FlexCenter, FlexStart, TabTitle } from "../../widgets/styled";
 import PropEditorSwitcher from "./PropEditorSwitcher";
 
@@ -139,20 +132,7 @@ const PropsController = () => {
                 </Collapse.Group>
               </TabPane>
               <TabPane tab={<TabTitle>样式</TabTitle>} key="2">
-                <div>
-                  <Button type="weak">样式代码编辑</Button>
-                </div>
-                <Collapse.Group>
-                  <Collapse title="布局" defaultOpen>
-                    <p>布局</p>
-                  </Collapse>
-                  <Collapse title="定位">
-                    <p>定位</p>
-                  </Collapse>
-                  <Collapse title="字体">
-                    <p>字体</p>
-                  </Collapse>
-                </Collapse.Group>
+                <ComponentStyleEditor component={component} />
               </TabPane>
             </Tabs>
           </div>

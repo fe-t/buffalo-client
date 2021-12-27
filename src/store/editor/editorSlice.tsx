@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { remove } from "lodash";
+import { stringify } from "querystring";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
 import { initialState } from "./initialState";
@@ -46,6 +47,7 @@ export const editorSlice = createSlice({
         id: nextCusorId,
         materialId: material.id,
         props: serializeProps,
+        style: {},
       });
 
       // // 设置新增的组件选中状态
@@ -107,6 +109,20 @@ export const editorSlice = createSlice({
         );
       }
     },
+    updateComponentStyle: (
+      state,
+      action: PayloadAction<{
+        componentId: string;
+        style: Record<string, string>;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      if (target) {
+        target.style = action.payload.style;
+      }
+    },
     deleteCursorComponent: (state) => {
       remove(state.components, (c) => c.id === state.cursorComponentId);
       // 和清除游标
@@ -125,6 +141,7 @@ export const {
   updateComponentProp,
   deleteCursorComponent,
   setSavedComponents,
+  updateComponentStyle,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

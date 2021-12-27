@@ -109,7 +109,11 @@ const Canvas = () => {
             <ComponentWrap key={c.id} canvasComponent={c}>
               <ErrorBoundary>
                 {ComponentType && (
-                  <ComponentType {...c.props} children={children} />
+                  <ComponentType
+                    {...c.props}
+                    children={children}
+                    style={c.style}
+                  />
                 )}
               </ErrorBoundary>
             </ComponentWrap>
