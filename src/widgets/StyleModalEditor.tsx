@@ -1,7 +1,7 @@
 import Editor from "@monaco-editor/react";
 import { Button } from "@yy/tofu-ui-react";
 import { Drawer, Space } from "antd";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useReducer, useState } from "react";
 
 const toCamcel = (val: string) => {
   return val.replaceAll(/-([a-z])/g, (...args) => {
@@ -32,7 +32,7 @@ export const objectToCssString = (obj: object) => {
     .map(([k, v]) => `${k}: ${v}`)
     .join(";\n\t");
   string = string.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
-  return string + ";";
+  return string ? `${string};` : "";
 };
 
 const trimExtra = (val: string) => {
@@ -51,18 +51,28 @@ export const StyleModalEditor: FC<Props> = (props) => {
   const close = () => setV(false);
   const show = () => setV(true);
 
-  const [selfValue, setSelfValue] = useState<string>(() => {
-    // if (!value || isEmpty(value)) {
-    return `self {
-	${objectToCssString(value || {})}
-}	
-`;
-    // }
-    // return "";
-  });
+  const [selfValue, dispatchSelfValue] = useReducer(
+    (_state: any, action: { type: string; payload?: string }) => {
+      switch (action.type) {
+        case "init":
+          return `self {
+   	${objectToCssString(value || {})}
+}`;
+        case "update":
+          return action.payload;
+        default:
+          throw new Error();
+      }
+    },
+    ""
+  );
+
+  useEffect(() => {
+    dispatchSelfValue({ type: "init" });
+  }, [v]);
 
   const handleSubmit = () => {
-    const result = cssStringToObject(trimExtra(selfValue));
+    const result = cssStringToObject(trimExtra(selfValue as string));
     onChange(result);
     close();
   };
@@ -93,7 +103,7 @@ export const StyleModalEditor: FC<Props> = (props) => {
             defaultLanguage="css"
             defaultValue={selfValue}
             onChange={(val) => {
-              setSelfValue(val as string);
+              dispatchSelfValue({ type: "update", payload: val as string });
             }}
             theme="vs-dark"
           />
