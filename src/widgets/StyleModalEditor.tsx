@@ -1,7 +1,8 @@
 import Editor from "@monaco-editor/react";
-import { Button } from "@yy/tofu-ui-react";
+import { Button, Spacer } from "@yy/tofu-ui-react";
 import { Drawer, Space } from "antd";
 import React, { FC, useEffect, useReducer, useState } from "react";
+import { BiCodeAlt } from "react-icons/bi";
 
 const toCamcel = (val: string) => {
   return val.replaceAll(/-([a-z])/g, (...args) => {
@@ -110,7 +111,9 @@ export const StyleModalEditor: FC<Props> = (props) => {
         </div>
       </Drawer>
       <Button type="weak" style={{ width: "100%" }} onClick={show}>
-        样式代码编辑
+        <BiCodeAlt size="16px" />
+        <Spacer inline x={0.5} />
+        <span>样式代码编辑</span>
       </Button>
     </>
   );

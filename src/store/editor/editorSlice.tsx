@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { remove } from "lodash";
 import { stringify } from "querystring";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
@@ -29,7 +29,7 @@ export const editorSlice = createSlice({
     },
     addComponent: (state, action: PayloadAction<Material>) => {
       const material = action.payload;
-      const nextCusorId = `${++state.canvasComponentCounter}`;
+      // const nextCusorId = `${++state.canvasComponentCounter}`;
 
       // 获取到物料的默认属性
       const props = componentMap.get(material.id)?.propertyControls || {};
@@ -44,7 +44,7 @@ export const editorSlice = createSlice({
       // 把组件加入画布
       state.components.push({
         ...material,
-        id: nextCusorId,
+        id: nanoid(),
         materialId: material.id,
         props: serializeProps,
         style: {},
