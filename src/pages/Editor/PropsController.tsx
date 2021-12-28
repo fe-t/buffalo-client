@@ -83,7 +83,12 @@ const PropsController = () => {
           </div>
 
           <div className="PropsPaneContent">
-            <Tabs defaultActiveKey="1" onChange={() => {}} type="card">
+            <Tabs
+              defaultActiveKey="1"
+              onChange={() => {}}
+              type="card"
+              animated={{ tabPane: true, inkBar: true }}
+            >
               <TabPane tab={<TabTitle>属性</TabTitle>} key="1">
                 <Collapse.Group>
                   <Collapse title="基础组件属性" defaultOpen>
@@ -126,7 +131,10 @@ const PropsController = () => {
                       })}
                     </div>
                   </Collapse>
-                  <Collapse title="行为">
+                  <Collapse title="通用配置" defaultOpen>
+                    <p></p>
+                  </Collapse>
+                  <Collapse title="行为" defaultOpen>
                     <p>行为</p>
                   </Collapse>
                 </Collapse.Group>

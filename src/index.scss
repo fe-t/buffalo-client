@@ -353,6 +353,9 @@ $variables: (
     .ant-tabs-nav-wrap {
       padding: 0 10px;
     }
+    .ant-tabs-nav {
+      margin-bottom: 0;
+    }
   }
   .PropsPaneHeader {
     position: sticky;

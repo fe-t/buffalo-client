@@ -29,10 +29,10 @@ export const ComponentStyleEditor: FC<Props> = ({ component }) => {
         <Collapse title="布局" defaultOpen>
           <p>布局</p>
         </Collapse>
-        <Collapse title="定位">
+        <Collapse title="定位" defaultOpen>
           <p>定位</p>
         </Collapse>
-        <Collapse title="字体">
+        <Collapse title="字体" defaultOpen>
           <p>字体</p>
         </Collapse>
       </Collapse.Group>
