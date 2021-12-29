@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { FlexCenter } from "./styled";
+import { FlexCenter, FlexStart } from "./styled";
 import { StyleModalEditor } from "./StyleModalEditor";
 import { default as Collapse } from "./Collapse";
 import { CanvasComponent } from "../types";
@@ -27,7 +27,7 @@ export const ComponentStyleEditor: FC<Props> = ({ component }) => {
       </FlexCenter>
       <Collapse.Group>
         <Collapse title="布局" defaultOpen>
-          <p>布局</p>
+          布局
         </Collapse>
         <Collapse title="定位" defaultOpen>
           <p>定位</p>

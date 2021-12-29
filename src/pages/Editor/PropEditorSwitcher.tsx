@@ -10,6 +10,7 @@ import { RenderPropsItem } from "../../types/index";
 import { CodeModalEditor } from "../../widgets/CodeModalEditor";
 import ColorPicker from "../../widgets/ColorPicker";
 import NumberEditor from "../../widgets/NumberEditor";
+import { TableColumnsEditor } from "../../widgets/TableColumnsEditor";
 import { ControlType } from "./property-controls";
 
 const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
@@ -110,6 +111,12 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
       {/* 代码输入框 */}
       {p.type === ControlType.CodeField && (
         <CodeModalEditor
+          value={p.value}
+          onChange={(v) => handlePropChange(p.name, v)}
+        />
+      )}
+      {p.type === ControlType.TableColumns && (
+        <TableColumnsEditor
           value={p.value}
           onChange={(v) => handlePropChange(p.name, v)}
         />

@@ -15,6 +15,7 @@ const STYLE = "style";
 const OBJECT = "object";
 const TEXTFIELD = "textfield";
 const CODE_FIELD = "codefield";
+const TABLE_COLUMNS = "tableColumns";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -34,6 +35,7 @@ export const ControlType = {
   Style: STYLE,
   Object: OBJECT,
   CodeField: CODE_FIELD,
+  TableColumns: TABLE_COLUMNS,
 };
 
 export const ControlMap = Object.entries(ControlType).reduce(

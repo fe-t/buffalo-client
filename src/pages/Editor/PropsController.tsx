@@ -1,4 +1,11 @@
-import { Empty, Link, Popconfirm, Spacer, Tooltip } from "@yy/tofu-ui-react";
+import {
+  Empty,
+  Link,
+  Popconfirm,
+  Popover,
+  Spacer,
+  Tooltip,
+} from "@yy/tofu-ui-react";
 import { Tabs } from "antd";
 import { capitalize } from "lodash";
 import React, { useCallback, useMemo } from "react";
@@ -14,6 +21,7 @@ import { RenderPropsItem } from "../../types";
 import { default as Collapse } from "../../widgets/Collapse";
 import { ComponentStyleEditor } from "../../widgets/ComponentStyleEditor";
 import { FlexCenter, FlexStart, TabTitle } from "../../widgets/styled";
+import { ActionController } from "./ActionController";
 import PropEditorSwitcher from "./PropEditorSwitcher";
 
 const { TabPane } = Tabs;
@@ -118,8 +126,17 @@ const PropsController = () => {
                                 {p.popHint && (
                                   <>
                                     <Spacer inline x={0.3} />
-                                    {/* <Popover text={p.}>
-                              </Popover> */}
+                                    <Popover
+                                      placement="top"
+                                      reference={
+                                        <MdInfoOutline
+                                          size="16"
+                                          style={{ marginTop: 4 }}
+                                        />
+                                      }
+                                    >
+                                      {p.popHint}
+                                    </Popover>
                                   </>
                                 )}
                               </FlexStart>
@@ -135,7 +152,7 @@ const PropsController = () => {
                     <p></p>
                   </Collapse>
                   <Collapse title="行为" defaultOpen>
-                    <p>行为</p>
+                    <ActionController />
                   </Collapse>
                 </Collapse.Group>
               </TabPane>

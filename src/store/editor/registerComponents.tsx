@@ -7,7 +7,7 @@ import {
   ControlType,
 } from "../../pages/Editor/property-controls";
 import { CanvasElementType } from "../../types";
-import { Datagrid, Input, Select } from "@yy/tofu-ui-react";
+import { Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
 import SchemaForm from "../../widgets/SchemaForm";
 import { Search, Table, withTable } from "@yy/data-table";
 
@@ -36,15 +36,14 @@ const Page: FC<{
   );
 };
 
-const DataListInner: FC<any> = (props) => {
-  const schema = JSON.parse(props.schema);
-
-  const columns = [
-    { Header: "ID", accessor: "id" },
-    { Header: "名称", accessor: "name" },
-    { Header: "基础经验值", accessor: "base_experience" },
-    { Header: "形象", accessor: "sprites" },
-  ];
+const DataListInner: FC<any> = ({
+  pathName,
+  schema,
+  hidden,
+  columns,
+  ...props
+}) => {
+  const _schema = JSON.parse(schema);
 
   const searchApi = async (args: any) => {
     return {
@@ -54,13 +53,9 @@ const DataListInner: FC<any> = (props) => {
   };
 
   return (
-    <div>
-      <Search
-        schema={schema as any}
-        api={searchApi as any}
-        hidden={props.hidden}
-      />
-      <Table columns={columns} />
+    <div {...props}>
+      <Search schema={_schema as any} api={searchApi as any} hidden={hidden} />
+      <Table columns={columns || []} />
     </div>
   );
 };
@@ -149,13 +144,30 @@ applyPropertyControls(DataList, {
     type: ControlType.CodeField,
     defaultValue:
       '{"type":"object","properties":{"query":{"title":"输入框","type":"string","description":"输入ID或者名称搜索可梦宝"}}}',
-    label: "Schema",
-    placeholder: "查询表单Schema",
+    label: "查询表单",
+    placeholder: "Schema",
+    popHint: (
+      <span>
+        协议生成的查询表单
+        <Link
+          href="http://webtest.yy.com/data-list-doc/2-demos.html"
+          block
+          target="_blank"
+        >
+          查看更多
+        </Link>
+      </span>
+    ),
   },
   hidden: {
     type: ControlType.Boolean,
     defaultValue: false,
     label: "是否隐藏查询表单",
+  },
+  columns: {
+    type: ControlType.TableColumns,
+    defaultValue: [],
+    label: "表格字段配置",
   },
 });
 
