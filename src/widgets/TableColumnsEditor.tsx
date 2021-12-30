@@ -2,9 +2,9 @@ import { ModalForm, ProFormSelect, ProFormText } from "@ant-design/pro-form";
 import { Empty, Spacer } from "@yy/tofu-ui-react";
 import { Button } from "antd";
 import React, { FC } from "react";
-import { AiFillDelete } from "react-icons/ai";
 import { MdPostAdd } from "react-icons/md";
 import { RiDragMoveFill } from "react-icons/ri";
+import { FiDelete } from "react-icons/fi";
 
 interface Props {
   value: any[];
@@ -37,7 +37,7 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
                 className="TableColumnsItemDelete"
                 onClick={() => deleteItem(x.accessor)}
               >
-                <AiFillDelete />
+                <FiDelete />
               </div>
             </div>
           ))

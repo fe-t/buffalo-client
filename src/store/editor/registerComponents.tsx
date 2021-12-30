@@ -10,6 +10,9 @@ import { CanvasElementType } from "../../types";
 import { Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
 import SchemaForm from "../../widgets/SchemaForm";
 import { Search, Table, withTable } from "@yy/data-table";
+import axios from "axios";
+import qs from "qs";
+import { useAppSelector } from "..";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -44,12 +47,20 @@ const DataListInner: FC<any> = ({
   ...props
 }) => {
   const _schema = JSON.parse(schema);
+  const mode = useAppSelector((s) => s.dataSource.mode);
 
   const searchApi = async (args: any) => {
-    return {
-      rows: [{}],
-      count: 0,
-    };
+    if (mode === "editor") {
+      return {
+        rows: [{}],
+        count: 0,
+      };
+    }
+    const res = await axios.get(
+      `${pathName}${qs.stringify({ ...args }, { addQueryPrefix: true })}`
+    );
+    debugger;
+    return {};
   };
 
   return (

@@ -11,7 +11,7 @@ interface EditorState {
   versionInfo: VersionInfo;
 }
 
-export const initialState: EditorState = {
+export const editorInitialState: EditorState = {
   cursorComponentId: "",
   canvasComponentCounter: 0,
   components: [],
@@ -56,4 +56,17 @@ export const initialState: EditorState = {
   appConfig: {},
   appName: "",
   versionInfo: {},
+};
+
+export type Mode = "editor" | "app";
+export interface DataSouceState {
+  mode: Mode;
+  $page: any; // 页面变量
+  $app: any; // 全局变量
+}
+
+export const dataSourceInitialState: DataSouceState = {
+  mode: "editor",
+  $page: undefined,
+  $app: undefined,
 };

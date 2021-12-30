@@ -1,16 +1,15 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { remove } from "lodash";
-import { stringify } from "querystring";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
-import { initialState } from "./initialState";
+import { editorInitialState } from "./initialState";
 import "./registerComponents";
 import { componentMap } from "./registerComponents";
 export * from "./selectors";
 
 export const editorSlice = createSlice({
   name: "editor",
-  initialState,
+  initialState: editorInitialState,
   reducers: {
     setVersionInfo: (state, action: PayloadAction<VersionInfo>) => {
       state.versionInfo = action.payload;
