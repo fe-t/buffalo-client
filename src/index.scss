@@ -619,7 +619,10 @@ $variables: (
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+  width: 100%;
+  overflow: hidden;
   cursor: move;
+  min-width: 0;
   &:hover {
     background-color: var(--accents-color-12);
   }
@@ -632,15 +635,26 @@ $variables: (
     align-items: center;
     font-weight: 300;
     color: var(--accents-color-3);
+    flex-grow: 1;
+    overflow: hidden;
   }
   .TableColumnsItemMoveIcon {
     margin-right: 10px;
   }
   .TableColumnsItemDelete {
     cursor: pointer;
+    flex-shrink: 0;
     &:hover {
       color: var(--error-color);
     }
+  }
+  .TableColumnsItemText {
+    white-space: nowrap;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 }
 .TableColumnsEditorAddButton {

@@ -1,16 +1,15 @@
 import { ModalForm, ProFormSelect, ProFormText } from "@ant-design/pro-form";
 import { Empty, Spacer } from "@yy/tofu-ui-react";
 import { Button, Descriptions, Popconfirm, Popover } from "antd";
-import React, { FC, useCallback, useMemo, useRef } from "react";
-import { MdPostAdd } from "react-icons/md";
-import { RiDragMoveFill } from "react-icons/ri";
-import { FiDelete } from "react-icons/fi";
-import toast from "react-hot-toast";
-import { useDrag, useDrop, DndProvider, DropTargetMonitor } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { XYCoord } from "dnd-core";
 import update from "immutability-helper";
+import React, { FC, useCallback, useMemo, useRef } from "react";
+import { DndProvider, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import toast from "react-hot-toast";
 import { BiInfoCircle } from "react-icons/bi";
+import { FiDelete } from "react-icons/fi";
+import { MdPostAdd } from "react-icons/md";
 
 // 例子： https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_hooks_ts/04-sortable/simple?from-embed=&file=/src/Card.tsx:453-474
 interface TableColumnsItemProps {
@@ -133,7 +132,7 @@ const TableColumnsItem: FC<TableColumnsItemProps> = ({
             style={{ cursor: "pointer" }}
           />
         </Popover>
-        <span>
+        <span className="TableColumnsItemText">
           {column.Header} - {column.accessor}
         </span>
       </div>
@@ -157,7 +156,7 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
   const columns = useMemo(() => value || [], [value]);
 
   const addColumns = (values: any) => {
-    if (columns.find((c) => c.accessor)) {
+    if (columns.find((c) => c.accessor === values.accessor)) {
       toast.error("已存在相同的类型的属性访问器（accessor), 请勿重复添加");
       return false;
     }
