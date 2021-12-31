@@ -1,7 +1,7 @@
 import { ModalForm, ProFormSelect, ProFormText } from "@ant-design/pro-form";
 import { Empty, Spacer } from "@yy/tofu-ui-react";
-import { Button, Popconfirm } from "antd";
-import React, { FC, useCallback, useRef } from "react";
+import { Button, Descriptions, Popconfirm, Popover } from "antd";
+import React, { FC, useCallback, useMemo, useRef } from "react";
 import { MdPostAdd } from "react-icons/md";
 import { RiDragMoveFill } from "react-icons/ri";
 import { FiDelete } from "react-icons/fi";
@@ -10,6 +10,7 @@ import { useDrag, useDrop, DndProvider, DropTargetMonitor } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { XYCoord } from "dnd-core";
 import update from "immutability-helper";
+import { BiInfoCircle } from "react-icons/bi";
 
 // 例子： https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_hooks_ts/04-sortable/simple?from-embed=&file=/src/Card.tsx:453-474
 interface TableColumnsItemProps {
@@ -99,6 +100,7 @@ const TableColumnsItem: FC<TableColumnsItemProps> = ({
 
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
+
   return (
     <div
       className="TableColumnsItem"
@@ -107,7 +109,30 @@ const TableColumnsItem: FC<TableColumnsItemProps> = ({
       data-handler-id={handlerId}
     >
       <div className="TableColumnsItemLeft">
-        <RiDragMoveFill className="TableColumnsItemMoveIcon" />
+        <Popover
+          content={
+            <div style={{ width: 300 }}>
+              <Descriptions
+                title="列信息"
+                size="small"
+                column={{ md: 1, sm: 1, xs: 1 }}
+              >
+                <Descriptions.Item label="属性访问名称">
+                  {column.accessor}
+                </Descriptions.Item>
+                <Descriptions.Item label="列标题">
+                  {column.Header}
+                </Descriptions.Item>
+              </Descriptions>
+            </div>
+          }
+          placement="left"
+        >
+          <BiInfoCircle
+            className="TableColumnsItemMoveIcon"
+            style={{ cursor: "pointer" }}
+          />
+        </Popover>
         <span>
           {column.Header} - {column.accessor}
         </span>
@@ -129,7 +154,7 @@ interface Props {
   onChange: (r: any[]) => void;
 }
 export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
-  const columns = value || [];
+  const columns = useMemo(() => value || [], [value]);
 
   const addColumns = (values: any) => {
     if (columns.find((c) => c.accessor)) {
@@ -157,7 +182,7 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
         })
       );
     },
-    [columns]
+    [columns, onChange]
   );
 
   return (
