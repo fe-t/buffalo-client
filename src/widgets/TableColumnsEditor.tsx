@@ -5,6 +5,7 @@ import React, { FC } from "react";
 import { MdPostAdd } from "react-icons/md";
 import { RiDragMoveFill } from "react-icons/ri";
 import { FiDelete } from "react-icons/fi";
+import toast from "react-hot-toast";
 
 interface Props {
   value: any[];
@@ -12,9 +13,14 @@ interface Props {
 }
 export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
   const columns = value || [];
+
   const addColumns = (values: any) => {
-    // TODO: 保证不能重复
+    if (columns.find((c) => c.accessor)) {
+      toast.error("已存在相同的类型的属性访问器（accessor), 请勿重复添加");
+      return false;
+    }
     onChange([...columns, values]);
+    return true;
   };
   const deleteItem = (accessor: string) => {
     const next = value.filter((x) => x.accessor !== accessor);
@@ -69,23 +75,22 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
           }}
           onFinish={async (values) => {
             // toast.success("提交成功");
-            addColumns(values);
-            return true;
+            return addColumns(values);
           }}
         >
           <ProFormText
-            width="md"
-            name="Header"
-            label="列标题"
+            width="sm"
+            name="accessor"
+            tooltip="对应接口字段名"
+            label="属性访问名称 (accessor)"
             placeholder="请输入"
             required
             rules={[{ required: true, message: "请填写" }]}
           />
           <ProFormText
-            width="sm"
-            name="accessor"
-            tooltip="对应接口字段名"
-            label="属性访问名称"
+            width="md"
+            name="Header"
+            label="列标题 (Header)"
             placeholder="请输入"
             required
             rules={[{ required: true, message: "请填写" }]}

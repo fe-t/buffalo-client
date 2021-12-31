@@ -619,7 +619,7 @@ $variables: (
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
-  cursor: pointer;
+  cursor: move;
   &:hover {
     background-color: var(--accents-color-12);
   }
