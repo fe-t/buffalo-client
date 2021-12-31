@@ -8,14 +8,18 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { HashRouter as Router } from "react-router-dom";
 import { ModalSwitch } from "./widgets/ModalSwitch";
+import { ConfigProvider } from "antd";
+import zhCN from "antd/lib/locale/zh_CN";
 
 ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <Router>
-      <Toaster position="top-center" />
-      <ModalSwitch />
-    </Router>
+    <ConfigProvider locale={zhCN}>
+      <Router>
+        <Toaster position="top-center" />
+        <ModalSwitch />
+      </Router>
+    </ConfigProvider>
   </Provider>,
   // </React.StrictMode>,
   document.getElementById("root")

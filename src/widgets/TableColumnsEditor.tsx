@@ -1,11 +1,128 @@
 import { ModalForm, ProFormSelect, ProFormText } from "@ant-design/pro-form";
 import { Empty, Spacer } from "@yy/tofu-ui-react";
-import { Button } from "antd";
-import React, { FC } from "react";
+import { Button, Popconfirm } from "antd";
+import React, { FC, useCallback, useRef } from "react";
 import { MdPostAdd } from "react-icons/md";
 import { RiDragMoveFill } from "react-icons/ri";
 import { FiDelete } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { useDrag, useDrop, DndProvider, DropTargetMonitor } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { XYCoord } from "dnd-core";
+import update from "immutability-helper";
+
+// 例子： https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_hooks_ts/04-sortable/simple?from-embed=&file=/src/Card.tsx:453-474
+interface TableColumnsItemProps {
+  index: number;
+  column: any;
+  onDeleteItem: (accessor: string) => void;
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
+}
+interface DragItem {
+  index: number;
+  id: string;
+  type: string;
+}
+const TableColumnsItem: FC<TableColumnsItemProps> = ({
+  index,
+  column,
+  moveCard,
+  onDeleteItem,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [{ handlerId }, drop] = useDrop({
+    accept: "card",
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item: DragItem, monitor: DropTargetMonitor) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+
+      // Get vertical middle
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset();
+
+      // Get pixels to the top
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+
+      // Time to actually perform the action
+      moveCard(dragIndex, hoverIndex);
+
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex;
+    },
+  });
+  const [{ isDragging }, drag] = useDrag({
+    type: "card",
+    item: () => {
+      return { id: column.accessor, index: index };
+    },
+    collect: (monitor: any) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  const opacity = isDragging ? 0 : 1;
+  drag(drop(ref));
+  return (
+    <div
+      className="TableColumnsItem"
+      ref={ref}
+      style={{ opacity }}
+      data-handler-id={handlerId}
+    >
+      <div className="TableColumnsItemLeft">
+        <RiDragMoveFill className="TableColumnsItemMoveIcon" />
+        <span>
+          {column.Header} - {column.accessor}
+        </span>
+      </div>
+      <Popconfirm
+        title={`确认删除「${column.Header}」列吗`}
+        onConfirm={() => onDeleteItem(column.accessor)}
+      >
+        <div className="TableColumnsItemDelete">
+          <FiDelete />
+        </div>
+      </Popconfirm>
+    </div>
+  );
+};
 
 interface Props {
   value: any[];
@@ -22,31 +139,44 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
     onChange([...columns, values]);
     return true;
   };
+
   const deleteItem = (accessor: string) => {
     const next = value.filter((x) => x.accessor !== accessor);
     onChange(next);
   };
 
+  const moveCard = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const dragCard = columns[dragIndex];
+      onChange(
+        update(columns, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        })
+      );
+    },
+    [columns]
+  );
+
   return (
     <>
       <div className="TableColumnsEditor">
         {columns.length ? (
-          columns.map((x) => (
-            <div className="TableColumnsItem" key={x.accessor}>
-              <div className="TableColumnsItemLeft">
-                <RiDragMoveFill className="TableColumnsItemMoveIcon" />
-                <span>
-                  {x.Header} - {x.accessor}
-                </span>
-              </div>
-              <div
-                className="TableColumnsItemDelete"
-                onClick={() => deleteItem(x.accessor)}
-              >
-                <FiDelete />
-              </div>
+          <DndProvider backend={HTML5Backend}>
+            <div className="TableColumnsItems">
+              {columns.map((x, i) => (
+                <TableColumnsItem
+                  index={i}
+                  column={x}
+                  key={x.accessor}
+                  onDeleteItem={deleteItem}
+                  moveCard={moveCard}
+                />
+              ))}
             </div>
-          ))
+          </DndProvider>
         ) : (
           <Empty text="无数据，请按下方按钮新增表格列" />
         )}
