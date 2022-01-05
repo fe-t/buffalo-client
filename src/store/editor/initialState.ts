@@ -52,6 +52,12 @@ export const editorInitialState: EditorState = {
       zhName: "查询表格",
       type: "form",
     },
+    {
+      id: "7",
+      name: "Button",
+      zhName: "按钮",
+      type: "form",
+    },
   ],
   appConfig: {},
   appName: "",

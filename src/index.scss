@@ -664,3 +664,15 @@ $variables: (
     margin-right: 5px;
   }
 }
+
+.ActionEditor {
+  height: 500px;
+  margin: -24px;
+  display: flex;
+}
+.ActionEditorTriggerCol,
+.ActionEditorExecutionCol {
+  width: 240px;
+  border-right: 1px solid var(--accents-color-10);
+  padding: 24px;
+}

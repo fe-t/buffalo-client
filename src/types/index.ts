@@ -1,5 +1,6 @@
-import { ElementType, ReactNode } from "react";
+import React, { ElementType, ReactNode } from "react";
 import { CSSProperties } from "styled-components";
+import { ActionType } from "../pages/Editor/action-controls";
 import { ControlType, ValueOf } from "../pages/Editor/property-controls";
 
 export interface PropsItem {
@@ -31,9 +32,28 @@ export interface PropsItem {
   };
 }
 
+export interface ActionItem {
+  /** 类型，属性编辑器会根据这个类型渲染属性编辑器组件 */
+  type: ValueOf<typeof ActionType>;
+  /** 是否必填写 */
+  required?: boolean;
+  /** 属性标签 */
+  label: string;
+  /** icon */
+  icon?: React.ReactNode;
+  /** 扩展 */
+  extend?: {
+    [k: string]: any;
+  };
+}
+
 export interface PropsMap {
   [k: string]: PropsItem;
   // children?: CanvasComponent[];
+}
+
+export interface ActionMap {
+  [k: string]: ActionItem;
 }
 
 export type MaterialType = "layout" | "form" | "display" | "navigation";
@@ -55,6 +75,7 @@ export interface CanvasComponent {
 
 export type CanvasElementType = ElementType & {
   propertyControls?: PropsMap;
+  actionControls?: ActionMap;
 };
 
 export interface RenderPropsItem extends PropsItem {

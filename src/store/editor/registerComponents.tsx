@@ -7,12 +7,18 @@ import {
   ControlType,
 } from "../../pages/Editor/property-controls";
 import { CanvasElementType } from "../../types";
-import { Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
+import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
 import SchemaForm from "../../widgets/SchemaForm";
 import { Search, Table, withTable } from "@yy/data-table";
 import axios from "axios";
 import qs from "qs";
 import { useAppSelector } from "..";
+import {
+  ActionType,
+  applyActionControls,
+} from "../../pages/Editor/action-controls";
+import { MdAdsClick } from "react-icons/md";
+import { BiLoader } from "react-icons/bi";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -71,6 +77,40 @@ const DataListInner: FC<any> = ({
   );
 };
 const DataList = withTable(DataListInner);
+
+applyPropertyControls(Button, {
+  children: {
+    type: ControlType.String,
+    required: true,
+    label: "按钮文字",
+    defaultValue: "按钮",
+  },
+  type: {
+    type: ControlType.Enum,
+    label: "类型",
+    options: ["normal", "emphasis", "weak", "confirm", "reject", "cancel"].map(
+      (x) => ({ label: x, value: x })
+    ),
+  },
+  size: {
+    type: ControlType.Enum,
+    label: "尺寸",
+    options: ["xl", "l", "m", "s", "xs"].map((x) => ({ label: x, value: x })),
+  },
+});
+
+applyActionControls(Button, {
+  onClick: {
+    type: ActionType.onClick,
+    label: "点击时",
+    icon: <MdAdsClick />,
+  },
+  onMount: {
+    type: ActionType.onMount,
+    label: "加载完成后",
+    icon: <BiLoader />,
+  },
+});
 
 /** 注册物料编辑属性 */
 applyPropertyControls(Page, {
@@ -189,4 +229,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["4", Page],
   ["5", SchemaForm],
   ["6", DataList],
+  ["7", Button],
 ]);

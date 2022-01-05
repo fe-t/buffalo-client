@@ -1,7 +1,12 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { BiLoader } from "react-icons/bi";
 import { MdAdsClick } from "react-icons/md";
+import { useAppSelector } from "../../store";
+import { componentMap } from "../../store/editor/registerComponents";
+import { selectCursorComponent } from "../../store/editor/selectors";
+import { RenderPropsItem } from "../../types";
+import { platformActionExecutions, platformActions } from "./action-controls";
 
 export const ActionController = () => {
   const [v, setV] = useState(false);
@@ -12,6 +17,24 @@ export const ActionController = () => {
     close();
   };
 
+  const component = useAppSelector(selectCursorComponent);
+  const componentType = componentMap.get(component?.materialId);
+  const actionList = useMemo(() => {
+    return Object.entries(componentType?.actionControls || {}).reduce(
+      (acc: RenderPropsItem[], [propName, propInfo]) => {
+        const item = { ...propInfo, name: propName };
+        // 如果 Canvas组件有值，读取 canvas 组件的值
+        if (component?.props[propName]) {
+          // item.value = component?.props[propName];
+        }
+        return [...acc, item];
+      },
+      []
+    );
+  }, [component?.props, componentType?.actionControls]);
+
+  console.log("actionList ", actionList);
+
   return (
     <>
       <Modal
@@ -21,10 +44,29 @@ export const ActionController = () => {
         onCancel={cancel}
         okText="保存"
         cancelText="取消"
-        width={1000}
+        width={1200}
       >
         <div className="ActionEditor">
-          <div className="ActionEditor"></div>
+          <div className="ActionEditorTriggerCol">
+            {Object.entries(platformActions).map(([actionKey, action]) => {
+              return (
+                <div className="ActionEditorTriggerRow" key={actionKey}>
+                  {action.label}
+                </div>
+              );
+            })}
+          </div>
+          <div className="ActionEditorExecutionCol">
+            {Object.entries(platformActionExecutions).map(
+              ([actionKey, action]) => {
+                return (
+                  <div className="ActionEditorTriggerRow" key={actionKey}>
+                    {action.label}
+                  </div>
+                );
+              }
+            )}
+          </div>
         </div>
       </Modal>
       <div className="ActionPaneFields">
