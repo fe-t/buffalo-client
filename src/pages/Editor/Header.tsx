@@ -64,7 +64,9 @@ export const Header = () => {
           type="emphasis"
           onClick={() => {
             window.open(
-              `http://localhost:3000/app/?${qs.stringify({ versionId })}`,
+              `https://webtest.yy.com/buffalo-apps/#/app/?${qs.stringify({
+                versionId,
+              })}`,
               "_blank"
             );
           }}
