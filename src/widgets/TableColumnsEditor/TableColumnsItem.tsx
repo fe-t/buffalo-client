@@ -1,8 +1,10 @@
-import { Descriptions, Popconfirm, Popover } from "antd";
+import { Button, Descriptions, Popconfirm, Popover, Tooltip } from "antd";
 import { FC, useRef } from "react";
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from "react-dnd";
+import { RiEdit2Fill } from "react-icons/ri";
 import { BiInfoCircle } from "react-icons/bi";
 import { FiDelete } from "react-icons/fi";
+import { ItemModalForm } from "./ItemModalForm";
 
 // 例子： https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_hooks_ts/04-sortable/simple?from-embed=&file=/src/Card.tsx:453-474
 interface TableColumnsItemProps {
@@ -125,6 +127,17 @@ export const TableColumnsItem: FC<TableColumnsItemProps> = ({
             style={{ cursor: "pointer" }}
           />
         </Popover>
+        <ItemModalForm
+          column={column}
+          trigger={
+            <Tooltip title="编辑列">
+              <Button
+                type="link"
+                icon={<RiEdit2Fill style={{ color: "#666666" }} />}
+              />
+            </Tooltip>
+          }
+        />
         <span className="TableColumnsItemText">
           {column.Header} - {column.accessor}
         </span>

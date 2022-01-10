@@ -1,35 +1,46 @@
-import { ModalForm, ProFormSelect, ProFormText } from "@ant-design/pro-form";
-import { Button } from "antd";
-import { FC } from "react";
-import { MdPostAdd } from "react-icons/md";
+import {
+  ModalForm,
+  ProFormInstance,
+  ProFormSelect,
+  ProFormText,
+} from "@ant-design/pro-form";
+import { FC, useEffect, useRef, useState } from "react";
+import { ColumnInfo } from "./TableColumnsEditor";
 
-interface ColumnInfo {
-  name: string;
-  company: string;
-}
-export const ItemModalForm: FC<{ addColumns?: (vals: ColumnInfo) => void }> = ({
-  addColumns,
-}) => {
+export const ItemModalForm: FC<{
+  editColumn?: (c: ColumnInfo) => boolean;
+  addColumn?: (c: ColumnInfo) => boolean;
+  trigger: JSX.Element;
+  column?: ColumnInfo;
+}> = ({ addColumn, editColumn, trigger, column }) => {
+  const [v, setV] = useState(false);
+  const formRef = useRef<ProFormInstance<ColumnInfo>>();
+
+  useEffect(() => {
+    if (typeof column !== "undefined") {
+      formRef.current?.setFieldsValue({
+        accessor: column.accessor,
+        Header: column.Header,
+        formatter: column.formatter,
+      });
+    }
+  }, [column, v]);
+
   return (
     <ModalForm<ColumnInfo>
-      title="新增列"
+      formRef={formRef}
+      title={column ? "编辑列" : "新增列"}
       autoFocusFirstInput
+      visible={v}
+      onVisibleChange={setV}
+      trigger={trigger}
       modalProps={{
         destroyOnClose: true,
         onCancel: () => console.log("run"),
+        okText: column ? "保存修改" : "提交",
       }}
-      onFinish={async (values) => {
-        return addColumns?.(values);
-      }}
-      trigger={
-        <Button
-          className="TableColumnsEditorAddButton"
-          icon={<MdPostAdd />}
-          block
-          type="dashed"
-        >
-          添加列
-        </Button>
+      onFinish={async (values) =>
+        column ? editColumn?.(values) : addColumn?.(values)
       }
     >
       <ProFormText
@@ -38,6 +49,7 @@ export const ItemModalForm: FC<{ addColumns?: (vals: ColumnInfo) => void }> = ({
         tooltip="对应接口字段名"
         label="属性访问名称 (accessor)"
         placeholder="请输入"
+        disabled={!!column}
         required
         rules={[{ required: true, message: "请填写" }]}
       />
@@ -63,11 +75,11 @@ export const ItemModalForm: FC<{ addColumns?: (vals: ColumnInfo) => void }> = ({
             },
             {
               value: "money",
-              label: "¥0,0.00",
+              label: "货币(¥0,0.00)",
             },
             {
               value: "0,0",
-              label: "千分符",
+              label: "数目(0,0)",
             },
           ];
         }}

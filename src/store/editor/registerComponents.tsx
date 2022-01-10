@@ -1,24 +1,21 @@
 /**
  * 注册组件，让画布和属性编辑器能识别到
  */
+import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
 import React, { FC } from "react";
+import { BiLoader } from "react-icons/bi";
+import { MdAdsClick } from "react-icons/md";
+import {
+  ActionType,
+  applyActionControls,
+} from "../../pages/Editor/action-controls";
 import {
   applyPropertyControls,
   ControlType,
 } from "../../pages/Editor/property-controls";
 import { CanvasElementType } from "../../types";
-import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
 import SchemaForm from "../../widgets/SchemaForm";
-import { Search, Table, withTable } from "@yy/data-table";
-import axios from "axios";
-import qs from "qs";
-import { useAppSelector } from "..";
-import {
-  ActionType,
-  applyActionControls,
-} from "../../pages/Editor/action-controls";
-import { MdAdsClick } from "react-icons/md";
-import { BiLoader } from "react-icons/bi";
+import { DataList } from "./LocalComponents/DataList";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -44,39 +41,6 @@ const Page: FC<{
     </div>
   );
 };
-
-const DataListInner: FC<any> = ({
-  pathName,
-  schema,
-  hidden,
-  columns,
-  ...props
-}) => {
-  const _schema = JSON.parse(schema);
-  const mode = useAppSelector((s) => s.dataSource.mode);
-
-  const searchApi = async (args: any) => {
-    if (mode === "editor") {
-      return {
-        rows: [{}],
-        count: 0,
-      };
-    }
-    const res = await axios.get(
-      `${pathName}${qs.stringify({ ...args }, { addQueryPrefix: true })}`
-    );
-    debugger;
-    return {};
-  };
-
-  return (
-    <div {...props}>
-      <Search schema={_schema as any} api={searchApi as any} hidden={hidden} />
-      <Table columns={columns || []} />
-    </div>
-  );
-};
-const DataList = withTable(DataListInner);
 
 applyPropertyControls(Button, {
   children: {

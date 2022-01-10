@@ -1,11 +1,19 @@
 import { Empty, Spacer } from "@yy/tofu-ui-react";
+import { Button } from "antd";
 import update from "immutability-helper";
 import React, { FC, useCallback, useMemo } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import toast from "react-hot-toast";
+import { MdPostAdd } from "react-icons/md";
 import { ItemModalForm } from "./ItemModalForm";
 import { TableColumnsItem } from "./TableColumnsItem";
+
+export interface ColumnInfo {
+  accessor: string;
+  Header: string; // TODO: 展示只支持 string
+  formatter: string;
+}
 
 interface Props {
   value: any[];
@@ -14,12 +22,17 @@ interface Props {
 export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
   const columns = useMemo(() => value || [], [value]);
 
-  const addColumns = (values: any) => {
+  const addColumn = (values: any) => {
     if (columns.find((c) => c.accessor === values.accessor)) {
       toast.error("已存在相同的类型的属性访问器（accessor), 请勿重复添加");
       return false;
     }
     onChange([...columns, values]);
+    return true;
+  };
+
+  const editColumn = (values: any) => {
+    // const target =
     return true;
   };
 
@@ -64,8 +77,20 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
           <Empty text="无数据，请按下方按钮新增表格列" />
         )}
         <Spacer y={0.3} />
-
-        <ItemModalForm addColumns={addColumns} />
+        <ItemModalForm
+          addColumn={addColumn}
+          editColumn={editColumn}
+          trigger={
+            <Button
+              className="TableColumnsEditorAddButton"
+              icon={<MdPostAdd />}
+              block
+              type="dashed"
+            >
+              添加列
+            </Button>
+          }
+        />
       </div>
     </>
   );
