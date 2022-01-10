@@ -10,7 +10,7 @@ import { RenderPropsItem } from "../../types/index";
 import { CodeModalEditor } from "../../widgets/CodeModalEditor";
 import ColorPicker from "../../widgets/ColorPicker";
 import NumberEditor from "../../widgets/NumberEditor";
-import { TableColumnsEditor } from "../../widgets/TableColumnsEditor";
+import { TableColumnsEditor } from "../../widgets/TableColumnsEditor/TableColumnsEditor";
 import { ControlType } from "./property-controls";
 
 const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
