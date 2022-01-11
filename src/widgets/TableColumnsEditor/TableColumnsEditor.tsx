@@ -1,4 +1,4 @@
-import { Column, Empty, Spacer } from "@yy/tofu-ui-react";
+import { Empty, Spacer } from "@yy/tofu-ui-react";
 import { Button } from "antd";
 import produce from "immer";
 import update from "immutability-helper";
@@ -41,7 +41,6 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
       });
     });
     onChange(nextValue);
-
     return true;
   };
 

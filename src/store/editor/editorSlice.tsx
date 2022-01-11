@@ -72,9 +72,11 @@ export const editorSlice = createSlice({
         if (isComponentType) {
           const materialId = action.payload.propValue;
           const material = state.materials.find((x) => x.id === materialId);
-          // const component =
           if (!material) {
+            // TODO:
+            // 如果找不到 物料，即是string，插入 string
             console.error("not such material, material id:", materialId);
+            target.props[action.payload.propKey] = action.payload.propValue;
             return;
           }
 

@@ -45,7 +45,6 @@ const Page: FC<{
 applyPropertyControls(Button, {
   children: {
     type: ControlType.String,
-    required: true,
     label: "按钮文字",
     defaultValue: "按钮",
   },
