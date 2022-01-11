@@ -1,5 +1,6 @@
-import { Empty, Spacer } from "@yy/tofu-ui-react";
+import { Column, Empty, Spacer } from "@yy/tofu-ui-react";
 import { Button } from "antd";
+import produce from "immer";
 import update from "immutability-helper";
 import React, { FC, useCallback, useMemo } from "react";
 import { DndProvider } from "react-dnd";
@@ -20,7 +21,7 @@ interface Props {
   onChange: (r: any[]) => void;
 }
 export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
-  const columns = useMemo(() => value || [], [value]);
+  const columns: ColumnInfo[] = useMemo(() => value || [], [value]);
 
   const addColumn = (values: any) => {
     if (columns.find((c) => c.accessor === values.accessor)) {
@@ -31,13 +32,21 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
     return true;
   };
 
-  const editColumn = (values: any) => {
-    // const target =
+  const editColumn = (column: ColumnInfo) => {
+    const nextValue = produce(columns, (draft) => {
+      draft.forEach((c, i) => {
+        if (c.accessor === column.accessor) {
+          draft[i] = column;
+        }
+      });
+    });
+    onChange(nextValue);
+
     return true;
   };
 
   const deleteItem = (accessor: string) => {
-    const next = value.filter((x) => x.accessor !== accessor);
+    const next = columns.filter((x) => x.accessor !== accessor);
     onChange(next);
   };
 
@@ -69,6 +78,7 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
                   key={x.accessor}
                   onDeleteItem={deleteItem}
                   moveCard={moveCard}
+                  editColumn={editColumn}
                 />
               ))}
             </div>
@@ -79,7 +89,6 @@ export const TableColumnsEditor: FC<Props> = ({ value, onChange }) => {
         <Spacer y={0.3} />
         <ItemModalForm
           addColumn={addColumn}
-          editColumn={editColumn}
           trigger={
             <Button
               className="TableColumnsEditorAddButton"

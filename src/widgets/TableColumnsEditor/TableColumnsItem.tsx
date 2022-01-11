@@ -5,6 +5,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { BiInfoCircle } from "react-icons/bi";
 import { FiDelete } from "react-icons/fi";
 import { ItemModalForm } from "./ItemModalForm";
+import { ColumnInfo } from "./TableColumnsEditor";
 
 // 例子： https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_hooks_ts/04-sortable/simple?from-embed=&file=/src/Card.tsx:453-474
 interface TableColumnsItemProps {
@@ -12,6 +13,7 @@ interface TableColumnsItemProps {
   column: any;
   onDeleteItem: (accessor: string) => void;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
+  editColumn: (c: ColumnInfo) => boolean;
 }
 interface DragItem {
   index: number;
@@ -23,6 +25,7 @@ export const TableColumnsItem: FC<TableColumnsItemProps> = ({
   column,
   moveCard,
   onDeleteItem,
+  editColumn,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -128,6 +131,7 @@ export const TableColumnsItem: FC<TableColumnsItemProps> = ({
           />
         </Popover>
         <ItemModalForm
+          editColumn={editColumn}
           column={column}
           trigger={
             <Tooltip title="编辑列">
