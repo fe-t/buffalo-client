@@ -674,5 +674,15 @@ $variables: (
 .ActionEditorExecutionCol {
   width: 240px;
   border-right: 1px solid var(--accents-color-10);
-  padding: 24px;
+  padding: 24px 0;
+}
+
+.ActionEditorTriggerRow {
+  height: 34px;
+  line-height: 34px;
+  padding: 0 24px;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--accents-color-12);
+  }
 }
