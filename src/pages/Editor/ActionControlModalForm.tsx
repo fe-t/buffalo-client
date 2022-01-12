@@ -1,5 +1,8 @@
+import { Empty } from "@yy/tofu-ui-react";
 import { Modal } from "antd";
-import React, { FC } from "react";
+import classNames from "classnames";
+import React, { FC, useState } from "react";
+import { SetStateExecutionConfig } from "../../widgets/TableColumnsEditor/SetStateExecutionConfig";
 import { platformActionExecutions, platformActions } from "./action-controls";
 
 interface Props {
@@ -8,6 +11,9 @@ interface Props {
 }
 export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
   const save = () => {};
+
+  const [selectedAction, setSelectedAction] = useState<string>();
+  const [selectedExecution, setSelectedExecution] = useState<string>();
 
   return (
     <Modal
@@ -21,23 +27,49 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
     >
       <div className="ActionEditor">
         <div className="ActionEditorTriggerCol">
+          <p className="ActionEditorColTitle">1. 触发条件</p>
           {Object.entries(platformActions).map(([actionKey, action]) => {
             return (
-              <div className="ActionEditorTriggerRow" key={actionKey}>
+              <div
+                className={classNames("ActionEditorTriggerRow", {
+                  active: selectedAction === actionKey,
+                })}
+                key={actionKey}
+                onClick={() => setSelectedAction(actionKey)}
+              >
                 {action.label}
               </div>
             );
           })}
         </div>
         <div className="ActionEditorExecutionCol">
-          {Object.entries(platformActionExecutions).map(
-            ([actionKey, action]) => {
-              return (
-                <div className="ActionEditorTriggerRow" key={actionKey}>
-                  {action.label}
-                </div>
-              );
-            }
+          <p className="ActionEditorColTitle">2. 执行动作</p>
+          {selectedAction ? (
+            Object.entries(platformActionExecutions).map(
+              ([executionKey, execution]) => {
+                return (
+                  <div
+                    className={classNames("ActionEditorTriggerRow", {
+                      active: selectedExecution === executionKey,
+                    })}
+                    key={executionKey}
+                    onClick={() => setSelectedExecution(executionKey)}
+                  >
+                    {execution.type} {execution.label}
+                  </div>
+                );
+              }
+            )
+          ) : (
+            <Empty text="请选择触发条件" style={{ height: "300px" }} />
+          )}
+        </div>
+        <div className="ExecutionConfigCol">
+          <p className="ActionEditorColTitle">3. 平台方法</p>
+          {selectedExecution ? (
+            selectedExecution === "setState" && <SetStateExecutionConfig />
+          ) : (
+            <Empty text="请选择执行动作" style={{ height: "300px" }} />
           )}
         </div>
       </div>

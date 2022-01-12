@@ -54,4 +54,8 @@ export const platformActionExecutions = {
     type: "showModal",
     label: "弹窗",
   },
+  navigateTo: {
+    type: "navigateTo",
+    label: "页面跳转",
+  },
 };

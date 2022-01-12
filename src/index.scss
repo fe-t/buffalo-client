@@ -676,13 +676,26 @@ $variables: (
   border-right: 1px solid var(--accents-color-10);
   padding: 24px 0;
 }
+.ExecutionConfigCol {
+  padding: 24px 0;
+  flex-grow: 1;
+}
 
 .ActionEditorTriggerRow {
   height: 34px;
   line-height: 34px;
   padding: 0 24px;
   cursor: pointer;
+  // font-weight: bold;
   &:hover {
     background-color: var(--accents-color-12);
   }
+  &.active {
+    background-color: var(--primary-color-outline);
+  }
+}
+
+.ActionEditorColTitle {
+  padding: 0 24px;
+  color: var(--accents-color-6);
 }
