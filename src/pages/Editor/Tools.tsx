@@ -12,7 +12,7 @@ const Tools = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const past = useAppSelector((state) => state.editor.past);
   const future = useAppSelector((state) => state.editor.future);
-  const [v, setV] = useState(true);
+  const [v, setV] = useState(false);
 
   return (
     <section className="Tools">

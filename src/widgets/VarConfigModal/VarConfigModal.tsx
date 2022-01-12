@@ -185,7 +185,7 @@ export const VarConfigModal: FC<Props> = ({ visible, setVisible }) => {
                   );
                 })
               ) : (
-                <Empty text="暂无变量" />
+                <Empty text="暂无变量, 点击『+』号新增变量" />
               )}
             </Panel>
             {/* <Panel
