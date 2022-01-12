@@ -64,15 +64,44 @@ export const editorInitialState: EditorState = {
   versionInfo: {},
 };
 
+export type DataType = "string" | "number" | "boolean" | "array" | "object";
+export interface DataConfig {
+  name: string;
+  type: string; // TODO: 默认普通，
+  dataType: DataType;
+  defaultValue?: any;
+  desc?: string;
+}
+
 export type Mode = "editor" | "app";
 export interface DataSouceState {
   mode: Mode;
-  $page: any; // 页面变量
-  $app: any; // 全局变量
+  $page: DataConfig[]; // 页面变量
+  $app: DataConfig[]; // 全局变量
 }
 
 export const dataSourceInitialState: DataSouceState = {
   mode: "editor",
-  $page: undefined,
-  $app: undefined,
+  $page: [
+    {
+      name: "apple",
+      type: "normal",
+      dataType: "string",
+      defaultValue: "apple",
+    },
+    {
+      name: "counter",
+      type: "normal",
+      dataType: "number",
+      defaultValue: 1,
+    },
+  ],
+  $app: [
+    // {
+    //   name: "banana",
+    //   type: "normal",
+    //   dataType: "string",
+    //   defaultValue: "banana",
+    // },
+  ],
 };

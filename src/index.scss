@@ -699,3 +699,32 @@ $variables: (
   padding: 0 24px;
   color: var(--accents-color-6);
 }
+
+.VarConfig {
+  display: flex;
+  .VarConfigLeft {
+    width: 400px;
+  }
+  .VarConfigRight {
+    flex-grow: 1;
+  }
+}
+.VarItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0 5px;
+  &:hover {
+    background-color: var(--accents-color-15);
+  }
+  &.active {
+    background-color: var(--primary-color-outline);
+  }
+  .VarItemIcon {
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: var(--primary-color-light);
+  }
+}

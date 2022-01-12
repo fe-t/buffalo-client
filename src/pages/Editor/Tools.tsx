@@ -4,12 +4,15 @@ import toast from "react-hot-toast";
 import { MdBrush, MdCode, MdRedo, MdTv, MdUndo } from "react-icons/md";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch, useAppSelector } from "../../store";
+import { HiVariable } from "react-icons/hi";
+import { VarConfigModal } from "../../widgets/VarConfigModal/VarConfigModal";
 
 const Tools = () => {
   const dispatch = useAppDispatch();
   const [selectedTab, setSelectedTab] = useState(0);
   const past = useAppSelector((state) => state.editor.past);
   const future = useAppSelector((state) => state.editor.future);
+  const [v, setV] = useState(true);
 
   return (
     <section className="Tools">
@@ -37,6 +40,16 @@ const Tools = () => {
             <MdRedo />
           </Button>
         </Tooltip>
+        <Spacer x={0.5} inline />
+        <VarConfigModal visible={v} setVisible={setV} />
+        <Button
+          type="weak"
+          onClick={() => {
+            setV(true);
+          }}
+        >
+          <HiVariable /> 变量
+        </Button>
       </div>
       <Tabs className="ToolsTabs" value={selectedTab} onChange={setSelectedTab}>
         <Tabs.Tab

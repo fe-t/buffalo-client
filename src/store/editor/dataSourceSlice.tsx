@@ -16,3 +16,6 @@ export const dataSourceSlice = createSlice({
     },
   },
 });
+
+export const { setAppData } = dataSourceSlice.actions;
+export default dataSourceSlice.reducer;
