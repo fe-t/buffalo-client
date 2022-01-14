@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 import { MdBrush, MdCode, MdRedo, MdTv, MdUndo } from "react-icons/md";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { HiVariable } from "react-icons/hi";
 import { VarConfigModal } from "../../widgets/VarConfigModal/VarConfigModal";
+import { AiOutlineFunction } from "react-icons/ai";
 
 const Tools = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +48,8 @@ const Tools = () => {
             setV(true);
           }}
         >
-          <HiVariable /> 变量
+          <AiOutlineFunction style={{ fontSize: "18px", color: "#ff4f4f" }} />{" "}
+          变量
         </Button>
       </div>
       <Tabs className="ToolsTabs" value={selectedTab} onChange={setSelectedTab}>
