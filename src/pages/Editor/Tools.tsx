@@ -4,8 +4,9 @@ import toast from "react-hot-toast";
 import { MdBrush, MdCode, MdRedo, MdTv, MdUndo } from "react-icons/md";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { HiVariable } from "react-icons/hi";
 import { VarConfigModal } from "../../widgets/VarConfigModal/VarConfigModal";
+import { AiOutlineFunction } from "react-icons/ai";
+import { ConfigModal } from "../../widgets/ConfigModal/ConfigModal";
 
 const Tools = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ const Tools = () => {
   const past = useAppSelector((state) => state.editor.past);
   const future = useAppSelector((state) => state.editor.future);
   const [v, setV] = useState(false);
+  const [configV, setConfigV] = useState(false);
 
   return (
     <section className="Tools">
@@ -48,7 +50,8 @@ const Tools = () => {
             setV(true);
           }}
         >
-          <HiVariable /> 变量
+          <AiOutlineFunction style={{ fontSize: "18px", color: "#ff4f4f" }} />{" "}
+          变量
         </Button>
       </div>
       <Tabs className="ToolsTabs" value={selectedTab} onChange={setSelectedTab}>
@@ -68,12 +71,13 @@ const Tools = () => {
         />
         <Tabs.Tab
           label={
-            <Tooltip text="代码">
+            <Tooltip onClick={() => setConfigV(true)} text="代码">
               <MdCode />
             </Tooltip>
           }
         />
       </Tabs>
+      <ConfigModal visible={configV} setVisible={setConfigV} ></ConfigModal>
     </section>
   );
 };
