@@ -35,6 +35,12 @@ export const ConfigModal: FC<Props> = ({ visible, setVisible }) => {
     }
   };
 
+  const handleFormatted = (contentStr: string) => {
+    const content = JSON.parse(contentStr)
+    const formatted = content ? JSON.stringify(content, null, 2) : "";
+    setConfig(formatted)
+  }
+
   useEffect(() => {
     const formatted = components ? JSON.stringify(components, null, 2) : "";
     setConfig(formatted)
@@ -50,11 +56,11 @@ export const ConfigModal: FC<Props> = ({ visible, setVisible }) => {
       footer={null}
       extra={
         <Space>
-          <Button type="cancel" onClick={close}>
-            取消
-          </Button>
           <Button type="emphasis" onClick={save} loading={submitting}>
             保存并刷新页面
+          </Button>
+          <Button onClick={() => { handleFormatted(config) }} >
+            格式化
           </Button>
         </Space>
       }
@@ -62,7 +68,7 @@ export const ConfigModal: FC<Props> = ({ visible, setVisible }) => {
       <Editor
         height="600px"
         defaultLanguage={'json'}
-        defaultValue={config}
+        value={config}
         onChange={(val) => {
           setConfig(val as string);
         }}
