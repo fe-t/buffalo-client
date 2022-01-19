@@ -4,7 +4,11 @@ import toast from "react-hot-toast";
 import { Button } from "@yy/tofu-ui-react";
 import { useAppSelector } from "../../store";
 import { useParamsBy } from "../../hooks";
-import { saveDetail } from "../../service";
+// import { saveDetail } from "../../service";
+import {
+  setSavedComponents
+} from "../../store/editor/editorSlice";
+import { useAppDispatch } from "../../store";
 
 import Editor from "@monaco-editor/react";
 
@@ -18,15 +22,17 @@ export const ConfigModal: FC<Props> = ({ visible, setVisible }) => {
   const formatted = components ? JSON.stringify(components, null, 2) : "";
   const [config, setConfig] = useState<string>(formatted);
   const [submitting, setSubmitting] = useState(false);
+  const dispatch = useAppDispatch();
   const versionId = useParamsBy("versionId");
   const close = () => setVisible(false);
   const save = async () => {
     try {
       setSubmitting(true);
       const components = JSON.parse(config)
-      await saveDetail({ versionId, components });
-      toast("保存成功，页面刷新中...");
-      window.location.reload()
+      // await saveDetail({ versionId, components });
+      dispatch(setSavedComponents(components));
+      toast("修改成功");
+      // window.location.reload()
     } catch (e) {
       console.error(e);
       toast.error((e as any).message);
@@ -57,7 +63,7 @@ export const ConfigModal: FC<Props> = ({ visible, setVisible }) => {
       extra={
         <Space>
           <Button type="emphasis" onClick={save} loading={submitting}>
-            保存并刷新页面
+            保存修改
           </Button>
           <Button onClick={() => { handleFormatted(config) }} >
             格式化
