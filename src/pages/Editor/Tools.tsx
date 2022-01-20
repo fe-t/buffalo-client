@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import { VarConfigModal } from "../../widgets/VarConfigModal/VarConfigModal";
 import { AiOutlineFunction } from "react-icons/ai";
 import { ConfigModal } from "../../widgets/ConfigModal/ConfigModal";
+import { ApiModal } from "../../widgets/ApiDrawer/ApiDrawer";
 
 const Tools = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ const Tools = () => {
   const future = useAppSelector((state) => state.editor.future);
   const [v, setV] = useState(false);
   const [configV, setConfigV] = useState(false);
+  const [apiV, setApiV] = useState(false)
 
   return (
     <section className="Tools">
@@ -53,6 +55,14 @@ const Tools = () => {
           <AiOutlineFunction style={{ fontSize: "18px", color: "#ff4f4f" }} />{" "}
           变量
         </Button>
+        <Button
+          type="weak"
+          onClick={() => {
+            setApiV(true);
+          }}
+        >
+          接口获取（test）
+        </Button>
       </div>
       <Tabs className="ToolsTabs" value={selectedTab} onChange={setSelectedTab}>
         <Tabs.Tab
@@ -77,6 +87,7 @@ const Tools = () => {
           }
         />
       </Tabs>
+      <ApiModal visible={apiV} setVisible={setApiV} ></ApiModal>
       <ConfigModal visible={configV} setVisible={setConfigV} ></ConfigModal>
     </section>
   );
