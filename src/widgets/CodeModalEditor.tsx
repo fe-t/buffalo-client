@@ -35,6 +35,7 @@ export const CodeModalEditor: FC<Props> = ({
         title="正在编辑..."
         visible={v}
         onClose={close}
+        mask={false}
         placement="right"
         size="large"
         destroyOnClose
