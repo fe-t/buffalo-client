@@ -10,7 +10,7 @@ export const saveDetail = async (args: any) => {
   const { data } = await axios({
     method: "post",
     url: `${HOSTNAME}/version_modify/`,
-    data: {
+    params: {
       versionId: args.versionId,
       versionConfig: JSON.stringify(args.components),
     },
