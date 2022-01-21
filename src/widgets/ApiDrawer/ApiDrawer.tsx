@@ -32,7 +32,7 @@ export const ApiModal: FC<Props> = ({ visible, setVisible }) => {
     const { data } = await axios({
       method: "get",
       url: `http://tagee.yy.com/api/projectInterface/get`,
-      data: {
+      params: {
         code: '61404cde495a1c9b8b9473773ac35a17'
       },
     });
