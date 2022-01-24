@@ -17,7 +17,6 @@ const { Search } = Input;
 
 export const ApiModal: FC<Props> = ({ visible, setVisible }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [tageeUrl, setTageeUrl] = useState('')
   const [uri, setUri] = useState('')
   const [domainList, setDomainList] = useState<any[]>([])
   const [inputData, setInputData] = useState('{}')
@@ -25,6 +24,7 @@ export const ApiModal: FC<Props> = ({ visible, setVisible }) => {
   const close = () => setVisible(false);
 
   const getApiInfo = async (code: string) => {
+    setSubmitting(true)
     const { data } = await axios({
       method: "get",
       url: `http://tagee.yy.com/api/projectInterface/get`,
@@ -32,10 +32,12 @@ export const ApiModal: FC<Props> = ({ visible, setVisible }) => {
         code: code
       },
     });
+    setSubmitting(false)
     if (data.code === 0) {
       const { uri, extendList, inputParam, outputParam } = data.data
-      setDomainList(extendList)
+      console.log(data.data)
       setUri(uri)
+      setDomainList(extendList)
       const inputData = handleInputParam(inputParam)
       const outputData = handleOutputParam(outputParam)
       setInputData(inputData ? JSON.stringify(inputData, null, 2) : "")
@@ -54,7 +56,6 @@ export const ApiModal: FC<Props> = ({ visible, setVisible }) => {
       width={800}
       footer={null}
       extra={
-        // getApiInfo()
         <Space>
           <Search style={{ width: 500 }} placeholder="请输入tagee url" enterButton="获取接口信息" onSearch={(value: string) => {
             const url = value
