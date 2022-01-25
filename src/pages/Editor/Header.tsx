@@ -13,12 +13,17 @@ export const Header = () => {
   const versionId = useParamsBy("versionId");
   const versionInfo = useAppSelector((s) => s.editor.present.versionInfo);
   const components = useAppSelector((s) => s.editor.present.components);
+  const dataSource = useAppSelector((s) => s.dataSource);
   const [submitting, setSubmitting] = useState(false);
 
   const save = async () => {
     try {
       setSubmitting(true);
-      await saveDetail({ versionId, components });
+      await saveDetail({
+        versionId,
+        components,
+        dataSource,
+      });
       toast("保存成功");
     } catch (e) {
       console.error(e);

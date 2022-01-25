@@ -12,7 +12,10 @@ export const saveDetail = async (args: any) => {
     url: `${HOSTNAME}/version_modify/`,
     data: {
       versionId: args.versionId,
-      versionConfig: JSON.stringify(args.components),
+      versionConfig: JSON.stringify({
+        components: args.components,
+        dataSource: args.dataSource,
+      }),
     },
   });
   if (data.code === 0) {

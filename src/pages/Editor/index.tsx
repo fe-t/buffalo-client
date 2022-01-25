@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useParamsBy } from "../../hooks";
 import { getDetail } from "../../service";
 import { useAppDispatch } from "../../store";
+import { setAppData, setPageData } from "../../store/editor/dataSourceSlice";
 import {
   setSavedComponents,
   setVersionInfo,
@@ -29,8 +30,12 @@ const Editor = () => {
           ? JSON.parse(data.version_config)
           : data.version_config;
 
-      if (versionConfig && versionConfig.length) {
-        dispatch(setSavedComponents(versionConfig));
+      if (versionConfig.components) {
+        dispatch(setSavedComponents(versionConfig.components));
+      }
+      if (versionConfig.dataSource) {
+        dispatch(setAppData(versionConfig.dataSource.$app));
+        dispatch(setPageData(versionConfig.dataSource.$page));
       }
     }
   }, [data, dispatch]);
