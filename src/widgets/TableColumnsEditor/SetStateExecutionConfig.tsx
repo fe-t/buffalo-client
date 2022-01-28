@@ -5,14 +5,8 @@ import { useAppSelector } from "../../store";
 
 interface Props {
   name: string;
-  value?: any;
-  onChange?: (v: any) => void;
 }
-export const SetStateExecutionConfig: FC<Props> = ({
-  value,
-  name,
-  onChange,
-}) => {
+export const SetStateExecutionConfig: FC<Props> = ({ name }) => {
   const $app = useAppSelector((s) => s.dataSource.$app);
 
   return (

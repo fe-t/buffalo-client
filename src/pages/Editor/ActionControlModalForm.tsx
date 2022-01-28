@@ -1,32 +1,51 @@
 import { Empty } from "@yy/tofu-ui-react";
 import { Form, Modal } from "antd";
 import classNames from "classnames";
-import React, { FC, useState } from "react";
-import { SetStateExecutionConfig } from "../../widgets/TableColumnsEditor/SetStateExecutionConfig";
-import { platformActionExecutions, platformActions } from "./action-controls";
+import React, { FC, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store";
+import {
+  bindComponentAction,
+  selectCursorComponent,
+  selectCursorComponentId,
+} from "../../store/editor/editorSlice";
+import {
+  PlatformActionExecutions,
+  platformActionExecutions,
+  PlatformActions,
+  platformActions,
+} from "./action-controls";
+import { ExecutionConfigEditor } from "./ExecutionConfigEditor";
 
 interface Props {
   visible: boolean;
-  onCancel: () => void;
+  onClose: () => void;
 }
-export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
+export const ActionControlModalForm: FC<Props> = ({ visible, onClose }) => {
   const [form] = Form.useForm();
+  const dispatch = useAppDispatch();
+  const componentId = useAppSelector(selectCursorComponentId);
+  const component = useAppSelector(selectCursorComponent);
 
-  const save = () => {
-    form.submit();
-  };
+  const [selectedAction, setSelectedAction] = useState<PlatformActions>();
+  const [selectedExecution, setSelectedExecution] =
+    useState<PlatformActionExecutions>();
 
-  const [selectedAction, setSelectedAction] = useState<string>();
-  const [selectedExecution, setSelectedExecution] = useState<string>();
-
-  // console.log('selectedAction', selectedAction)
+  useEffect(() => {
+    if (component) {
+      const actions = component.actions;
+      const flatActions = Object.values(actions as any).reduce((acc, cur) => {
+        return { ...(acc as any), ...(cur as any) };
+      }, {});
+      form.setFieldsValue(flatActions);
+    }
+  }, [component, form]);
 
   return (
     <Modal
       title="添加事件"
       visible={visible}
-      onOk={save}
-      onCancel={onCancel}
+      onOk={form.submit}
+      onCancel={onClose}
       okText="保存"
       cancelText="取消"
       width={1200}
@@ -34,7 +53,30 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
       <Form
         form={form}
         onFinish={(vals) => {
-          debugger;
+          // 转换成actionObject,
+          /**
+           * 例子:
+           * onClick.setState.name(pin):"apple"
+           * onClick.setState.value(pin):"123" 合并成:
+           *
+           * {
+           *  'onClick.setState': {
+           *    'onClick.setState.name':"apple"
+           *    'onClick.setState.value':"123"
+           *  }
+           * }
+           */
+          const actionKey = Object.entries(vals).map(
+            ([name]) => `${name.split(".")[0]}.${name.split(".")[1]}`
+          )[0];
+
+          dispatch(
+            bindComponentAction({
+              componentId,
+              action: { [actionKey]: vals },
+            })
+          );
+          onClose();
         }}
       >
         <div className="ActionEditor">
@@ -47,7 +89,9 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
                     active: selectedAction === actionKey,
                   })}
                   key={actionKey}
-                  onClick={() => setSelectedAction(actionKey)}
+                  onClick={() => {
+                    setSelectedAction(actionKey as PlatformActions);
+                  }}
                 >
                   {action.label}
                 </div>
@@ -65,7 +109,11 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
                         active: selectedExecution === executionKey,
                       })}
                       key={executionKey}
-                      onClick={() => setSelectedExecution(executionKey)}
+                      onClick={() =>
+                        setSelectedExecution(
+                          executionKey as PlatformActionExecutions
+                        )
+                      }
                     >
                       {execution.type} {execution.label}
                     </div>
@@ -79,9 +127,10 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onCancel }) => {
           <div className="ExecutionConfigCol">
             <p className="ActionEditorColTitle">3. 平台方法</p>
             {selectedExecution ? (
-              selectedExecution === "setState" && (
-                <SetStateExecutionConfig name="setState" />
-              )
+              <ExecutionConfigEditor
+                action={selectedAction}
+                execution={selectedExecution}
+              />
             ) : (
               <Empty text="请选择执行动作" style={{ height: "300px" }} />
             )}

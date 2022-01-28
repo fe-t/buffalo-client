@@ -124,6 +124,21 @@ export const editorSlice = createSlice({
         target.style = action.payload.style;
       }
     },
+    bindComponentAction: (
+      state,
+      action: PayloadAction<{
+        componentId?: string;
+        action: Record<string, object>;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      if (target) {
+        target.actions = { ...target.actions, ...action.payload.action };
+        // target.actions = {};
+      }
+    },
     deleteCursorComponent: (state) => {
       remove(state.components, (c) => c.id === state.cursorComponentId);
       // 和清除游标
@@ -140,6 +155,7 @@ export const {
   cursorComponentBlur,
   addComponent,
   updateComponentProp,
+  bindComponentAction,
   deleteCursorComponent,
   setSavedComponents,
   updateComponentStyle,

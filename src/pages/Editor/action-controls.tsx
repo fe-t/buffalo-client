@@ -10,14 +10,6 @@ export const ActionType = {
   onMount: ONMOUNT,
 };
 
-// export const ActionMap = Object.entries(actionType).reduce(
-//   (acc, [key, val]) => {
-//     (acc as any)[val] = key; // TODO:
-//     return acc;
-//   },
-//   {}
-// );
-
 export const applyActionControls = (
   Component: CanvasElementType,
   controls: ActionMap
@@ -44,6 +36,7 @@ export const platformActions = {
     icon: <BiLoader />,
   },
 };
+export type PlatformActions = keyof typeof platformActions;
 
 export const platformActionExecutions = {
   setState: {
@@ -59,3 +52,4 @@ export const platformActionExecutions = {
     label: "页面跳转",
   },
 };
+export type PlatformActionExecutions = keyof typeof platformActionExecutions;

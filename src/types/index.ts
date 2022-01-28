@@ -71,6 +71,9 @@ export interface CanvasComponent {
   materialId: string;
   props: PropsMap;
   style: Record<string, string>;
+  actions?: {
+    [k: string]: any;
+  };
 }
 
 export type CanvasElementType = ElementType & {

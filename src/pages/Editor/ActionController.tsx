@@ -1,12 +1,16 @@
-import { Modal } from "antd";
-import React, { useMemo, useState } from "react";
-import { BiLoader } from "react-icons/bi";
-import { MdAdsClick } from "react-icons/md";
+import { isEmpty } from "lodash";
+import React, { useEffect, useMemo, useState } from "react";
+import { GoDiffAdded } from "react-icons/go";
 import { useAppSelector } from "../../store";
 import { componentMap } from "../../store/editor/registerComponents";
 import { selectCursorComponent } from "../../store/editor/selectors";
 import { RenderPropsItem } from "../../types";
-import { platformActionExecutions, platformActions } from "./action-controls";
+import {
+  PlatformActionExecutions,
+  platformActionExecutions,
+  PlatformActions,
+  platformActions,
+} from "./action-controls";
 import { ActionControlModalForm } from "./ActionControlModalForm";
 
 export const ActionController = () => {
@@ -31,29 +35,40 @@ export const ActionController = () => {
     );
   }, [component?.props, componentType?.actionControls]);
 
+  const boundActions = component.actions;
+
   return (
     <>
-      <ActionControlModalForm visible={v} onCancel={close} />
+      <ActionControlModalForm visible={v} onClose={close} />
 
       <div className="ActionPaneFields">
+        {!isEmpty(boundActions) &&
+          Object.entries(boundActions as object).map((entry) => {
+            const [actionPath, actionInfo] = entry;
+            const [actionName, executionName] = actionPath.split(".");
+            const platformActionInfo =
+              platformActions[actionName as PlatformActions];
+            const executionsInfo =
+              platformActionExecutions[
+                executionName as PlatformActionExecutions
+              ];
+            return (
+              <div className="ActionItem">
+                <div className="ActionItemTrigger" onClick={show}>
+                  {platformActionInfo.icon}
+                  <span>{platformActionInfo.label}</span>
+                </div>
+                <div className="ActionItemExecution">
+                  <span>{executionsInfo.type}</span>
+                  <span>{executionsInfo.label}</span>
+                </div>
+              </div>
+            );
+          })}
         <div className="ActionItem">
           <div className="ActionItemTrigger" onClick={show}>
-            <MdAdsClick />
-            <span>点击时</span>
-          </div>
-          <div className="ActionItemExecution">
-            <span>showModal</span>
-            <span>弹窗</span>
-          </div>
-        </div>
-        <div className="ActionItem">
-          <div className="ActionItemTrigger" onClick={show}>
-            <BiLoader />
-            <span>加载完成后</span>
-          </div>
-          <div className="ActionItemExecution">
-            <span>callDataSource</span>
-            <span>调用数据源方法</span>
+            <GoDiffAdded />
+            <span>新增绑定事件</span>
           </div>
         </div>
       </div>
