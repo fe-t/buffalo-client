@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { GoDiffAdded } from "react-icons/go";
 import { useAppSelector } from "../../store";
 import { componentMap } from "../../store/editor/registerComponents";

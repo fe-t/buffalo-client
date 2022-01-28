@@ -32,7 +32,7 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onClose }) => {
 
   useEffect(() => {
     if (component) {
-      const actions = component.actions;
+      const actions = component.actions || {};
       const flatActions = Object.values(actions as any).reduce((acc, cur) => {
         return { ...(acc as any), ...(cur as any) };
       }, {});
@@ -49,6 +49,7 @@ export const ActionControlModalForm: FC<Props> = ({ visible, onClose }) => {
       okText="保存"
       cancelText="取消"
       width={1200}
+      destroyOnClose
     >
       <Form
         form={form}

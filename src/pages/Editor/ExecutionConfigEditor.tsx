@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { SetStateExecutionConfig } from "../../widgets/TableColumnsEditor/SetStateExecutionConfig";
+import { NavigateToConfig } from "./NavigateToConfig";
 
 interface Props {
   action?: string;
@@ -15,7 +16,7 @@ export const ExecutionConfigEditor: FC<Props> = ({ action, execution }) => {
           <SetStateExecutionConfig name={name} key="1" />
         ),
         execution === "showModal" && <p key="2">showModal</p>,
-        execution === "navigateTo" && <p key="3">navigateTo</p>,
+        execution === "navigateTo" && <NavigateToConfig name={name} key="3" />,
       ].filter(Boolean)}
     </>
   );
