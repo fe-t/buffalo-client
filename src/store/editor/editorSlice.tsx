@@ -1,5 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { merge, remove } from "lodash";
+import { merge, omit, omitBy, remove } from "lodash";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
 import { editorInitialState } from "./initialState";
@@ -124,6 +124,23 @@ export const editorSlice = createSlice({
         target.style = action.payload.style;
       }
     },
+    removeComponentAction: (
+      state,
+      action: PayloadAction<{
+        componentId?: string;
+        actionName: string;
+        executionName: string;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      if (target) {
+        delete target.actions?.[action.payload.actionName][
+          action.payload.executionName
+        ];
+      }
+    },
     bindComponentAction: (
       state,
       action: PayloadAction<{
@@ -155,6 +172,7 @@ export const {
   cursorComponentBlur,
   addComponent,
   updateComponentProp,
+  removeComponentAction,
   bindComponentAction,
   deleteCursorComponent,
   setSavedComponents,

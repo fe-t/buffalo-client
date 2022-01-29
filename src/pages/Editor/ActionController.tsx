@@ -1,8 +1,14 @@
+import { Button, Popconfirm } from "antd";
 import { isEmpty } from "lodash";
 import React, { useRef, useState } from "react";
+import { FiDelete } from "react-icons/fi";
 import { GoDiffAdded } from "react-icons/go";
-import { useAppSelector } from "../../store";
-import { selectCursorComponent } from "../../store/editor/selectors";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { removeComponentAction } from "../../store/editor/editorSlice";
+import {
+  selectCursorComponent,
+  selectCursorComponentId,
+} from "../../store/editor/selectors";
 import {
   PlatformActionExecutions,
   platformActionExecutions,
@@ -16,6 +22,8 @@ export const ActionController = () => {
   const close = () => setV(false);
   const show = () => setV(true);
   const modalRef = useRef();
+  const dispatch = useAppDispatch();
+  const componentId = useAppSelector(selectCursorComponentId);
 
   // 打开事件编辑器弹窗，并设定高亮级联
   const showModal = (activate: (string | undefined)[]) => {
@@ -57,8 +65,26 @@ export const ActionController = () => {
                           key={executionName}
                           onClick={() => showModal([actionName, executionName])}
                         >
-                          <span>{executionsInfo.type}</span>
-                          <span>{executionsInfo.label}</span>
+                          <div>
+                            <span>{executionsInfo.type}</span>
+                            <span>{executionsInfo.label}</span>
+                          </div>
+                          <div onClick={(e) => e.stopPropagation()}>
+                            <Popconfirm
+                              title="确认删除该事件吗"
+                              onConfirm={() => {
+                                dispatch(
+                                  removeComponentAction({
+                                    componentId,
+                                    actionName,
+                                    executionName,
+                                  })
+                                );
+                              }}
+                            >
+                              <Button icon={<FiDelete />} type="text" />
+                            </Popconfirm>
+                          </div>
                         </div>
                       );
                     }

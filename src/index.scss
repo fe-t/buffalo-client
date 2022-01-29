@@ -604,6 +604,7 @@ $variables: (
     height: 30px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
     padding: 0 10px 0 30px;
     &:hover {
