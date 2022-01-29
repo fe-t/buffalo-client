@@ -84,6 +84,8 @@ export const ActionControlModalForm = forwardRef<any, Props>(
         };
         iterate(actions as any, "");
         form.setFieldsValue(flatActions);
+      } else {
+        form.resetFields();
       }
     }, [component, form, visible]);
 
