@@ -1,5 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { remove } from "lodash";
+import { merge, remove } from "lodash";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
 import { editorInitialState } from "./initialState";
@@ -135,7 +135,7 @@ export const editorSlice = createSlice({
         (c) => c.id === action.payload.componentId
       );
       if (target) {
-        target.actions = { ...target.actions, ...action.payload.action };
+        target.actions = merge(target.actions, action.payload.action);
         // target.actions = {};
       }
     },

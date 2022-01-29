@@ -606,6 +606,9 @@ $variables: (
     align-items: center;
     cursor: pointer;
     padding: 0 10px 0 30px;
+    &:hover {
+      background-color: var(--accents-color-14);
+    }
     span:first-of-type {
       font-weight: 300;
       margin-right: 5px;
@@ -686,10 +689,10 @@ $variables: (
   height: 34px;
   line-height: 34px;
   padding: 0 24px;
+  margin-bottom: 3px;
   cursor: pointer;
-  // font-weight: bold;
   &:hover {
-    background-color: var(--accents-color-12);
+    background-color: var(--accents-color-15);
   }
   &.active {
     background-color: var(--primary-color-outline);
