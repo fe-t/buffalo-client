@@ -100,37 +100,37 @@ const Canvas = () => {
   const renderComponents = (components: CanvasComponent[]) => {
     return components
       ? components.map((c) => {
-        const ComponentType = componentMap.get(c.materialId) as ElementType;
-        let children: any = c.props.children; // TODO: fix type
-        if (isArray(children)) {
-          children = <>{renderComponents(children)}</>;
-        }
-        return (
-          <ComponentWrap key={c.id} canvasComponent={c}>
-            <ErrorBoundary>
-              {ComponentType && (
-                <ComponentType
-                  {...c.props}
-                  children={children}
-                  style={c.style}
-                />
-              )}
-            </ErrorBoundary>
-          </ComponentWrap>
-        );
-      })
+          const ComponentType = componentMap.get(c.materialId) as ElementType;
+          let children: any = c.props.children; // TODO: fix type
+          if (isArray(children)) {
+            children = <>{renderComponents(children)}</>;
+          }
+          return (
+            <ComponentWrap key={c.id} canvasComponent={c}>
+              <ErrorBoundary>
+                {ComponentType && (
+                  <ComponentType
+                    {...c.props}
+                    children={children}
+                    style={c.style}
+                  />
+                )}
+              </ErrorBoundary>
+            </ComponentWrap>
+          );
+        })
       : null;
   };
 
   return (
-    <section
+    <div
       className="Canvas"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onClick={unsetCursor}
     >
       <ErrorBoundary>{renderComponents(components)}</ErrorBoundary>
-    </section>
+    </div>
   );
 };
 

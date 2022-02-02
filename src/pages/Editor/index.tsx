@@ -12,6 +12,7 @@ import {
 import { FullPage } from "../../widgets/styled";
 import Content from "./Content";
 import { Header } from "./Header";
+import { KeyboardEventWrapper } from "./KeyboardEventWrapper";
 import Sider from "./Sider";
 import { SiderRight } from "./SiderRight";
 import Tools from "./Tools";
@@ -45,15 +46,17 @@ const Editor = () => {
       <FullPage />
     </Spin>
   ) : (
-    <main className="Editor">
-      <Header />
-      <Tools />
-      <div className="EditorContent">
-        <Sider />
-        <Content />
-        <SiderRight />
-      </div>
-    </main>
+    <KeyboardEventWrapper>
+      <main className="Editor">
+        <Header />
+        <Tools />
+        <div className="EditorContent">
+          <Sider />
+          <Content />
+          <SiderRight />
+        </div>
+      </main>
+    </KeyboardEventWrapper>
   );
 };
 

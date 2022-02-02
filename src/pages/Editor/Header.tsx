@@ -1,10 +1,11 @@
 import { Button, Icon, Spacer, Tooltip } from "@yy/tofu-ui-react";
+import { Button as AntButton, Space } from "antd";
 import dayjs from "dayjs";
 import qs from "qs";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
+import React from "react";
+import { FaSave } from "react-icons/fa";
+import { RiRocketFill } from "react-icons/ri";
 import { useParamsBy } from "../../hooks";
-import { saveDetail } from "../../service";
 import { useAppSelector } from "../../store";
 import { DATETIME_FORMAT } from "../../util";
 import { FlexCenter } from "../../widgets/styled";
@@ -14,29 +15,30 @@ export const Header = () => {
   const versionInfo = useAppSelector((s) => s.editor.present.versionInfo);
   const components = useAppSelector((s) => s.editor.present.components);
   const dataSource = useAppSelector((s) => s.dataSource);
-  const [submitting, setSubmitting] = useState(false);
 
-  const save = async () => {
-    try {
-      setSubmitting(true);
-      await saveDetail({
-        versionId,
-        components,
-        dataSource,
-      });
-      toast("保存成功");
-    } catch (e) {
-      console.error(e);
-      toast.error((e as any).message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  // const save = async () => {
+  //   try {
+  //     setSubmitting(true);
+  //     await saveDetail({
+  //       versionId,
+  //       components,
+  //       dataSource,
+  //     });
+  //     toast("保存成功");
+  //   } catch (e) {
+  //     console.error(e);
+  //     toast.error((e as any).message);
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <div className="Header">
       <FlexCenter>
-        <div className="Logo" />
+        <a className="Logo" href="//webtest.yy.com/buffalo-admin/#/apps">
+          {" "}
+        </a>
         <Spacer x={1} inline />
         <div className="UpdateTime">
           <Tooltip
@@ -60,11 +62,10 @@ export const Header = () => {
           </Tooltip>
         </div>
       </FlexCenter>
-      <div>
-        <Button type="emphasis" onClick={save} loading={submitting}>
-          <span>保存</span>
-        </Button>
-        <Spacer x={0.3} inline />
+      <Space>
+        <Tooltip text="保存 ⌘/ctrl + s">
+          <AntButton icon={<FaSave />} type="text" style={{ color: "#999" }} />
+        </Tooltip>
         <Button
           type="emphasis"
           onClick={() => {
@@ -76,9 +77,11 @@ export const Header = () => {
             );
           }}
         >
-          发布
+          <RiRocketFill />
+          <Spacer x={0.5} />
+          <span>发布</span>
         </Button>
-      </div>
+      </Space>
     </div>
   );
 };

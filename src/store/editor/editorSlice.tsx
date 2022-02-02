@@ -1,5 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { merge, omit, omitBy, remove } from "lodash";
+import { merge, remove } from "lodash";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
 import { editorInitialState } from "./initialState";
