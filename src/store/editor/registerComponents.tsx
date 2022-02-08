@@ -16,6 +16,7 @@ import {
 import { CanvasElementType } from "../../types";
 import SchemaForm from "../../widgets/SchemaForm";
 import { DataList } from "./LocalComponents/DataList";
+import { DisplayDataSource } from "./LocalComponents/DisplayDataSource";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -193,4 +194,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["5", SchemaForm],
   ["6", DataList],
   ["7", Button],
+  ["8", DisplayDataSource],
 ]);
