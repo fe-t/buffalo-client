@@ -58,6 +58,12 @@ export const editorInitialState: EditorState = {
       zhName: "按钮",
       type: "form",
     },
+    {
+      id: "8",
+      name: "DisplayDataSource",
+      zhName: "展示数据源",
+      type: "form",
+    },
   ],
   appConfig: {},
   appName: "",

@@ -43,6 +43,13 @@ const Page: FC<{
   );
 };
 
+applyPropertyControls(DisplayDataSource, {
+  display: {
+    type: ControlType.String,
+    label: "变量路径",
+  },
+});
+
 applyPropertyControls(Button, {
   children: {
     type: ControlType.String,
