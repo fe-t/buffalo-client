@@ -51,5 +51,9 @@ export const platformActionExecutions = {
     type: "navigateTo",
     label: "页面跳转",
   },
+  showToast: {
+    type: "showToast",
+    label: "显示消息提示",
+  },
 };
 export type PlatformActionExecutions = keyof typeof platformActionExecutions;

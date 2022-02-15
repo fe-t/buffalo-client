@@ -50,7 +50,7 @@ const VarItemForm = ({
 
   return (
     <Card
-      title={dataConfig ? `编辑变量${dataConfig.name}` : "新建"}
+      title={dataConfig ? "编辑变量" : "新建变量"}
       style={{ marginLeft: "10px" }}
     >
       <ProForm

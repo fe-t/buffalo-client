@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { SetStateExecutionConfig } from "../../widgets/TableColumnsEditor/SetStateExecutionConfig";
+import { PlatformActionExecutions, PlatformActions } from "./action-controls";
+import { ShowToastConfig } from "./ExecutionConfigs/ShowToastConfig";
 import { NavigateToConfig } from "./NavigateToConfig";
 
 interface Props {
-  action?: string;
-  execution?: string;
+  action?: PlatformActions;
+  execution?: PlatformActionExecutions;
 }
 
 export const ExecutionConfigEditor: FC<Props> = ({ action, execution }) => {
@@ -17,6 +19,7 @@ export const ExecutionConfigEditor: FC<Props> = ({ action, execution }) => {
         ),
         execution === "showModal" && <p key="2">showModal</p>,
         execution === "navigateTo" && <NavigateToConfig name={name} key="3" />,
+        execution === "showToast" && <ShowToastConfig name={name} key="4" />,
       ].filter(Boolean)}
     </>
   );

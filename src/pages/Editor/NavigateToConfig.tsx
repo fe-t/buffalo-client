@@ -9,7 +9,7 @@ export const NavigateToConfig: FC<Props> = ({ name }) => {
     <div style={{ padding: "0 24px" }}>
       <Form.Item
         label="链接"
-        name={`${name}`}
+        name={`${name}.url`}
         rules={[{ required: true }]}
         required
       >
