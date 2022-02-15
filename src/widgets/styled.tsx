@@ -36,6 +36,16 @@ export const FullPage = styled.div`
 
 export const TabTitle = styled.div`
   padding: 0 40px;
-  fontweight: bold;
-  fontsize: 16px;
+  font-weight: bold;
+  font-size: 16px;
+`;
+
+export const LabelWithIcon = styled.div`
+  display: flex;
+  align-items: center;
+  & > svg {
+    margin-right: 8px;
+    color: #0095ff;
+    font-size: 18px;
+  }
 `;
