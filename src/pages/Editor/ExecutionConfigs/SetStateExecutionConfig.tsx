@@ -1,7 +1,7 @@
 import { Empty } from "@yy/tofu-ui-react";
 import { ConfigProvider, Form, Input, Select } from "antd";
 import React, { FC } from "react";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../../../store";
 
 interface Props {
   name: string;

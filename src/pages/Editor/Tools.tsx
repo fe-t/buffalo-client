@@ -16,7 +16,7 @@ const Tools = () => {
   const future = useAppSelector((state) => state.editor.future);
   const [v, setV] = useState(false);
   const [configV, setConfigV] = useState(false);
-  const [apiV, setApiV] = useState(false)
+  const [apiV, setApiV] = useState(false);
 
   return (
     <section className="Tools">
@@ -55,6 +55,7 @@ const Tools = () => {
           <AiOutlineFunction style={{ fontSize: "18px", color: "#ff4f4f" }} />{" "}
           变量
         </Button>
+        <Spacer x={0.5} inline />
         <Button
           type="weak"
           onClick={() => {
@@ -87,8 +88,8 @@ const Tools = () => {
           }
         />
       </Tabs>
-      <ApiModal visible={apiV} setVisible={setApiV} ></ApiModal>
-      <ConfigModal visible={configV} setVisible={setConfigV} ></ConfigModal>
+      <ApiModal visible={apiV} setVisible={setApiV}></ApiModal>
+      <ConfigModal visible={configV} setVisible={setConfigV}></ConfigModal>
     </section>
   );
 };

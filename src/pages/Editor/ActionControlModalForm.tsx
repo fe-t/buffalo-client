@@ -101,6 +101,8 @@ export const ActionControlModalForm = forwardRef<any, Props>(
         destroyOnClose
       >
         <Form
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 16 }}
           form={form}
           onFinish={(vals) => {
             // 转换成actionObject,

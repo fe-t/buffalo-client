@@ -5,6 +5,7 @@ export const dataSourceSlice = createSlice({
   name: "dataSource",
   initialState: dataSourceInitialState,
   reducers: {
+    // updateAppData:
     setAppData: (state, action: PayloadAction<any>) => {
       state.$app = action.payload;
     },

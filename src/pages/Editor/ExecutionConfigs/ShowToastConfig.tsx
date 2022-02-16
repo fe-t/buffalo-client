@@ -13,7 +13,7 @@ export const ShowToastConfig: FC<{ name: string }> = ({ name }) => {
         <Input />
       </Form.Item>
       <Form.Item label="消息类型" name={`${name}.type`}>
-        <Select>
+        <Select defaultValue="normal">
           <Select.Option value="normal">
             <Tag color="default">普通</Tag>
           </Select.Option>

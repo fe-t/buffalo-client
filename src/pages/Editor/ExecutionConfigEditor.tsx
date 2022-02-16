@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-import { SetStateExecutionConfig } from "../../widgets/TableColumnsEditor/SetStateExecutionConfig";
+import { SetStateExecutionConfig } from "./ExecutionConfigs/SetStateExecutionConfig";
 import { PlatformActionExecutions, PlatformActions } from "./action-controls";
 import { ShowToastConfig } from "./ExecutionConfigs/ShowToastConfig";
-import { NavigateToConfig } from "./NavigateToConfig";
+import { NavigateToConfig } from "./ExecutionConfigs/NavigateToConfig";
+import { ShowModalConfig } from "./ExecutionConfigs/ShowModalConfig";
 
 interface Props {
   action?: PlatformActions;
@@ -15,11 +16,17 @@ export const ExecutionConfigEditor: FC<Props> = ({ action, execution }) => {
     <>
       {[
         execution === "setState" && (
-          <SetStateExecutionConfig name={name} key="1" />
+          <SetStateExecutionConfig name={name} key="setState" />
         ),
-        execution === "showModal" && <p key="2">showModal</p>,
-        execution === "navigateTo" && <NavigateToConfig name={name} key="3" />,
-        execution === "showToast" && <ShowToastConfig name={name} key="4" />,
+        execution === "showModal" && (
+          <ShowModalConfig name={name} key="showModal" />
+        ),
+        execution === "navigateTo" && (
+          <NavigateToConfig name={name} key="navigateTo" />
+        ),
+        execution === "showToast" && (
+          <ShowToastConfig name={name} key="showToast" />
+        ),
       ].filter(Boolean)}
     </>
   );

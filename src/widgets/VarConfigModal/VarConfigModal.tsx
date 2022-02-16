@@ -1,7 +1,7 @@
 import { CaretRightOutlined } from "@ant-design/icons";
 import ProForm, { ProFormSelect, ProFormText } from "@ant-design/pro-form";
 import { Empty, Spacer } from "@yy/tofu-ui-react";
-import { Button, Card, Collapse, Modal, Space, Tooltip } from "antd";
+import { Button, Card, Collapse, Modal, Space, Tag, Tooltip } from "antd";
 import classNames from "classnames";
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { AiOutlineGlobal } from "react-icons/ai";
@@ -17,6 +17,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store";
 import { setAppData } from "../../store/editor/dataSourceSlice";
 import { DataConfig } from "../../store/editor/initialState";
+import { ProFormCopitableText } from "../ProFormCopitableText";
 import { FlexCenter, LabelWithIcon } from "../styled";
 
 /**
@@ -26,9 +27,11 @@ import { FlexCenter, LabelWithIcon } from "../styled";
 const VarItemForm = ({
   dataConfig,
   onSuccess,
+  isNew = false,
 }: {
   dataConfig?: DataConfig;
   onSuccess?: Function;
+  isNew?: Boolean;
 }) => {
   const dispatch = useAppDispatch();
   const $app = useAppSelector((s) => s.dataSource.$app);
@@ -36,7 +39,10 @@ const VarItemForm = ({
 
   useEffect(() => {
     if (typeof dataConfig !== "undefined") {
-      formRef.current.setFieldsValue({ ...dataConfig });
+      formRef.current.setFieldsValue({
+        ...dataConfig,
+        varPath: `$app.${dataConfig.name}`,
+      });
     } else {
       formRef.current.resetFields();
     }
@@ -129,6 +135,10 @@ const VarItemForm = ({
         />
         <ProFormText width="md" name="defaultValue" label="初始值" />
         <ProFormText width="md" name="desc" label="变量描述" />
+        {!isNew && (
+          <ProFormCopitableText width="md" name="varPath" label="变量路径" />
+        )}
+        <br />
       </ProForm>
     </Card>
   );
@@ -207,6 +217,8 @@ export const VarConfigModal: FC<Props> = ({ visible, setVisible }) => {
                   <AiOutlineGlobal />
                   <Spacer x={0.5} />
                   <span>全局</span>
+                  <Spacer x={0.5} />
+                  <Tag color="blue">$app</Tag>
                 </FlexCenter>
               }
               extra={
@@ -271,9 +283,9 @@ export const VarConfigModal: FC<Props> = ({ visible, setVisible }) => {
         </div>
         <div className="VarConfigRight">
           {isNew ? (
-            <VarItemForm onSuccess={() => setIsNew(false)} />
+            <VarItemForm onSuccess={() => setIsNew(false)} isNew={isNew} />
           ) : cursor ? (
-            <VarItemForm dataConfig={curDataConfig} />
+            <VarItemForm dataConfig={curDataConfig} isNew={isNew} />
           ) : (
             <Empty text="请在左侧选择变量" style={{ height: 300 }} />
           )}

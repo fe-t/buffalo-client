@@ -22,6 +22,7 @@ import { default as Collapse } from "../../widgets/Collapse";
 import { ComponentStyleEditor } from "../../widgets/ComponentStyleEditor";
 import { FlexCenter, FlexStart, TabTitle } from "../../widgets/styled";
 import { ActionController } from "./ActionController";
+import { GeneralSettingsController } from "./GeneralSettingsController";
 import PropEditorSwitcher from "./PropEditorSwitcher";
 
 const { TabPane } = Tabs;
@@ -149,7 +150,7 @@ const PropsController = () => {
                     </div>
                   </Collapse>
                   <Collapse title="通用配置" defaultOpen>
-                    <p></p>
+                    <GeneralSettingsController />
                   </Collapse>
                   <Collapse title="行为" defaultOpen>
                     <ActionController />
