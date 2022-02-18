@@ -47,6 +47,9 @@ export const editorSlice = createSlice({
         materialId: material.id,
         props: serializeProps,
         style: {},
+        general: {
+          conditionRender: undefined,
+        },
       });
 
       // // 设置新增的组件选中状态
@@ -141,6 +144,23 @@ export const editorSlice = createSlice({
         ];
       }
     },
+    bindComponentConditionRender: (
+      state,
+      action: PayloadAction<{
+        componentId?: string;
+        expression: string;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      if (target) {
+        target.general = {
+          conditionRender: action.payload.expression,
+        };
+        // target.actions = {};
+      }
+    },
     bindComponentAction: (
       state,
       action: PayloadAction<{
@@ -177,6 +197,7 @@ export const {
   deleteCursorComponent,
   setSavedComponents,
   updateComponentStyle,
+  bindComponentConditionRender,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

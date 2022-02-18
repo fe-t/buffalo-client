@@ -733,3 +733,11 @@ $variables: (
     color: var(--primary-color-light);
   }
 }
+
+.GeneralSettingsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+}

@@ -74,6 +74,9 @@ export interface CanvasComponent {
   actions?: {
     [k: string]: any;
   };
+  general: {
+    conditionRender?: string;
+  };
 }
 
 export type CanvasElementType = ElementType & {

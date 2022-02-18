@@ -149,7 +149,7 @@ const PropsController = () => {
                       })}
                     </div>
                   </Collapse>
-                  <Collapse title="通用配置" defaultOpen>
+                  <Collapse title="通用配置" defaultOpen={false}>
                     <GeneralSettingsController />
                   </Collapse>
                   <Collapse title="行为" defaultOpen>
