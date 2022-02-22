@@ -7,6 +7,7 @@ import {
   AiOutlineTable,
 } from "react-icons/ai";
 import { HiCursorClick } from "react-icons/hi";
+import { BsCodeSlash } from "react-icons/bs";
 import { VscJson } from "react-icons/vsc";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
@@ -19,7 +20,7 @@ const iconMap = new Map([
   ["SchemaForm", <VscJson />],
   ["DataList", <AiOutlineTable />],
   ["Button", <HiCursorClick />],
-  ["DisplayDataSource", <AiOutlineTable />],
+  ["DisplayDataSource", <BsCodeSlash />],
 ]);
 
 const MaterialList = () => {

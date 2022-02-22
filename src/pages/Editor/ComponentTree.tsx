@@ -8,19 +8,17 @@ import { CanvasComponent } from "../../types";
 const ComponentTree = () => {
   const components = useAppSelector((s) => s.editor.present.components);
 
+  console.log("components", components);
+
   const treeData = useMemo(() => {
     const travelTree = (components: CanvasComponent[]): DataNode[] => {
       return components.map((node) => {
         return {
-          title: (
-            <span>
-              {node.zhName} - {capitalize(node.name)} #{node.id}
-            </span>
-          ),
+          title: <span>{node.zhName}</span>,
           key: node.id,
-          children: node.props.children
-            ? travelTree(node.props.children as any)
-            : undefined,
+          // children: node.props.children
+          //   ? travelTree(node.props.children as any)
+          //   : undefined,
         };
       });
     };
@@ -33,7 +31,18 @@ const ComponentTree = () => {
 
       <div className="ComponentTreeContent">
         {treeData.length ? (
-          <Tree autoExpandParent showLine treeData={treeData} />
+          <Tree
+            defaultExpandAll
+            blockNode
+            showLine={{ showLeafIcon: false }}
+            treeData={[
+              {
+                key: "root",
+                title: "画布",
+                children: treeData,
+              },
+            ]}
+          />
         ) : (
           <Empty description="没有内容" />
         )}

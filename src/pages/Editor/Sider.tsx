@@ -1,4 +1,5 @@
 import React from "react";
+import ComponentTree from "./ComponentTree";
 import MaterialList from "./MaterialList";
 
 const Sider = () => {
@@ -7,7 +8,7 @@ const Sider = () => {
       <div className="SiderScrollable">
         <MaterialList />
       </div>
-      {/* <ComponentTree /> */}
+      <ComponentTree />
     </section>
   );
 };
