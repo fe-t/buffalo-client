@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from "@yy/tofu-ui-react";
 import { Tabs } from "antd";
-import { capitalize } from "lodash";
+import { capitalize, isEmpty } from "lodash";
 import React, { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { MdContentCopy, MdDelete, MdInfoOutline } from "react-icons/md";
@@ -56,6 +56,7 @@ const DeleteComponentBtn = () => {
 
 const PropsController = () => {
   const component = useAppSelector(selectCursorComponent);
+  const boundGeneral = !isEmpty(component?.general);
 
   const componentType = componentMap.get(component?.materialId);
   const propList = useMemo(() => {
@@ -149,7 +150,11 @@ const PropsController = () => {
                       })}
                     </div>
                   </Collapse>
-                  <Collapse title="通用配置" defaultOpen={false}>
+                  <Collapse
+                    title="通用配置"
+                    defaultOpen={boundGeneral}
+                    key={`${!!boundGeneral}`}
+                  >
                     <GeneralSettingsController />
                   </Collapse>
                   <Collapse title="行为" defaultOpen>

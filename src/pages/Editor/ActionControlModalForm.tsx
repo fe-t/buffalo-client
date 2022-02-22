@@ -84,8 +84,6 @@ export const ActionControlModalForm = forwardRef<any, Props>(
         };
         iterate(actions as any, "");
         form.setFieldsValue(flatActions);
-      } else {
-        form.resetFields();
       }
     }, [component, form, visible]);
 
@@ -94,7 +92,10 @@ export const ActionControlModalForm = forwardRef<any, Props>(
         title="编辑事件"
         visible={visible}
         onOk={form.submit}
-        onCancel={onClose}
+        onCancel={() => {
+          form.resetFields();
+          onClose();
+        }}
         okText="保存"
         cancelText="取消"
         width={1200}

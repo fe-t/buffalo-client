@@ -1,5 +1,5 @@
 import Editor from "@monaco-editor/react";
-import { Alert, Button, Card, Modal, Typography } from "antd";
+import { Alert, Button, Modal, Typography } from "antd";
 import React, { useState } from "react";
 import { RiLinksLine } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -17,7 +17,8 @@ export const BindData = () => {
   const component = useAppSelector(selectCursorComponent);
   const componentId = useAppSelector(selectCursorComponentId);
 
-  const [value, setValue] = useState("");
+  const boundConditionVar = component?.general?.conditionRender || "";
+  const [value, setValue] = useState(boundConditionVar);
 
   return (
     <>
@@ -34,28 +35,26 @@ export const BindData = () => {
           setV(false);
         }}
       >
-        <Card>
-          <Alert
-            showIcon
-            type="warning"
-            message="输入 JavaScript 表达式, 可引用 $app, $page 等变量"
-          />
-          <br />
-          <ul>
-            <li>
-              使用全局变量
-              <Text code copyable={{ text: "$app.apple" }}>
-                $app.apple
-              </Text>
-            </li>
-            <li>
-              使用当前页变量
-              <Text code copyable={{ text: "$page.apple" }}>
-                $page.apple
-              </Text>
-            </li>
-          </ul>
-        </Card>
+        <Alert
+          showIcon
+          type="warning"
+          message="输入 JavaScript 表达式, 可引用 $app, $page 等变量"
+        />
+        <br />
+        <ul>
+          <li>
+            使用全局变量
+            <Text code copyable={{ text: "$app.apple" }}>
+              $app.apple
+            </Text>
+          </li>
+          <li>
+            使用当前页变量
+            <Text code copyable={{ text: "$page.apple" }}>
+              $page.apple
+            </Text>
+          </li>
+        </ul>
         <br />
         <Editor
           height="500px"
