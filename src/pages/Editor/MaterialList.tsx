@@ -1,7 +1,26 @@
-import { Card, Empty, Icon, Input, Spacer } from "@yy/tofu-ui-react";
+import { Card, Empty, Icon, Input } from "@yy/tofu-ui-react";
 import React, { useMemo, useState } from "react";
+import {
+  AiOutlineEdit,
+  AiOutlineFile,
+  AiOutlineSelect,
+  AiOutlineTable,
+} from "react-icons/ai";
+import { HiCursorClick } from "react-icons/hi";
+import { VscJson } from "react-icons/vsc";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
+
+const iconMap = new Map([
+  ["Page", <AiOutlineFile />],
+  ["Input", <AiOutlineEdit />],
+  ["Dategrid", <AiOutlineTable />],
+  ["Select", <AiOutlineSelect />],
+  ["SchemaForm", <VscJson />],
+  ["DataList", <AiOutlineTable />],
+  ["Button", <HiCursorClick />],
+  ["DisplayDataSource", <AiOutlineTable />],
+]);
 
 const MaterialList = () => {
   const materials = useAppSelector(selectMaterials);
@@ -46,9 +65,9 @@ const MaterialList = () => {
                 data-material={m.id}
                 hoverable
               >
-                {m.name} - {m.zhName}
+                <div className="MaterialIcon">{iconMap.get(m.name)}</div>
+                <span>{m.zhName}</span>
               </Card>
-              <Spacer y={0.5} />
             </React.Fragment>
           ))
         ) : (

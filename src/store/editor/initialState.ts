@@ -18,7 +18,7 @@ export const editorInitialState: EditorState = {
   materials: [
     {
       id: "4",
-      name: "page",
+      name: "Page",
       zhName: "页面",
       type: "layout",
     },
@@ -43,7 +43,7 @@ export const editorInitialState: EditorState = {
     {
       id: "5",
       name: "SchemaForm",
-      zhName: "表单",
+      zhName: "协议表单",
       type: "form",
     },
     {

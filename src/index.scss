@@ -238,6 +238,8 @@ $variables: (
 .MaterialList {
   padding: 10px;
   box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
 }
 .MaterialContainer {
   // padding: 0 10px 10px;
@@ -328,12 +330,25 @@ $variables: (
 }
 
 .MaterialItem {
+  &:hover {
+    border-color: #007ed8;
+  }
+  &.tf-card.tf-card-small {
+    padding: 10px;
+  }
   cursor: grab;
   box-sizing: border-box;
-  .DisplayIcon {
-    display: inline-block;
-    height: 50px;
-    width: 50px;
+  width: calc(50% - 5px);
+  margin-right: 5px;
+  margin-bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  .MaterialIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
   }
 }
 

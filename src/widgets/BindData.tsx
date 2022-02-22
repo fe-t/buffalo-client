@@ -57,7 +57,7 @@ export const BindData = () => {
         </ul>
         <br />
         <Editor
-          height="500px"
+          height="300px"
           defaultLanguage="javascript"
           defaultValue={value}
           onChange={(val) => {
