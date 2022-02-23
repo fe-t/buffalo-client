@@ -2,17 +2,22 @@ import React, {
   ElementType,
   FC,
   PropsWithChildren,
+  ReactNode,
   useCallback,
   useState,
 } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 
-const CollapseGroup: FC<PropsWithChildren<{}>> = ({ children }) => {
-  return <div className="CollapseGroup">{children}</div>;
+const CollapseGroup: FC<PropsWithChildren<{}>> = ({ children, ...props }) => {
+  return (
+    <div className="CollapseGroup" {...props}>
+      {children}
+    </div>
+  );
 };
 
 const Collpase: FC<
-  PropsWithChildren<{ title: string; defaultOpen?: boolean }>
+  PropsWithChildren<{ title: ReactNode; defaultOpen?: boolean }>
 > & {
   Group: ElementType;
 } = ({ title, defaultOpen, children }) => {

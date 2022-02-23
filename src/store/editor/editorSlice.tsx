@@ -169,6 +169,13 @@ export const editorSlice = createSlice({
         delete target.actions?.[action.payload.actionName][
           action.payload.executionName
         ];
+        const keys = Object.keys(
+          target.actions?.[action.payload.actionName] as object
+        );
+        // 如果是最后一个，删除字段
+        if (keys.length <= 1) {
+          delete target.actions?.[action.payload.actionName];
+        }
       }
     },
     bindComponentConditionRender: (

@@ -4,10 +4,12 @@ import { DataNode } from "antd/lib/tree";
 import classNames from "classnames";
 import { isEmpty } from "lodash";
 import React, { FC, useMemo } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   hideComponent,
+  selectCursorComponentId,
   setCursorComponentId,
   showComponent,
 } from "../../store/editor/editorSlice";
@@ -40,23 +42,25 @@ const NodeTitle: FC<{
             EV
           </Button>
         )}
-        <Tooltip title={active ? "隐藏" : "显示"} mouseEnterDelay={0.5}>
-          <Button
-            className="NodeVisibleBtn"
-            type="text"
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (active) {
-                dispatch(hideComponent({ componentId }));
-              } else {
-                dispatch(showComponent({ componentId }));
-              }
-            }}
-          >
-            {active ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-          </Button>
-        </Tooltip>
+        {/* <Tooltip title={active ? "隐藏" : "显示"} mouseEnterDelay={0.5}> */}
+        <Button
+          className="NodeVisibleBtn"
+          type="text"
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (active) {
+              dispatch(hideComponent({ componentId }));
+              toast(`隐藏组件 #${componentId}`);
+            } else {
+              dispatch(showComponent({ componentId }));
+              toast.success(`显示组件 #${componentId}`);
+            }
+          }}
+        >
+          {active ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+        </Button>
+        {/* </Tooltip> */}
       </div>
     </FlexExpand>
   );
@@ -90,15 +94,15 @@ const ComponentTree = () => {
   const selectHandler = (selectedKeys: Key[]) => {
     dispatch(setCursorComponentId(selectedKeys[0] as string));
   };
+  const cursorComponentId = useAppSelector(selectCursorComponentId);
 
   return (
     <div className="ComponentTree">
-      <div className="ComponentTreeName">大纲树</div>
-
       <div className="ComponentTreeContent">
         {treeData.length ? (
           <Tree
             defaultExpandAll
+            selectedKeys={[cursorComponentId as Key]}
             blockNode
             showLine={{ showLeafIcon: false }}
             onSelect={selectHandler}

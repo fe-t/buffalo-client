@@ -156,6 +156,9 @@ $variables: (
   display: flex;
   flex-direction: column;
   overflow: auto;
+}
+
+.SiderRight {
   padding-bottom: 100px;
 }
 
@@ -533,7 +536,7 @@ $variables: (
   height: 400px;
   width: 100%;
   box-sizing: border-box;
-  border-top: 1px solid var(--accents-color-10);
+  // border-top: 1px solid var(--accents-color-10);
   overflow: auto;
   .ComponentTreeName {
     background-color: var(--accents-color-15);
