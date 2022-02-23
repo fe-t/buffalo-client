@@ -24,7 +24,7 @@ const NodeTitle: FC<{
     (s) => s.editor.present.components.filter((x) => x.id === componentId)[0]
   );
   const boundConditionVar = component?.general?.conditionRender;
-  const hasEvent = component.actions && !isEmpty(component.actions);
+  const hasEvent = component?.actions && !isEmpty(component?.actions);
 
   return (
     <FlexExpand className={classNames("NodeTitle", { active })}>

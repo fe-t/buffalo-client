@@ -1,10 +1,12 @@
-import { Button, Icon, Spacer, Tooltip } from "@yy/tofu-ui-react";
+import { Button, Spacer, Tooltip } from "@yy/tofu-ui-react";
 import { Button as AntButton, Space } from "antd";
 import dayjs from "dayjs";
 import qs from "qs";
-import React from "react";
+import React, { useContext } from "react";
+import { AiFillCheckCircle, AiFillWarning } from "react-icons/ai";
 import { FaSave } from "react-icons/fa";
 import { RiRocketFill } from "react-icons/ri";
+import { DirtyContext } from ".";
 import { useParamsBy } from "../../hooks";
 import { useAppSelector } from "../../store";
 import { DATETIME_FORMAT } from "../../util";
@@ -33,6 +35,8 @@ export const Header = () => {
   //   }
   // };
 
+  const dirty = useContext(DirtyContext);
+
   return (
     <div className="Header">
       <FlexCenter>
@@ -41,25 +45,33 @@ export const Header = () => {
         </a>
         <Spacer x={1} inline />
         <div className="UpdateTime">
-          <Tooltip
-            text={
-              <div>
-                <p>
-                  最后更新于
-                  {dayjs(Number(versionInfo.update_time)).format(
-                    DATETIME_FORMAT
-                  )}
-                </p>
-                <p>版本名称: {versionInfo.version_name}</p>
-              </div>
-            }
-          >
+          {dirty ? (
             <FlexCenter>
-              <span>{versionInfo.version_name}</span>
+              <span>未保存</span>
               <Spacer x={0.5} inline />
-              <Icon type="RoundCheck" size="small" />
+              <AiFillWarning style={{ color: "#ff4b4b" }} size="18" />
             </FlexCenter>
-          </Tooltip>
+          ) : (
+            <Tooltip
+              text={
+                <div>
+                  <p>
+                    最后更新于
+                    {dayjs(Number(versionInfo.update_time)).format(
+                      DATETIME_FORMAT
+                    )}
+                  </p>
+                  <p>版本名称: {versionInfo.version_name}</p>
+                </div>
+              }
+            >
+              <FlexCenter>
+                <span>{versionInfo.version_name}</span>
+                <Spacer x={0.5} inline />
+                <AiFillCheckCircle style={{ color: "#61d345" }} size="18" />
+              </FlexCenter>
+            </Tooltip>
+          )}
         </div>
       </FlexCenter>
       <Space>

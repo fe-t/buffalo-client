@@ -6,9 +6,12 @@ import { saveDetail } from "../../service";
 import { useAppSelector } from "../../store";
 import { sleep } from "../../util";
 
-interface Props {}
+interface Props {
+  onSaveSuccess: () => void;
+}
 export const KeyboardEventWrapper: FC<PropsWithChildren<Props>> = ({
   children,
+  onSaveSuccess,
 }) => {
   const versionId = useParamsBy("versionId");
   const components = useAppSelector((s) => s.editor.present.components);
@@ -23,6 +26,7 @@ export const KeyboardEventWrapper: FC<PropsWithChildren<Props>> = ({
       await saveDetail({ versionId, components, dataSource });
       await sleep(500);
       toast.success("保存成功");
+      onSaveSuccess();
     } catch (e) {
       toast.error("保存失败");
       console.error(e);
