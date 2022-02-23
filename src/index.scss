@@ -756,3 +756,33 @@ $variables: (
   height: 40px;
   padding: 0 10px;
 }
+
+.NodeBtnEVT {
+  font-weight: bold;
+  color: orangered;
+  &:hover {
+    color: orangered;
+  }
+}
+.NodeBtnIF {
+  font-weight: bold;
+  color: royalblue;
+  &:hover {
+    color: royalblue;
+  }
+}
+.NodeVisibleBtn {
+}
+
+.NodeTitle {
+  color: #999;
+  .NodeVisibleBtn {
+    color: #999;
+  }
+  &.active {
+    color: #333;
+    .NodeVisibleBtn {
+      color: #333;
+    }
+  }
+}

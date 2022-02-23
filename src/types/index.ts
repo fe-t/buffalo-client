@@ -70,6 +70,7 @@ export interface CanvasComponent {
   zhName: string;
   materialId: string;
   props: PropsMap;
+  visible: boolean;
   style: Record<string, string>;
   actions?: {
     [k: string]: any;

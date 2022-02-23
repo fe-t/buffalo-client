@@ -46,6 +46,7 @@ export const editorSlice = createSlice({
         id: nanoid(),
         materialId: material.id,
         props: serializeProps,
+        visible: true,
         style: {},
         general: {
           conditionRender: undefined,
@@ -57,6 +58,32 @@ export const editorSlice = createSlice({
     },
     setSavedComponents: (state, action: PayloadAction<any>) => {
       state.components = action.payload;
+    },
+    showComponent: (
+      state,
+      action: PayloadAction<{
+        componentId: string;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      if (target) {
+        target.visible = true;
+      }
+    },
+    hideComponent: (
+      state,
+      action: PayloadAction<{
+        componentId: string;
+      }>
+    ) => {
+      const target = state.components.find(
+        (c) => c.id === action.payload.componentId
+      );
+      if (target) {
+        target.visible = false;
+      }
     },
     updateComponentProp: (
       state,
@@ -185,6 +212,8 @@ export const editorSlice = createSlice({
 });
 
 export const {
+  showComponent,
+  hideComponent,
   setVersionInfo,
   setAppName,
   setAppConfig,
