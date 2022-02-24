@@ -1,4 +1,4 @@
-import { Button, Empty, Tooltip, Tree } from "antd";
+import { Button, Empty, Tree } from "antd";
 import { Key } from "antd/lib/table/interface";
 import { DataNode } from "antd/lib/tree";
 import classNames from "classnames";

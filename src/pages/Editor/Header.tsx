@@ -15,8 +15,8 @@ import { FlexCenter } from "../../widgets/styled";
 export const Header = () => {
   const versionId = useParamsBy("versionId");
   const versionInfo = useAppSelector((s) => s.editor.present.versionInfo);
-  const components = useAppSelector((s) => s.editor.present.components);
-  const dataSource = useAppSelector((s) => s.dataSource);
+  // const components = useAppSelector((s) => s.editor.present.components);
+  // const dataSource = useAppSelector((s) => s.dataSource);
 
   // const save = async () => {
   //   try {
@@ -68,7 +68,10 @@ export const Header = () => {
               <FlexCenter>
                 <span>{versionInfo.version_name}</span>
                 <Spacer x={0.5} inline />
-                <AiFillCheckCircle style={{ color: "#61d345" }} size="18" />
+                <AiFillCheckCircle
+                  style={{ color: "rgb(73 131 59)" }}
+                  size="18"
+                />
               </FlexCenter>
             </Tooltip>
           )}

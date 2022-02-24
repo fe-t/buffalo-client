@@ -4079,10 +4079,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@yy/data-table@^0.2.11":
-  version "0.2.11"
-  resolved "https://npm-registry.yy.com/@yy/data-table/download/@yy/data-table-0.2.11.tgz#968a88c9e788b340796ef902b239a44bf9d9b5f6"
-  integrity sha1-loqIyeeIs0B5bvkCsjmkS/nZtfY=
+"@yy/data-table@^0.2.18":
+  version "0.2.18"
+  resolved "https://npm-registry.yy.com/@yy/data-table/download/@yy/data-table-0.2.18.tgz#7795531a2209f53c83832cfe2a1bf43063df8fe2"
+  integrity sha1-d5VTGiIJ9TyDgyz+Khv0MGPfj+I=
   dependencies:
     "@types/styled-components" "^5.1.15"
     "@umijs/hooks" "^1.9.3"

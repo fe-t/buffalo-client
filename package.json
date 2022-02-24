@@ -24,7 +24,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "5.1.2",
     "@types/styled-components": "^5.1.7",
-    "@yy/data-table": "^0.2.11",
+    "@yy/data-table": "^0.2.18",
     "@yy/tofu-ui-react": "^2.0.1-alpha.48",
     "ahooks": "^2.10.12",
     "antd": "^4.17.4",
