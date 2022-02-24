@@ -64,6 +64,12 @@ export const editorInitialState: EditorState = {
       zhName: "展示数据源",
       type: "form",
     },
+    {
+      id: "9",
+      name: "RoutesBreadcrumb",
+      zhName: "面包屑",
+      type: "display",
+    },
   ],
   appConfig: {},
   appName: "",

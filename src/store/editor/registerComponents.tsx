@@ -2,6 +2,7 @@
  * 注册组件，让画布和属性编辑器能识别到
  */
 import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
+import { Space } from "antd";
 import React, { FC } from "react";
 import { BiLoader } from "react-icons/bi";
 import { MdAdsClick } from "react-icons/md";
@@ -17,6 +18,7 @@ import { CanvasElementType } from "../../types";
 import SchemaForm from "../../widgets/SchemaForm";
 import { DataList } from "./LocalComponents/DataList";
 import { DisplayDataSource } from "./LocalComponents/DisplayDataSource";
+import { RoutesBreadcrumb } from "./LocalComponents/RoutesBreadcrumb";
 
 /** 自定义的物料 */
 const Page: FC<{
@@ -42,6 +44,21 @@ const Page: FC<{
     </div>
   );
 };
+
+applyPropertyControls(RoutesBreadcrumb, {
+  routesJson: {
+    type: ControlType.CodeField,
+    label: "路由配置",
+    desc: (
+      <Space>
+        格式参考
+        <a href="https://ant.design/components/breadcrumb-cn/#%E5%92%8C-browserHistory-%E9%85%8D%E5%90%88">
+          antd 文档
+        </a>
+      </Space>
+    ),
+  },
+});
 
 applyPropertyControls(DisplayDataSource, {
   display: {
@@ -202,4 +219,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["6", DataList],
   ["7", Button],
   ["8", DisplayDataSource],
+  ["9", RoutesBreadcrumb],
 ]);
