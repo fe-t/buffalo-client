@@ -14,6 +14,7 @@ import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
 import { BiNavigation } from "react-icons/bi";
 import { MdTitle } from "react-icons/md";
+import { GoFile } from "react-icons/go";
 
 const iconMap = new Map([
   ["Page", <AiOutlineFile />],
@@ -28,6 +29,7 @@ const iconMap = new Map([
   ["Heading", <MdTitle />],
   ["Divider", <AiOutlineDash />],
   ["ConfigSteps", <VscListOrdered />],
+  ["Result", <GoFile />],
 ]);
 
 const MaterialList = () => {

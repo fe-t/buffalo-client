@@ -88,6 +88,12 @@ export const editorInitialState: EditorState = {
       zhName: "步骤条",
       type: "display",
     },
+    {
+      id: "13",
+      name: "Result",
+      zhName: "结果页",
+      type: "display",
+    },
   ],
   appConfig: {},
   appName: "",

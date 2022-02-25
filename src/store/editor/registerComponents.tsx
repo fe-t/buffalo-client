@@ -2,7 +2,7 @@
  * 注册组件，让画布和属性编辑器能识别到
  */
 import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
-import { Divider, Space } from "antd";
+import { Divider, Result, Space } from "antd";
 import { range } from "lodash";
 import React, { FC } from "react";
 import { BiLoader } from "react-icons/bi";
@@ -255,6 +255,31 @@ applyPropertyControls(ConfigSteps, {
   },
 });
 
+applyPropertyControls(Result, {
+  status: {
+    label: "结果状态",
+    type: ControlType.Enum,
+    options: ["success", "error", "info", "warning", "404", "403", "500"].map(
+      (x) => ({
+        label: x,
+        value: x,
+      })
+    ),
+    defaultValue: "success",
+  },
+  title: {
+    label: "结果标题",
+    type: ControlType.String,
+    defaultValue: "操作成功",
+    placeholder: "请输入",
+  },
+  subTitle: {
+    label: "副标题",
+    type: ControlType.String,
+    placeholder: "请输入",
+  },
+});
+
 export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
   ["2", Input],
@@ -268,4 +293,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["10", Heading],
   ["11", Divider],
   ["12", ConfigSteps],
+  ["13", Result],
 ]);
