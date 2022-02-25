@@ -2,7 +2,7 @@
  * 注册组件，让画布和属性编辑器能识别到
  */
 import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
-import { Space } from "antd";
+import { Divider, Space } from "antd";
 import { range } from "lodash";
 import React, { FC } from "react";
 import { BiLoader } from "react-icons/bi";
@@ -243,4 +243,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["8", DisplayDataSource],
   ["9", RoutesBreadcrumb],
   ["10", Heading],
+  ["11", Divider],
 ]);

@@ -1,6 +1,7 @@
 import { Card, Empty, Icon, Input } from "@yy/tofu-ui-react";
 import React, { useMemo, useState } from "react";
 import {
+  AiOutlineDash,
   AiOutlineEdit,
   AiOutlineFile,
   AiOutlineSelect,
@@ -25,6 +26,7 @@ const iconMap = new Map([
   ["DisplayDataSource", <BsCodeSlash />],
   ["RoutesBreadcrumb", <BiNavigation />],
   ["Heading", <MdTitle />],
+  ["Divider", <AiOutlineDash />],
 ]);
 
 const MaterialList = () => {
