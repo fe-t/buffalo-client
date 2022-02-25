@@ -70,6 +70,12 @@ export const editorInitialState: EditorState = {
       zhName: "面包屑",
       type: "display",
     },
+    {
+      id: "10",
+      name: "Heading",
+      zhName: "标题",
+      type: "display",
+    },
   ],
   appConfig: {},
   appName: "",

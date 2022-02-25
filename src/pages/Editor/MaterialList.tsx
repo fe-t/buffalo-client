@@ -12,6 +12,7 @@ import { VscJson } from "react-icons/vsc";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
 import { BiNavigation } from "react-icons/bi";
+import { MdTitle } from "react-icons/md";
 
 const iconMap = new Map([
   ["Page", <AiOutlineFile />],
@@ -23,6 +24,7 @@ const iconMap = new Map([
   ["Button", <HiCursorClick />],
   ["DisplayDataSource", <BsCodeSlash />],
   ["RoutesBreadcrumb", <BiNavigation />],
+  ["Heading", <MdTitle />],
 ]);
 
 const MaterialList = () => {

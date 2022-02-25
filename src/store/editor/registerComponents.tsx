@@ -3,6 +3,7 @@
  */
 import { Button, Datagrid, Input, Link, Select } from "@yy/tofu-ui-react";
 import { Space } from "antd";
+import { range } from "lodash";
 import React, { FC } from "react";
 import { BiLoader } from "react-icons/bi";
 import { MdAdsClick } from "react-icons/md";
@@ -18,6 +19,7 @@ import { CanvasElementType } from "../../types";
 import SchemaForm from "../../widgets/SchemaForm";
 import { DataList } from "./LocalComponents/DataList";
 import { DisplayDataSource } from "./LocalComponents/DisplayDataSource";
+import { Heading } from "./LocalComponents/Heading";
 import { RoutesBreadcrumb } from "./LocalComponents/RoutesBreadcrumb";
 
 /** 自定义的物料 */
@@ -44,6 +46,26 @@ const Page: FC<{
     </div>
   );
 };
+
+applyPropertyControls(Heading, {
+  content: {
+    type: ControlType.String,
+    label: "标题内容",
+    defaultValue: "标题内容",
+  },
+  level: {
+    type: ControlType.Enum,
+    label: "标题等级",
+    options: range(1, 6).map((x) => ({ label: `${x}级`, value: x })),
+    defaultValue: 2,
+  },
+  textAlign: {
+    type: ControlType.Enum,
+    label: "对齐方式",
+    options: ["left", "center", "right"].map((x) => ({ label: x, value: x })),
+    defaultValue: "left",
+  },
+});
 
 applyPropertyControls(RoutesBreadcrumb, {
   routesJson: {
@@ -220,4 +242,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["7", Button],
   ["8", DisplayDataSource],
   ["9", RoutesBreadcrumb],
+  ["10", Heading],
 ]);
