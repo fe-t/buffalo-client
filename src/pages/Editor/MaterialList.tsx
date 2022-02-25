@@ -9,7 +9,7 @@ import {
 } from "react-icons/ai";
 import { HiCursorClick } from "react-icons/hi";
 import { BsCodeSlash } from "react-icons/bs";
-import { VscJson } from "react-icons/vsc";
+import { VscJson, VscListOrdered } from "react-icons/vsc";
 import { useAppSelector } from "../../store";
 import { selectMaterials } from "../../store/editor/editorSlice";
 import { BiNavigation } from "react-icons/bi";
@@ -27,6 +27,7 @@ const iconMap = new Map([
   ["RoutesBreadcrumb", <BiNavigation />],
   ["Heading", <MdTitle />],
   ["Divider", <AiOutlineDash />],
+  ["ConfigSteps", <VscListOrdered />],
 ]);
 
 const MaterialList = () => {

@@ -17,6 +17,7 @@ import {
 } from "../../pages/Editor/property-controls";
 import { CanvasElementType } from "../../types";
 import SchemaForm from "../../widgets/SchemaForm";
+import { ConfigSteps } from "./LocalComponents/ConfigSteps";
 import { DataList } from "./LocalComponents/DataList";
 import { DisplayDataSource } from "./LocalComponents/DisplayDataSource";
 import { Heading } from "./LocalComponents/Heading";
@@ -232,6 +233,28 @@ applyPropertyControls(DataList, {
   },
 });
 
+applyPropertyControls(ConfigSteps, {
+  routes: {
+    type: ControlType.CodeField,
+    label: "步骤配置",
+    defaultValue: JSON.stringify([
+      {
+        title: "第一步",
+      },
+      {
+        title: "第二步",
+      },
+      {
+        title: "第三步",
+      },
+    ]),
+  },
+  current: {
+    type: ControlType.Number,
+    label: "当前步骤",
+  },
+});
+
 export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
   ["2", Input],
@@ -244,4 +267,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["9", RoutesBreadcrumb],
   ["10", Heading],
   ["11", Divider],
+  ["12", ConfigSteps],
 ]);

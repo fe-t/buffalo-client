@@ -82,6 +82,12 @@ export const editorInitialState: EditorState = {
       zhName: "分割线",
       type: "display",
     },
+    {
+      id: "12",
+      name: "ConfigSteps",
+      zhName: "步骤条",
+      type: "display",
+    },
   ],
   appConfig: {},
   appName: "",
