@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import {
   addComponent,
   selectComponents,
+  selectCursorComponent,
   selectCursorComponentId,
   selectMaterials,
   setCursorComponentId,
@@ -26,6 +27,7 @@ const ComponentWrap: FC<
   }>
 > = ({ children, canvasComponent }) => {
   const dispatch = useAppDispatch();
+  const component = useAppSelector(selectCursorComponent);
   const cursorComponentId = useAppSelector(selectCursorComponentId);
 
   const handleClick = useCallback(
@@ -63,6 +65,7 @@ const ComponentWrap: FC<
       <div className="TopRightDot ResizeDot" />
       <div className="BottomLeftDot ResizeDot" />
       <div className="BottomRightDot ResizeDot" />
+      <div className="ComponentWrapTitle">{component.zhName}</div>
     </div>
   );
 };

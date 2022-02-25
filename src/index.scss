@@ -299,7 +299,8 @@ $variables: (
     border: 1px solid var(--primary-color);
   }
 
-  &.active .ResizeDot {
+  &.active .ResizeDot,
+  &.active .ComponentWrapTitle {
     display: block;
   }
 
@@ -329,6 +330,16 @@ $variables: (
   .BottomRightDot {
     bottom: -4px;
     right: -4px;
+  }
+  .ComponentWrapTitle {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 5px;
+    font-size: 12px;
+    z-index: 1;
   }
 }
 

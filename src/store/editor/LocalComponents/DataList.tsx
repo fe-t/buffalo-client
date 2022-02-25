@@ -6,6 +6,8 @@ import axios from "axios";
 import qs from "qs";
 import dayjs from "dayjs";
 import numeral from "numeral";
+import { FlexExpand } from "../../../widgets/styled";
+import { Button } from "antd";
 
 const formatterMap = new Map([
   [
@@ -65,7 +67,14 @@ const DataListInner: FC<any> = ({
 
   return (
     <div {...props}>
-      <Search schema={_schema as any} api={searchApi as any} hidden={hidden} />
+      <FlexExpand>
+        <Search
+          schema={_schema as any}
+          api={searchApi as any}
+          hidden={hidden}
+        />
+        {/* <Button>导出</Button> */}
+      </FlexExpand>
       <Table columns={_columns} />
     </div>
   );
