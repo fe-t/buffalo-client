@@ -1,4 +1,8 @@
-const { overrideDevServer } = require("customize-cra");
+const {
+  overrideDevServer,
+  // override,
+  // fixBabelImports,
+} = require("customize-cra");
 
 const devServerConfig = () => (config) => {
   return {
@@ -34,4 +38,16 @@ const devServerConfig = () => (config) => {
 
 module.exports = {
   devServer: overrideDevServer(devServerConfig()),
+  // webpack: override(
+  //   fixBabelImports("antd", {
+  //     libraryName: "antd",
+  //     libraryDirectory: "es",
+  //     style: true,
+  //   }),
+  //   fixBabelImports("@formily/antd", {
+  //     libraryName: "@formily/antd",
+  //     libraryDirectory: "esm",
+  //     style: true,
+  //   })
+  // ),
 };

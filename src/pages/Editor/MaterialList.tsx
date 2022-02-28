@@ -15,6 +15,7 @@ import { selectMaterials } from "../../store/editor/editorSlice";
 import { BiNavigation } from "react-icons/bi";
 import { MdTitle } from "react-icons/md";
 import { GoFile } from "react-icons/go";
+import { FaWpforms } from "react-icons/fa";
 
 const iconMap = new Map([
   ["Page", <AiOutlineFile />],
@@ -30,6 +31,7 @@ const iconMap = new Map([
   ["Divider", <AiOutlineDash />],
   ["ConfigSteps", <VscListOrdered />],
   ["Result", <GoFile />],
+  ["FormilyJSONSchema", <FaWpforms />],
 ]);
 
 const MaterialList = () => {

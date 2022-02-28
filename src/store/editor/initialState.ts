@@ -94,6 +94,12 @@ export const editorInitialState: EditorState = {
       zhName: "结果页",
       type: "display",
     },
+    {
+      id: "14",
+      name: "FormilyJSONSchema",
+      zhName: "协议表单",
+      type: "form",
+    },
   ],
   appConfig: {},
   appName: "",

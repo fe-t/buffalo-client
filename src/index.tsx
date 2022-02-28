@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Toaster } from "react-hot-toast";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
+import "@formily/antd/dist/antd.css";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";

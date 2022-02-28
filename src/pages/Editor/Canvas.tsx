@@ -65,7 +65,7 @@ const ComponentWrap: FC<
       <div className="TopRightDot ResizeDot" />
       <div className="BottomLeftDot ResizeDot" />
       <div className="BottomRightDot ResizeDot" />
-      <div className="ComponentWrapTitle">{component.zhName}</div>
+      <div className="ComponentWrapTitle">{component?.zhName}</div>
     </div>
   );
 };

@@ -20,6 +20,7 @@ import SchemaForm from "../../widgets/SchemaForm";
 import { ConfigSteps } from "./LocalComponents/ConfigSteps";
 import { DataList } from "./LocalComponents/DataList";
 import { DisplayDataSource } from "./LocalComponents/DisplayDataSource";
+import { FormilyJSONSchema } from "./LocalComponents/FormilyJSONSchema";
 import { Heading } from "./LocalComponents/Heading";
 import { RoutesBreadcrumb } from "./LocalComponents/RoutesBreadcrumb";
 
@@ -280,6 +281,13 @@ applyPropertyControls(Result, {
   },
 });
 
+applyPropertyControls(FormilyJSONSchema, {
+  schema: {
+    type: ControlType.CodeField,
+    label: "协议",
+  },
+});
+
 export const componentMap = new Map<string, CanvasElementType>([
   ["1", Datagrid],
   ["2", Input],
@@ -294,4 +302,5 @@ export const componentMap = new Map<string, CanvasElementType>([
   ["11", Divider],
   ["12", ConfigSteps],
   ["13", Result],
+  ["14", FormilyJSONSchema],
 ]);
