@@ -51,10 +51,10 @@ const NodeTitle: FC<{
             e.stopPropagation();
             if (active) {
               dispatch(hideComponent({ componentId }));
-              toast(`隐藏组件 #${componentId}`);
+              toast(`隐藏组件: ${component.zhName}`);
             } else {
               dispatch(showComponent({ componentId }));
-              toast.success(`显示组件 #${componentId}`);
+              toast.success(`显示组件: ${component.zhName}`);
             }
           }}
         >

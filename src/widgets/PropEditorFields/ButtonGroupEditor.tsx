@@ -21,10 +21,11 @@ export const ButtonGroupEditor: FC<Props> = ({ value, onChange }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (value) {
-      form.setFieldsValue({ items: value });
-    }
-  }, [form, value]);
+    form.setFieldsValue({ items: value });
+
+    // 防止进入死循环，第一次设置就好
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="ButtonGroupEditor">

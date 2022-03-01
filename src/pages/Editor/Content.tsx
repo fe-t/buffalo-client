@@ -1,11 +1,10 @@
 import React from "react";
 import Canvas from "./Canvas";
-import CanvasBreadcrumb from "./CanvasBreadcrumb";
 
 const Content = () => {
   return (
     <div className="Content">
-      <CanvasBreadcrumb />
+      {/* <CanvasBreadcrumb /> */}
       <Canvas />
     </div>
   );
