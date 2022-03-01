@@ -21,7 +21,9 @@ export const ButtonGroupEditor: FC<Props> = ({ value, onChange }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({ items: value });
+    form.setFieldsValue({
+      items: value,
+    });
 
     // 防止进入死循环，第一次设置就好
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +34,6 @@ export const ButtonGroupEditor: FC<Props> = ({ value, onChange }) => {
       <Form
         form={form}
         onValuesChange={debounce((_, allVals) => {
-          // console.log("vals", vals);
           onChange(allVals.items);
         }, 500)}
       >
@@ -46,7 +47,9 @@ export const ButtonGroupEditor: FC<Props> = ({ value, onChange }) => {
                     <Button
                       type="text"
                       icon={<RiDeleteBack2Fill />}
-                      onClick={() => remove(name)}
+                      onClick={() => {
+                        remove(name);
+                      }}
                     />
                   </FlexExpand>
                   <div className="ButtonGroupEditorRow">

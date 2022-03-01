@@ -43,10 +43,16 @@ interface Props {
   style: any;
   schema: any;
   buttonGroup: ButtonInfo[];
+  labelCol: number;
+  wrapperCol: number;
+  layout: "vertical" | "horizontal" | "inline";
 }
 export const FormilyJSONSchema: FC<Props> = ({
   schema,
   buttonGroup,
+  layout = "horizontal",
+  labelCol,
+  wrapperCol,
   ...props
 }) => {
   const _schema = JSON.parse(schema);
@@ -54,7 +60,11 @@ export const FormilyJSONSchema: FC<Props> = ({
     <div {...props}>
       {schema ? (
         <FormProvider form={form}>
-          <FormLayout layout="horizontal">
+          <FormLayout
+            layout={layout}
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <SchemaField schema={_schema} />
             <FormButtonGroup.FormItem>
               {buttonGroup?.map((x, i) => {

@@ -286,6 +286,26 @@ applyPropertyControls(FormilyJSONSchema, {
     type: ControlType.CodeField,
     label: "协议",
   },
+  layout: {
+    label: "布局方式",
+    type: ControlType.Enum,
+    defaultValue: "horizontal",
+    options: [
+      { label: "垂直", value: "vertical" },
+      { label: "水平", value: "horizontal" },
+      { label: "行内", value: "inline" },
+    ],
+  },
+  labelCol: {
+    label: "标签权重",
+    type: ControlType.Number,
+    desc: "label 标签布局",
+  },
+  wrapperCol: {
+    label: "内容权重",
+    type: ControlType.Number,
+    desc: "需要为输入控件设置布局样式时，使用该属性，用法同 labelCol",
+  },
   buttonGroup: {
     type: ControlType.ButtonGroup,
     label: "按钮配置",
