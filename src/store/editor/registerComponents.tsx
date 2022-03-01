@@ -286,6 +286,24 @@ applyPropertyControls(FormilyJSONSchema, {
     type: ControlType.CodeField,
     label: "协议",
   },
+  buttonGroup: {
+    type: ControlType.ButtonGroup,
+    label: "按钮配置",
+    defaultValue: [
+      {
+        title: "提交",
+        type: "submit",
+        layoutType: "primary",
+        actions: {},
+      },
+      {
+        title: "取消",
+        type: "button",
+        layoutType: "default",
+        actions: {},
+      },
+    ],
+  },
 });
 
 export const componentMap = new Map<string, CanvasElementType>([

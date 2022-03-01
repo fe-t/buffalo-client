@@ -10,6 +10,7 @@ import { RenderPropsItem } from "../../types/index";
 import { CodeModalEditor } from "../../widgets/CodeModalEditor";
 import ColorPicker from "../../widgets/ColorPicker";
 import NumberEditor from "../../widgets/NumberEditor";
+import { ButtonGroupEditor } from "../../widgets/PropEditorFields/ButtonGroupEditor";
 import { TableColumnsEditor } from "../../widgets/TableColumnsEditor/TableColumnsEditor";
 import { ControlType } from "./property-controls";
 
@@ -115,8 +116,15 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
           onChange={(v) => handlePropChange(p.name, v)}
         />
       )}
+      {/* 表格列信息配置  */}
       {p.type === ControlType.TableColumns && (
         <TableColumnsEditor
+          value={p.value}
+          onChange={(v) => handlePropChange(p.name, v)}
+        />
+      )}
+      {p.type === ControlType.ButtonGroup && (
+        <ButtonGroupEditor
           value={p.value}
           onChange={(v) => handlePropChange(p.name, v)}
         />

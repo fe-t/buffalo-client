@@ -1,21 +1,22 @@
 import {
+  ArrayItems,
+  Cascader,
+  DatePicker,
+  Editable,
+  FormButtonGroup,
+  FormGrid,
   FormItem,
   FormLayout,
   Input,
-  Select,
-  Cascader,
-  DatePicker,
-  Submit,
-  FormGrid,
-  Upload,
-  ArrayItems,
-  Editable,
-  FormButtonGroup,
   NumberPicker,
+  Select,
+  Upload,
 } from "@formily/antd";
 import { createForm } from "@formily/core";
 import { createSchemaField, FormProvider } from "@formily/react";
+import { Button } from "antd";
 import React, { FC } from "react";
+import { ButtonInfo } from "../../../widgets/PropEditorFields/ButtonGroupEditor";
 import { ComponentPlaceholder } from "./ComponentPlaceholder";
 
 const form = createForm({
@@ -41,19 +42,37 @@ const SchemaField = createSchemaField({
 interface Props {
   style: any;
   schema: any;
+  buttonGroup: ButtonInfo[];
 }
-export const FormilyJSONSchema: FC<Props> = ({ schema, ...props }) => {
+export const FormilyJSONSchema: FC<Props> = ({
+  schema,
+  buttonGroup,
+  ...props
+}) => {
   const _schema = JSON.parse(schema);
   return (
     <div {...props}>
       {schema ? (
         <FormProvider form={form}>
-          <FormLayout layout="vertical">
+          <FormLayout layout="horizontal">
             <SchemaField schema={_schema} />
             <FormButtonGroup.FormItem>
-              <Submit block size="large">
+              {buttonGroup?.map((x, i) => {
+                return (
+                  <Button key={i} type={x.layoutType} htmlType={x.type}>
+                    {x.title}
+                  </Button>
+                );
+              })}
+              {/* <Submit
+                block
+                size="large"
+                onSubmit={(vals) => {
+                  console.log(vals);
+                }}
+              >
                 提交
-              </Submit>
+              </Submit> */}
             </FormButtonGroup.FormItem>
           </FormLayout>
         </FormProvider>

@@ -252,6 +252,7 @@ $variables: (
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 .Canvas {
   flex-grow: 1;
@@ -798,5 +799,45 @@ $variables: (
     .NodeVisibleBtn {
       color: #333;
     }
+  }
+}
+
+.ButtonGroupEditor {
+  .ant-card {
+    background-color: #f1f4f7;
+    margin-bottom: 10px;
+  }
+  .ant-input {
+    border: none;
+    background-color: transparent;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: transparent;
+    border: none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  .ant-select-focused:not(.ant-select-customize-input) .ant-select-selector {
+    box-shadow: none !important;
+  }
+}
+
+.ButtonGroupEditorRow {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--accents-color-5);
+  margin-bottom: 5px;
+  & > span {
+    display: inline-block;
+    width: 70px;
+    flex-shrink: 0;
+  }
+  .ButtonGroupEditorRowContent {
+    flex-grow: 1;
   }
 }

@@ -16,10 +16,12 @@ const OBJECT = "object";
 const TEXTFIELD = "textfield";
 const CODE_FIELD = "codefield";
 const TABLE_COLUMNS = "tableColumns";
+const BUTTON_GROUP = "BUTTON_GROUP";
 
 export type ValueOf<T> = T[keyof T];
 
 export const ControlType = {
+  ButtonGroup: BUTTON_GROUP,
   TextField: TEXTFIELD,
   Boolean: BOOLEAN,
   Enum: ENUM,
