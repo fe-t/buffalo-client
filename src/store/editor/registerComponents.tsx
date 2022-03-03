@@ -324,6 +324,10 @@ applyPropertyControls(FormilyJSONSchema, {
       },
     ],
   },
+  onAutoSubmit: {
+    label: "提交回调",
+    type: ControlType.EventHandler,
+  },
 });
 
 export const componentMap = new Map<string, CanvasElementType>([

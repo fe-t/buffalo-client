@@ -11,6 +11,7 @@ import { CodeModalEditor } from "../../widgets/CodeModalEditor";
 import ColorPicker from "../../widgets/ColorPicker";
 import NumberEditor from "../../widgets/NumberEditor";
 import { ButtonGroupEditor } from "../../widgets/PropEditorFields/ButtonGroupEditor";
+import { ExpressionEditor } from "../../widgets/PropEditorFields/ExpressionEditor";
 import { TableColumnsEditor } from "../../widgets/TableColumnsEditor/TableColumnsEditor";
 import { ControlType } from "./property-controls";
 
@@ -123,8 +124,16 @@ const PropEditorSwitcher: FC<{ propItem: RenderPropsItem }> = ({
           onChange={(v) => handlePropChange(p.name, v)}
         />
       )}
+      {/* 按钮组 */}
       {p.type === ControlType.ButtonGroup && (
         <ButtonGroupEditor
+          value={p.value}
+          onChange={(v) => handlePropChange(p.name, v)}
+        />
+      )}
+      {/* 事件处理: TODO：暂时用表达式 */}
+      {p.type === ControlType.EventHandler && (
+        <ExpressionEditor
           value={p.value}
           onChange={(v) => handlePropChange(p.name, v)}
         />

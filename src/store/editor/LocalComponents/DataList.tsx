@@ -7,13 +7,13 @@ import qs from "qs";
 import dayjs from "dayjs";
 import numeral from "numeral";
 import { FlexExpand } from "../../../widgets/styled";
-import { Button } from "antd";
 
 const formatterMap = new Map([
   [
     "dateTimeYYYYMMDDHHmmSS",
     (v: any) => dayjs(v).format("YYYY-MM-DD HH:mm:ss"),
   ],
+  ["dateYYYYMMDD", (v: any) => dayjs(v).format("YYYY-MM-DD")],
   ["money", (v: any) => `¥${numeral(v).format("0,0.00")}`],
   ["0,0", (v: any) => `${numeral(v).format("0,0")}`],
 ]);

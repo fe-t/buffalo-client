@@ -14,6 +14,7 @@ export interface ColumnInfo {
   accessor: string;
   Header: string; // TODO: 展示只支持 string
   formatter: string;
+  formatterExpression?: string;
 }
 
 interface Props {

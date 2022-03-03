@@ -3,6 +3,7 @@ import {
   Cascader,
   DatePicker,
   Editable,
+  Form,
   FormButtonGroup,
   FormGrid,
   FormItem,
@@ -16,8 +17,14 @@ import { createForm } from "@formily/core";
 import { createSchemaField, FormProvider } from "@formily/react";
 import { Button } from "antd";
 import React, { FC } from "react";
-import { ButtonInfo } from "../../../widgets/PropEditorFields/ButtonGroupEditor";
 import { ComponentPlaceholder } from "./ComponentPlaceholder";
+
+export interface ButtonInfo {
+  title: string;
+  type: "submit" | "reset" | "button";
+  layoutType: "primary" | "default";
+  actions: Record<any, any>;
+}
 
 const form = createForm({
   validateFirst: true,
@@ -46,6 +53,8 @@ interface Props {
   labelCol: number;
   wrapperCol: number;
   layout: "vertical" | "horizontal" | "inline";
+  onAutoSubmit?: (values: any) => void;
+  onAutoSubmitFailed?: (feedbacks: any[]) => void;
 }
 export const FormilyJSONSchema: FC<Props> = ({
   schema,
@@ -53,6 +62,8 @@ export const FormilyJSONSchema: FC<Props> = ({
   layout = "horizontal",
   labelCol,
   wrapperCol,
+  onAutoSubmit,
+  onAutoSubmitFailed,
   ...props
 }) => {
   const _schema = JSON.parse(schema);
@@ -60,21 +71,25 @@ export const FormilyJSONSchema: FC<Props> = ({
     <div {...props}>
       {schema ? (
         <FormProvider form={form}>
-          <FormLayout
-            layout={layout}
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
+          <Form
+            onAutoSubmit={onAutoSubmit}
+            onAutoSubmitFailed={onAutoSubmitFailed}
           >
-            <SchemaField schema={_schema} />
-            <FormButtonGroup.FormItem>
-              {buttonGroup?.map((x, i) => {
-                return (
-                  <Button key={i} type={x.layoutType} htmlType={x.type}>
-                    {x.title}
-                  </Button>
-                );
-              })}
-              {/* <Submit
+            <FormLayout
+              layout={layout}
+              labelCol={labelCol}
+              wrapperCol={wrapperCol}
+            >
+              <SchemaField schema={_schema} />
+              <FormButtonGroup.FormItem>
+                {buttonGroup?.map((x, i) => {
+                  return (
+                    <Button key={i} type={x.layoutType} htmlType={x.type}>
+                      {x.title}
+                    </Button>
+                  );
+                })}
+                {/* <Submit
                 block
                 size="large"
                 onSubmit={(vals) => {
@@ -83,8 +98,9 @@ export const FormilyJSONSchema: FC<Props> = ({
               >
                 提交
               </Submit> */}
-            </FormButtonGroup.FormItem>
-          </FormLayout>
+              </FormButtonGroup.FormItem>
+            </FormLayout>
+          </Form>
         </FormProvider>
       ) : (
         <ComponentPlaceholder text={"先填写JSON Schema"} />

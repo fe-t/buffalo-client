@@ -3,14 +3,8 @@ import { debounce } from "lodash";
 import React, { FC, useEffect } from "react";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import { RiDeleteBack2Fill } from "react-icons/ri";
+import { ButtonInfo } from "../../store/editor/LocalComponents/FormilyJSONSchema";
 import { FlexExpand } from "../styled";
-
-export interface ButtonInfo {
-  title: string;
-  type: "submit" | "reset" | "button";
-  layoutType: "primary" | "default";
-  actions: Record<any, any>;
-}
 
 interface Props {
   value: ButtonInfo[];

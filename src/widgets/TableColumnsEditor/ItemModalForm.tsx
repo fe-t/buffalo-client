@@ -3,6 +3,7 @@ import {
   ProFormInstance,
   ProFormSelect,
   ProFormText,
+  ProFormTextArea,
 } from "@ant-design/pro-form";
 import { FC, useEffect, useRef, useState } from "react";
 import { ColumnInfo } from "./TableColumnsEditor";
@@ -22,6 +23,7 @@ export const ItemModalForm: FC<{
         accessor: column.accessor,
         Header: column.Header,
         formatter: column.formatter,
+        formatterExpression: column.formatterExpression,
       });
     }
   }, [column, v]);
@@ -70,6 +72,10 @@ export const ItemModalForm: FC<{
         request={async () => {
           return [
             {
+              value: "dateYYYYMMDD",
+              label: "日期YYYY-MM-DD",
+            },
+            {
               value: "dateTimeYYYYMMDDHHmmSS",
               label: "日期时间YYYY-MM-DD HH:mm:SS",
             },
@@ -83,6 +89,12 @@ export const ItemModalForm: FC<{
             },
           ];
         }}
+      />
+      <ProFormTextArea
+        width="md"
+        name="formatterExpression"
+        label="自定义格式化函数(优先)"
+        placeholder="请输入"
       />
     </ModalForm>
   );
