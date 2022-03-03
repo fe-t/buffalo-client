@@ -12,6 +12,7 @@ import {
   NumberPicker,
   Select,
   Upload,
+  ArrayCards,
 } from "@formily/antd";
 import { createForm } from "@formily/core";
 import { createSchemaField, FormProvider } from "@formily/react";
@@ -43,6 +44,7 @@ const SchemaField = createSchemaField({
     Upload,
     ArrayItems,
     Editable,
+    ArrayCards,
   },
 });
 

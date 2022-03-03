@@ -50,16 +50,18 @@ export const CodeModalEditor: FC<Props> = ({
           </Space>
         }
       >
-        <div className="CodeContainer">
-          <Editor
-            height="500px"
-            defaultLanguage={type}
-            defaultValue={formatted}
-            onChange={(val) => {
-              setSelfValue(val as string);
-            }}
-            theme="vs-dark"
-          />
+        <div style={{ display: "flex", height: "100%" }}>
+          <div className="CodeContainer" style={{ width: "100%" }}>
+            <Editor
+              // height="900"
+              defaultLanguage={type}
+              defaultValue={formatted}
+              onChange={(val) => {
+                setSelfValue(val as string);
+              }}
+              theme="vs-dark"
+            />
+          </div>
         </div>
       </Drawer>
       <Input value={value} readOnly />
