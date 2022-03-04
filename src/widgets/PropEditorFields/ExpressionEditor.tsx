@@ -57,7 +57,7 @@ export const ExpressionEditor: FC<Props> = ({ value, onChange }) => {
               <li>
                 可使用变量: 参数 <Text code>arguments</Text>,{" "}
                 <Text code>process</Text>, <Text code>axios</Text>,{" "}
-                <Text code>lodash</Text>
+                <Text code>lodash</Text>, <Text code>store</Text>
               </li>
               <li>
                 可以使用 <Text code>await</Text>, 本身是一个
