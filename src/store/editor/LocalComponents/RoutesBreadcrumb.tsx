@@ -1,18 +1,28 @@
-import { Breadcrumb } from "antd";
+import { Breadcrumb, Typography } from "antd";
 import React, { FC, HTMLAttributes } from "react";
-import { Link } from "react-router-dom";
 import { ComponentPlaceholder } from "./ComponentPlaceholder";
 
 interface Props {
   routesJson: string;
 }
 
+const Link = Typography.Link;
+
 function itemRender(route: any, params: any, routes: any, paths: any) {
   const last = routes.indexOf(route) === routes.length - 1;
+
   return last ? (
     <span>{route.breadcrumbName}</span>
   ) : (
-    <Link to={paths.join("/")}>{route.breadcrumbName}</Link>
+    <Link
+      onClick={(e) => {
+        e.preventDefault();
+        window.location.href = route.path;
+        window.location.reload();
+      }}
+    >
+      {route.breadcrumbName}
+    </Link>
   );
 }
 
