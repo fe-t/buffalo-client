@@ -57,6 +57,7 @@ interface Props {
   layout: "vertical" | "horizontal" | "inline";
   onAutoSubmit?: (values: any) => void;
   onAutoSubmitFailed?: (feedbacks: any[]) => void;
+  onFormMount?: (form: typeof Form) => void;
 }
 export const FormilyJSONSchema: FC<Props> = ({
   schema,
@@ -66,6 +67,7 @@ export const FormilyJSONSchema: FC<Props> = ({
   wrapperCol,
   onAutoSubmit,
   onAutoSubmitFailed,
+  onFormMount,
   ...props
 }) => {
   const _schema = JSON.parse(schema);

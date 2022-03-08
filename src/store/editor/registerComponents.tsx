@@ -328,6 +328,10 @@ applyPropertyControls(FormilyJSONSchema, {
     label: "提交回调",
     type: ControlType.EventHandler,
   },
+  onFormMount: {
+    label: "表单加载完成",
+    type: ControlType.EventHandler,
+  },
 });
 
 export const componentMap = new Map<string, CanvasElementType>([
