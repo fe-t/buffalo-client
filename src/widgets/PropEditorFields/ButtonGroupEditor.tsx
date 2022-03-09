@@ -5,6 +5,7 @@ import { AiOutlinePlusSquare } from "react-icons/ai";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ButtonInfo } from "../../store/editor/LocalComponents/FormilyJSONSchema";
 import { FlexExpand } from "../styled";
+import { BindDataFormItem } from "./BindDataFormItem";
 
 interface Props {
   value: ButtonInfo[];
@@ -84,6 +85,14 @@ export const ButtonGroupEditor: FC<Props> = ({ value, onChange }) => {
                             </Select.Option>
                           ))}
                         </Select>
+                      </Form.Item>
+                    </div>
+                  </div>
+                  <div className="ButtonGroupEditorRow">
+                    <span>点击事件</span>
+                    <div className="ButtonGroupEditorRowContent">
+                      <Form.Item name={[name, "actions", "onClick"]} noStyle>
+                        <BindDataFormItem />
                       </Form.Item>
                     </div>
                   </div>
