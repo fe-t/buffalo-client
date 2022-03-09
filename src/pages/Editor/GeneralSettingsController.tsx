@@ -13,7 +13,19 @@ export const GeneralSettingsController = () => {
       <div className="GeneralSettingsRow">
         <Space>
           <span>条件渲染</span>
-          {boundConditionVar && <Tag color="blue">{boundConditionVar}</Tag>}
+          {boundConditionVar && (
+            <Tag
+              color="blue"
+              style={{
+                maxWidth: "150px",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
+              {boundConditionVar}
+            </Tag>
+          )}
         </Space>
         <BindData />
       </div>
