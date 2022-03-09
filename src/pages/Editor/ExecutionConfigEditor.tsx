@@ -4,6 +4,7 @@ import { PlatformActionExecutions, PlatformActions } from "./action-controls";
 import { ShowToastConfig } from "./ExecutionConfigs/ShowToastConfig";
 import { NavigateToConfig } from "./ExecutionConfigs/NavigateToConfig";
 import { ShowModalConfig } from "./ExecutionConfigs/ShowModalConfig";
+import { CustomExecutionConfig } from "./ExecutionConfigs/CustomExecutionConfig";
 
 interface Props {
   action?: PlatformActions;
@@ -26,6 +27,9 @@ export const ExecutionConfigEditor: FC<Props> = ({ action, execution }) => {
         ),
         execution === "showToast" && (
           <ShowToastConfig name={name} key="showToast" />
+        ),
+        execution === "customExecution" && (
+          <CustomExecutionConfig name={name} key="customExecution" />
         ),
       ].filter(Boolean)}
     </>

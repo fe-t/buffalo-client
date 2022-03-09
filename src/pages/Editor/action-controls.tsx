@@ -55,5 +55,9 @@ export const platformActionExecutions = {
     type: "showToast",
     label: "显示消息提示",
   },
+  customExecution: {
+    type: "customExecution",
+    label: "自定义",
+  },
 };
 export type PlatformActionExecutions = keyof typeof platformActionExecutions;
