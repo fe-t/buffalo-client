@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { Alert, Form, Typography } from "antd";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 const { Text } = Typography;
 
@@ -16,6 +16,10 @@ const InlineExpressionEditor: FC<Props> = ({
     ? controlValue.replaceAll("{{", "").replaceAll("}}", "")
     : "";
   const [value, setValue] = useState(formatted);
+
+  useEffect(() => {
+    onChange?.(`{{${value}}}`);
+  }, [onChange, value]);
 
   return (
     <>
@@ -47,9 +51,9 @@ const InlineExpressionEditor: FC<Props> = ({
         defaultValue={formatted}
         onChange={(val) => {
           setValue(val as string);
-          setTimeout(() => {
-            onChange?.(`{{${value}}}`);
-          }, 0);
+          // setTimeout(() => {
+          // onChange?.(`{{${value}}}`);
+          // }, 0);
         }}
         theme="vs-dark"
       />
