@@ -46,7 +46,7 @@ const DataListInner: FC<any> = ({
     const res = await axios.get(
       `${pathName}${qs.stringify({ ...args }, { addQueryPrefix: true })}`
     );
-    debugger;
+    // debugger;
     return {};
   };
 

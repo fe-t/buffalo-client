@@ -50,7 +50,7 @@ const ComponentWrap: FC<
   const handleDrop = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    debugger;
+    // debugger;
   };
 
   return (
