@@ -62,6 +62,7 @@ export interface Material {
   name: string;
   zhName: string;
   type: MaterialType;
+  src: string; // 微前端地址
 }
 
 export interface CanvasComponent {
