@@ -11,7 +11,7 @@ interface EditorState {
   versionInfo: VersionInfo;
 }
 
-let BasicMaterialHost = "//localhost:3000/#";
+let BasicMaterialHost = `//localhost:${process.env.REACT_APP_MATERIALS_PORT}/#`;
 
 export const editorInitialState: EditorState = {
   cursorComponentId: "",
