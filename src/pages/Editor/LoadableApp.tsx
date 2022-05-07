@@ -1,5 +1,12 @@
 import { loadMicroApp, MicroApp } from "qiankun";
-import React, { FC, PropsWithChildren, useEffect, useRef } from "react";
+import React, {
+  ComponentType,
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+} from "react";
+import componentMap from "../../componentMap";
 import { Material } from "../../types";
 
 interface Props {
@@ -15,6 +22,13 @@ export const LoadableApp: FC<PropsWithChildren<Props>> = ({
 }) => {
   const microAppInstance = useRef<MicroApp | null>(null);
 
+  const helper: any = (key: string, component: ComponentType) => {
+    if (!componentMap.has(key)) {
+      componentMap.set(key, component);
+    }
+    console.log("componentMap", componentMap);
+  };
+
   useEffect(() => {
     microAppInstance.current = loadMicroApp({
       name: id,
@@ -23,6 +37,7 @@ export const LoadableApp: FC<PropsWithChildren<Props>> = ({
       props: {
         buffaloMaterial: material,
         buffaloMaterialProps: props,
+        helper,
       },
     });
     return () => {

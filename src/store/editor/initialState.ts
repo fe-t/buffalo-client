@@ -11,7 +11,7 @@ interface EditorState {
   versionInfo: VersionInfo;
 }
 
-let BasicMaterialHost = `//localhost:${process.env.REACT_APP_MATERIALS_PORT}/#`;
+let BasicMaterialHost = process.env.REACT_APP_MATERIAL_PATH;
 
 export const editorInitialState: EditorState = {
   cursorComponentId: "",
@@ -27,7 +27,7 @@ export const editorInitialState: EditorState = {
     },
     {
       id: "1",
-      name: "Dategrid",
+      name: "Datagrid",
       zhName: "数据网格",
       type: "display",
       src: `${BasicMaterialHost}/datagrid`,

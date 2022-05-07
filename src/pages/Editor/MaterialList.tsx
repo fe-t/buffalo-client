@@ -20,7 +20,7 @@ import { FaWpforms } from "react-icons/fa";
 const iconMap = new Map([
   ["Page", <AiOutlineFile />],
   ["Input", <AiOutlineEdit />],
-  ["Dategrid", <AiOutlineTable />],
+  ["Datagrid", <AiOutlineTable />],
   ["Select", <AiOutlineSelect />],
   ["SchemaForm", <VscJson />],
   ["DataList", <AiOutlineTable />],

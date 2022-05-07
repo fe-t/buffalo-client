@@ -65,10 +65,10 @@ export interface Material {
   src: string; // 微前端地址
 }
 
-export interface CanvasComponent {
-  id: string;
-  name: string;
-  zhName: string;
+export interface CanvasComponent extends Material {
+  // id: string;
+  // name: string;
+  // zhName: string;
   materialId: string;
   props: PropsMap;
   visible: boolean;
