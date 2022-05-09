@@ -1,10 +1,10 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { merge, remove } from "lodash";
+import componentMap from "../../componentMap";
 import { VersionInfo } from "../../models/GetVersionConfigResult";
 import { Material } from "../../types";
 import { editorInitialState } from "./initialState";
 import "./registerComponents";
-import { componentMap } from "./registerComponents";
 export * from "./selectors";
 
 export const editorSlice = createSlice({
@@ -31,7 +31,7 @@ export const editorSlice = createSlice({
       // const nextCusorId = `${++state.canvasComponentCounter}`;
 
       // 获取到物料的默认属性
-      const props = componentMap.get(material.id)?.propertyControls || {};
+      const props = componentMap.get(material?.src)?.propertyControls || {};
       const serializeProps = Object.entries(props).reduce(
         (acc, [propName, propInfo]) => {
           // 如果有defaultValue，取defaultValue
@@ -43,7 +43,8 @@ export const editorSlice = createSlice({
       // 把组件加入画布
       state.components.push({
         ...material,
-        id: nanoid(),
+        // querySelector 不能以数字开始, 加个前缀
+        id: `NID-${nanoid()}`,
         materialId: material.id,
         props: serializeProps,
         visible: true,
@@ -112,8 +113,7 @@ export const editorSlice = createSlice({
 
           const nextCusorId = `${++state.canvasComponentCounter}`;
           // 获取到物料的默认属性
-          const props =
-            componentMap.get(material?.id as string)?.propertyControls || {};
+          const props = componentMap.get(material?.src)?.propertyControls || {};
           const serializeProps = Object.entries(props).reduce(
             (acc, [propName, propInfo]) => {
               // 如果有defaultValue，取defaultValue

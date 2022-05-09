@@ -1,12 +1,6 @@
 import classNames from "classnames";
 import { isArray } from "lodash";
-import React, {
-  ElementType,
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -17,9 +11,9 @@ import {
   selectMaterials,
   setCursorComponentId,
 } from "../../store/editor/editorSlice";
-import { componentMap } from "../../store/editor/registerComponents";
 import { CanvasComponent } from "../../types";
 import ErrorBoundary from "./ErrorBoundary";
+import { LoadableApp } from "./LoadableApp";
 
 const ComponentWrap: FC<
   PropsWithChildren<{
@@ -105,21 +99,23 @@ const Canvas = () => {
       ? components
           .filter((c) => c.visible) // 控制画布显示隐藏
           .map((c) => {
-            const ComponentType = componentMap.get(c.materialId) as ElementType;
+            const material = materials.filter((m) => m.id === c.materialId)[0];
+
             let children: any = c.props.children; // TODO: fix type
             if (isArray(children)) {
               children = <>{renderComponents(children)}</>;
             }
+
             return (
               <ComponentWrap key={c.id} canvasComponent={c}>
                 <ErrorBoundary>
-                  {ComponentType && (
-                    <ComponentType
-                      {...c.props}
-                      children={children}
-                      style={c.style}
-                    />
-                  )}
+                  <LoadableApp
+                    {...c.props}
+                    children={children}
+                    style={c.style}
+                    id={c.id} // 使qiankun能找到它
+                    material={material}
+                  />
                 </ErrorBoundary>
               </ComponentWrap>
             );

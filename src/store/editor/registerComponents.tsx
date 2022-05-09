@@ -165,18 +165,18 @@ applyPropertyControls(Page, {
   },
 });
 
-applyPropertyControls(Input, {
-  placeholder: {
-    type: ControlType.String,
-    defaultValue: "请输入",
-    label: "占位字符",
-  },
-  disabled: {
-    type: ControlType.Boolean,
-    defaultValue: false,
-    label: "是否禁用",
-  },
-});
+// applyPropertyControls(Input, {
+//   placeholder: {
+//     type: ControlType.String,
+//     defaultValue: "请输入",
+//     label: "占位字符",
+//   },
+//   disabled: {
+//     type: ControlType.Boolean,
+//     defaultValue: false,
+//     label: "是否禁用",
+//   },
+// });
 
 applyPropertyControls(SchemaForm, {
   schema: {

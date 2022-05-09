@@ -11,12 +11,12 @@ import { capitalize, isEmpty } from "lodash";
 import React, { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { MdContentCopy, MdDelete, MdInfoOutline } from "react-icons/md";
+import componentMap from "../../componentMap";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
   deleteCursorComponent,
   selectCursorComponent,
 } from "../../store/editor/editorSlice";
-import { componentMap } from "../../store/editor/registerComponents";
 import { RenderPropsItem } from "../../types";
 import { default as Collapse } from "../../widgets/Collapse";
 import { ComponentStyleEditor } from "../../widgets/ComponentStyleEditor";
@@ -58,7 +58,7 @@ const PropsController = () => {
   const component = useAppSelector(selectCursorComponent);
   const boundGeneral = !isEmpty(component?.general);
 
-  const componentType = componentMap.get(component?.materialId);
+  const componentType = componentMap.get(component?.src);
   const propList = useMemo(() => {
     return Object.entries(componentType?.propertyControls || {}).reduce(
       (acc: RenderPropsItem[], [propName, propInfo]) => {

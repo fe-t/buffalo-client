@@ -11,6 +11,8 @@ interface EditorState {
   versionInfo: VersionInfo;
 }
 
+let BasicMaterialHost = process.env.REACT_APP_MATERIAL_PATH;
+
 export const editorInitialState: EditorState = {
   cursorComponentId: "",
   canvasComponentCounter: 0,
@@ -21,84 +23,98 @@ export const editorInitialState: EditorState = {
       name: "Page",
       zhName: "页面",
       type: "layout",
+      src: `${BasicMaterialHost}/page`,
     },
     {
       id: "1",
-      name: "Dategrid",
+      name: "Datagrid",
       zhName: "数据网格",
       type: "display",
+      src: `${BasicMaterialHost}/datagrid`,
     },
     {
       id: "2",
       name: "Input",
       zhName: "输入框",
       type: "form",
+      src: `${BasicMaterialHost}/input`,
     },
     {
       id: "3",
       name: "Select",
       zhName: "选择器",
       type: "form",
+      src: `${BasicMaterialHost}/select`,
     },
     {
       id: "5",
       name: "SchemaForm",
       zhName: "协议表单",
       type: "form",
+      src: `${BasicMaterialHost}/schemaForm`,
     },
     {
       id: "6",
       name: "DataList",
       zhName: "查询表格",
       type: "form",
+      src: `${BasicMaterialHost}/dataList`,
     },
     {
       id: "7",
       name: "Button",
       zhName: "按钮",
       type: "form",
+      src: `${BasicMaterialHost}/button`,
     },
     {
       id: "8",
       name: "DisplayDataSource",
       zhName: "展示数据源",
       type: "form",
+      src: `${BasicMaterialHost}/displayDataSource`,
     },
     {
       id: "9",
       name: "RoutesBreadcrumb",
       zhName: "面包屑",
       type: "display",
+      src: `${BasicMaterialHost}/routesBreadcrumb`,
     },
     {
       id: "10",
       name: "Heading",
       zhName: "标题",
       type: "display",
+      src: `${BasicMaterialHost}/heading`,
     },
     {
       id: "11",
       name: "Divider",
       zhName: "分割线",
       type: "display",
+      src: `${BasicMaterialHost}/divider`,
     },
     {
       id: "12",
       name: "ConfigSteps",
       zhName: "步骤条",
       type: "display",
+      src: `${BasicMaterialHost}/configSteps`,
     },
     {
       id: "13",
       name: "Result",
       zhName: "结果页",
       type: "display",
+      src: `${BasicMaterialHost}/result`,
     },
     {
       id: "14",
       name: "FormilyJSONSchema",
       zhName: "协议表单",
       type: "form",
+      src: `${BasicMaterialHost}/formilyJSONSchema`,
     },
   ],
   appConfig: {},
